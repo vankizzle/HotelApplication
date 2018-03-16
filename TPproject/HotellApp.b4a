@@ -1,0 +1,109 @@
+﻿Version=7.01
+NumberOfModules=4
+Module1=Starter
+Module2=Types
+Module3=UserInterfaceMainScreen
+Module4=LoginScreen
+Build1=Default,b4a.example
+ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: https://www.b4x.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="5" android:targetSdkVersion="19"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~'End of default text.~\n~
+IconFile=
+NumberOfFiles=0
+NumberOfLibraries=1
+Library1=core
+@EndOfDesignText@
+#Region  Project Attributes 
+	#ApplicationLabel: TPproject
+	#VersionCode: 1
+	#VersionName: 
+	'SupportedOrientations possible values: unspecified, landscape or portrait.
+	#SupportedOrientations: portrait
+	#CanInstallToExternalStorage: False
+#End Region
+
+#Region  Activity Attributes 
+	#FullScreen: True
+	#IncludeTitle: False
+#End Region
+
+Sub Process_Globals
+	'These global variables will be declared once when the application starts.
+	'These variables can be accessed from all modules.
+	Dim currentuser As currentuser
+End Sub
+
+Sub Globals
+	'These global variables will be redeclared each time the activity is created.
+	'These variables can only be accessed from this module.
+	Dim LoginScr As LoginScreen
+	Dim UIscreen As UserInterfaceMainScreen
+	
+End Sub
+
+Sub Activity_Create(FirstTime As Boolean)
+	'Do not forget to load the layout file created with the visual designer. For example:
+	'Activity.LoadLayout("Layout1")
+	currentuser.Initialize
+	currentuser.username = "TestUser"
+	currentuser.password = "testelsys1"
+	currentuser.available = True
+	currentuser.CurrentTaskID = 0
+	
+	LoginScr.Initialize
+	UIscreen.Initialize
+	
+	Activity.AddView(LoginScr.AsView,0,0,100%x,100%y)
+	LoginScr.AsView.Visible = True
+	
+	Activity.AddView(UIscreen.AsView,0,0,100%x,100%y)
+	UIscreen.AsView.Visible = False
+End Sub
+
+Sub Activity_Resume
+
+End Sub
+
+
+
+Sub Activity_Pause (UserClosed As Boolean)
+
+End Sub
+
+Sub ShowUI
+	If 	UIscreen.AsView.Visible = False Then
+		UIscreen.AsView.Visible = True
+	Else
+		UIscreen.AsView.Visible = False
+	End If
+End Sub
+
+Sub Activity_KeyPress (KeyCode As Int) As Boolean
+	
+	Dim ext As Int = 0
+	If KeyCode = KeyCodes.KEYCODE_BACK Then
+	
+		If UIscreen.asView.Visible = True Then
+			UIscreen.asView.Visible = False
+			LoginScr.asView.Visible = True
+			ext = ext + 1
+			LoginScr.loginbtn.Enabled = True
+		End If
+		
+		ext = ext - 1
+		
+		If LoginScr.asView.Visible = True And ext = -1 Then
+			
+			Dim result As Int
+			result = Msgbox2("Exit application?","Exit","Yes","Cancel","",Null)
+			If result = DialogResponse.POSITIVE Then
+				ExitApplication
+			End If
+
+		End If
+		
+		Return True
+	Else
+
+		Return False
+	End If
+	
+End Sub
