@@ -32,7 +32,7 @@ public class main extends Activity implements B4AActivity{
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		if (isFirst) {
-			processBA = new BA(this.getApplicationContext(), null, null, "b4a.example", "b4a.example.main");
+			processBA = new anywheresoftware.b4a.ShellBA(this.getApplicationContext(), null, null, "b4a.example", "b4a.example.main");
 			processBA.loadHtSubs(this.getClass());
 	        float deviceScale = getApplicationContext().getResources().getDisplayMetrics().density;
 	        BALayout.setDeviceScale(deviceScale);
@@ -320,135 +320,198 @@ public class main extends Activity implements B4AActivity{
             
     }
 
-public anywheresoftware.b4a.keywords.Common __c = null;
-public static b4a.example.types._currentuser _currentuser = null;
-public b4a.example.loginscreen _loginscr = null;
-public b4a.example.userinterfacemainscreen _uiscreen = null;
-public b4a.example.starter _starter = null;
-public b4a.example.types _types = null;
 
-public static boolean isAnyActivityVisible() {
-    boolean vis = false;
-vis = vis | (main.mostCurrent != null);
-return vis;}
-public static String  _activity_create(boolean _firsttime) throws Exception{
- //BA.debugLineNum = 29;BA.debugLine="Sub Activity_Create(FirstTime As Boolean)";
- //BA.debugLineNum = 32;BA.debugLine="currentuser.Initialize";
-_currentuser.Initialize();
- //BA.debugLineNum = 33;BA.debugLine="currentuser.username = \"TestUser\"";
-_currentuser.username = "TestUser";
- //BA.debugLineNum = 34;BA.debugLine="currentuser.password = \"testelsys1\"";
-_currentuser.password = "testelsys1";
- //BA.debugLineNum = 35;BA.debugLine="currentuser.available = True";
-_currentuser.available = anywheresoftware.b4a.keywords.Common.True;
- //BA.debugLineNum = 36;BA.debugLine="LoginScr.Initialize";
-mostCurrent._loginscr._initialize(mostCurrent.activityBA);
- //BA.debugLineNum = 37;BA.debugLine="UIscreen.Initialize";
-mostCurrent._uiscreen._initialize(mostCurrent.activityBA);
- //BA.debugLineNum = 39;BA.debugLine="Activity.AddView(LoginScr.AsView,0,0,100%x,100%y)";
-mostCurrent._activity.AddView((android.view.View)(mostCurrent._loginscr._asview().getObject()),(int) (0),(int) (0),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (100),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (100),mostCurrent.activityBA));
- //BA.debugLineNum = 40;BA.debugLine="LoginScr.AsView.Visible = True";
-mostCurrent._loginscr._asview().setVisible(anywheresoftware.b4a.keywords.Common.True);
- //BA.debugLineNum = 42;BA.debugLine="Activity.AddView(UIscreen.AsView,0,0,100%x,100%y)";
-mostCurrent._activity.AddView((android.view.View)(mostCurrent._uiscreen._asview().getObject()),(int) (0),(int) (0),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (100),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (100),mostCurrent.activityBA));
- //BA.debugLineNum = 43;BA.debugLine="UIscreen.AsView.Visible = False";
-mostCurrent._uiscreen._asview().setVisible(anywheresoftware.b4a.keywords.Common.False);
- //BA.debugLineNum = 44;BA.debugLine="End Sub";
-return "";
-}
-public static boolean  _activity_keypress(int _keycode) throws Exception{
-int _ext = 0;
-int _result = 0;
- //BA.debugLineNum = 64;BA.debugLine="Sub Activity_KeyPress (KeyCode As Int) As Boolean";
- //BA.debugLineNum = 66;BA.debugLine="Dim ext As Int = 0";
-_ext = (int) (0);
- //BA.debugLineNum = 67;BA.debugLine="If KeyCode = KeyCodes.KEYCODE_BACK Then";
-if (_keycode==anywheresoftware.b4a.keywords.Common.KeyCodes.KEYCODE_BACK) { 
- //BA.debugLineNum = 69;BA.debugLine="If UIscreen.asView.Visible = True Then";
-if (mostCurrent._uiscreen._asview().getVisible()==anywheresoftware.b4a.keywords.Common.True) { 
- //BA.debugLineNum = 70;BA.debugLine="UIscreen.asView.Visible = False";
-mostCurrent._uiscreen._asview().setVisible(anywheresoftware.b4a.keywords.Common.False);
- //BA.debugLineNum = 71;BA.debugLine="LoginScr.asView.Visible = True";
-mostCurrent._loginscr._asview().setVisible(anywheresoftware.b4a.keywords.Common.True);
- //BA.debugLineNum = 72;BA.debugLine="ext = ext + 1";
-_ext = (int) (_ext+1);
- //BA.debugLineNum = 73;BA.debugLine="LoginScr.loginbtn.Enabled = True";
-mostCurrent._loginscr._loginbtn.setEnabled(anywheresoftware.b4a.keywords.Common.True);
- };
- //BA.debugLineNum = 76;BA.debugLine="ext = ext - 1";
-_ext = (int) (_ext-1);
- //BA.debugLineNum = 78;BA.debugLine="If LoginScr.asView.Visible = True And ext = -1 T";
-if (mostCurrent._loginscr._asview().getVisible()==anywheresoftware.b4a.keywords.Common.True && _ext==-1) { 
- //BA.debugLineNum = 80;BA.debugLine="Dim result As Int";
-_result = 0;
- //BA.debugLineNum = 81;BA.debugLine="result = Msgbox2(\"Exit application?\",\"Exit\",\"Ye";
-_result = anywheresoftware.b4a.keywords.Common.Msgbox2(BA.ObjectToCharSequence("Exit application?"),BA.ObjectToCharSequence("Exit"),"Yes","Cancel","",(android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.Null),mostCurrent.activityBA);
- //BA.debugLineNum = 82;BA.debugLine="If result = DialogResponse.POSITIVE Then";
-if (_result==anywheresoftware.b4a.keywords.Common.DialogResponse.POSITIVE) { 
- //BA.debugLineNum = 83;BA.debugLine="ExitApplication";
-anywheresoftware.b4a.keywords.Common.ExitApplication();
- };
- };
- //BA.debugLineNum = 88;BA.debugLine="Return True";
-if (true) return anywheresoftware.b4a.keywords.Common.True;
- }else {
- //BA.debugLineNum = 91;BA.debugLine="Return False";
-if (true) return anywheresoftware.b4a.keywords.Common.False;
- };
- //BA.debugLineNum = 94;BA.debugLine="End Sub";
-return false;
-}
-public static String  _activity_pause(boolean _userclosed) throws Exception{
- //BA.debugLineNum = 52;BA.debugLine="Sub Activity_Pause (UserClosed As Boolean)";
- //BA.debugLineNum = 54;BA.debugLine="End Sub";
-return "";
-}
-public static String  _activity_resume() throws Exception{
- //BA.debugLineNum = 46;BA.debugLine="Sub Activity_Resume";
- //BA.debugLineNum = 48;BA.debugLine="End Sub";
-return "";
-}
-public static String  _globals() throws Exception{
- //BA.debugLineNum = 21;BA.debugLine="Sub Globals";
- //BA.debugLineNum = 24;BA.debugLine="Dim LoginScr As LoginScreen";
-mostCurrent._loginscr = new b4a.example.loginscreen();
- //BA.debugLineNum = 25;BA.debugLine="Dim UIscreen As UserInterfaceMainScreen";
-mostCurrent._uiscreen = new b4a.example.userinterfacemainscreen();
- //BA.debugLineNum = 27;BA.debugLine="End Sub";
-return "";
-}
 
 public static void initializeProcessGlobals() {
     
     if (main.processGlobalsRun == false) {
 	    main.processGlobalsRun = true;
 		try {
-		        main._process_globals();
-starter._process_globals();
-types._process_globals();
-		
+		        		
         } catch (Exception e) {
 			throw new RuntimeException(e);
 		}
     }
-}public static String  _process_globals() throws Exception{
- //BA.debugLineNum = 15;BA.debugLine="Sub Process_Globals";
- //BA.debugLineNum = 18;BA.debugLine="Dim currentuser As currentuser";
-_currentuser = new b4a.example.types._currentuser();
- //BA.debugLineNum = 19;BA.debugLine="End Sub";
+}
+public static boolean isAnyActivityVisible() {
+    boolean vis = false;
+vis = vis | (main.mostCurrent != null);
+return vis;}
+
+private static BA killProgramHelper(BA ba) {
+    if (ba == null)
+        return null;
+    anywheresoftware.b4a.BA.SharedProcessBA sharedProcessBA = ba.sharedProcessBA;
+    if (sharedProcessBA == null || sharedProcessBA.activityBA == null)
+        return null;
+    return sharedProcessBA.activityBA.get();
+}
+public static void killProgram() {
+     {
+            Activity __a = null;
+            if (main.previousOne != null) {
+				__a = main.previousOne.get();
+			}
+            else {
+                BA ba = killProgramHelper(main.mostCurrent == null ? null : main.mostCurrent.processBA);
+                if (ba != null) __a = ba.activity;
+            }
+            if (__a != null)
+				__a.finish();}
+
+BA.applicationContext.stopService(new android.content.Intent(BA.applicationContext, starter.class));
+}
+public anywheresoftware.b4a.keywords.Common __c = null;
+public static b4a.example.types._currentuser _currentuser = null;
+public b4a.example.loginscreen _loginscr = null;
+public b4a.example.userinterfacemainscreen _uiscreen = null;
+public b4a.example.starter _starter = null;
+public b4a.example.types _types = null;
+public static String  _activity_create(boolean _firsttime) throws Exception{
+RDebugUtils.currentModule="main";
+if (Debug.shouldDelegate(mostCurrent.activityBA, "activity_create"))
+	return (String) Debug.delegate(mostCurrent.activityBA, "activity_create", new Object[] {_firsttime});
+RDebugUtils.currentLine=131072;
+ //BA.debugLineNum = 131072;BA.debugLine="Sub Activity_Create(FirstTime As Boolean)";
+RDebugUtils.currentLine=131075;
+ //BA.debugLineNum = 131075;BA.debugLine="currentuser.Initialize";
+_currentuser.Initialize();
+RDebugUtils.currentLine=131076;
+ //BA.debugLineNum = 131076;BA.debugLine="currentuser.username = \"TestUser\"";
+_currentuser.username = "TestUser";
+RDebugUtils.currentLine=131077;
+ //BA.debugLineNum = 131077;BA.debugLine="currentuser.password = \"testelsys1\"";
+_currentuser.password = "testelsys1";
+RDebugUtils.currentLine=131078;
+ //BA.debugLineNum = 131078;BA.debugLine="currentuser.TypeOfWorker = 1   '<- 0 = not a work";
+_currentuser.TypeOfWorker = (int) (1);
+RDebugUtils.currentLine=131079;
+ //BA.debugLineNum = 131079;BA.debugLine="currentuser.available = True";
+_currentuser.available = anywheresoftware.b4a.keywords.Common.True;
+RDebugUtils.currentLine=131080;
+ //BA.debugLineNum = 131080;BA.debugLine="currentuser.CurrentTaskID = 0";
+_currentuser.CurrentTaskID = (int) (0);
+RDebugUtils.currentLine=131082;
+ //BA.debugLineNum = 131082;BA.debugLine="LoginScr.Initialize";
+mostCurrent._loginscr._initialize(null,mostCurrent.activityBA);
+RDebugUtils.currentLine=131083;
+ //BA.debugLineNum = 131083;BA.debugLine="UIscreen.Initialize";
+mostCurrent._uiscreen._initialize(null,mostCurrent.activityBA);
+RDebugUtils.currentLine=131085;
+ //BA.debugLineNum = 131085;BA.debugLine="Activity.AddView(LoginScr.AsView,0,0,100%x,100%y)";
+mostCurrent._activity.AddView((android.view.View)(mostCurrent._loginscr._asview(null).getObject()),(int) (0),(int) (0),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (100),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (100),mostCurrent.activityBA));
+RDebugUtils.currentLine=131086;
+ //BA.debugLineNum = 131086;BA.debugLine="LoginScr.AsView.Visible = True";
+mostCurrent._loginscr._asview(null).setVisible(anywheresoftware.b4a.keywords.Common.True);
+RDebugUtils.currentLine=131088;
+ //BA.debugLineNum = 131088;BA.debugLine="Activity.AddView(UIscreen.AsView,0,0,100%x,100%y)";
+mostCurrent._activity.AddView((android.view.View)(mostCurrent._uiscreen._asview(null).getObject()),(int) (0),(int) (0),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (100),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (100),mostCurrent.activityBA));
+RDebugUtils.currentLine=131089;
+ //BA.debugLineNum = 131089;BA.debugLine="UIscreen.AsView.Visible = False";
+mostCurrent._uiscreen._asview(null).setVisible(anywheresoftware.b4a.keywords.Common.False);
+RDebugUtils.currentLine=131090;
+ //BA.debugLineNum = 131090;BA.debugLine="End Sub";
+return "";
+}
+public static boolean  _activity_keypress(int _keycode) throws Exception{
+RDebugUtils.currentModule="main";
+if (Debug.shouldDelegate(mostCurrent.activityBA, "activity_keypress"))
+	return (Boolean) Debug.delegate(mostCurrent.activityBA, "activity_keypress", new Object[] {_keycode});
+int _ext = 0;
+int _result = 0;
+RDebugUtils.currentLine=393216;
+ //BA.debugLineNum = 393216;BA.debugLine="Sub Activity_KeyPress (KeyCode As Int) As Boolean";
+RDebugUtils.currentLine=393218;
+ //BA.debugLineNum = 393218;BA.debugLine="Dim ext As Int = 0";
+_ext = (int) (0);
+RDebugUtils.currentLine=393219;
+ //BA.debugLineNum = 393219;BA.debugLine="If KeyCode = KeyCodes.KEYCODE_BACK Then";
+if (_keycode==anywheresoftware.b4a.keywords.Common.KeyCodes.KEYCODE_BACK) { 
+RDebugUtils.currentLine=393221;
+ //BA.debugLineNum = 393221;BA.debugLine="If UIscreen.asView.Visible = True Then";
+if (mostCurrent._uiscreen._asview(null).getVisible()==anywheresoftware.b4a.keywords.Common.True) { 
+RDebugUtils.currentLine=393222;
+ //BA.debugLineNum = 393222;BA.debugLine="UIscreen.asView.Visible = False";
+mostCurrent._uiscreen._asview(null).setVisible(anywheresoftware.b4a.keywords.Common.False);
+RDebugUtils.currentLine=393223;
+ //BA.debugLineNum = 393223;BA.debugLine="LoginScr.asView.Visible = True";
+mostCurrent._loginscr._asview(null).setVisible(anywheresoftware.b4a.keywords.Common.True);
+RDebugUtils.currentLine=393224;
+ //BA.debugLineNum = 393224;BA.debugLine="ext = ext + 1";
+_ext = (int) (_ext+1);
+RDebugUtils.currentLine=393225;
+ //BA.debugLineNum = 393225;BA.debugLine="LoginScr.loginbtn.Enabled = True";
+mostCurrent._loginscr._loginbtn.setEnabled(anywheresoftware.b4a.keywords.Common.True);
+ };
+RDebugUtils.currentLine=393228;
+ //BA.debugLineNum = 393228;BA.debugLine="ext = ext - 1";
+_ext = (int) (_ext-1);
+RDebugUtils.currentLine=393230;
+ //BA.debugLineNum = 393230;BA.debugLine="If LoginScr.asView.Visible = True And ext = -1 T";
+if (mostCurrent._loginscr._asview(null).getVisible()==anywheresoftware.b4a.keywords.Common.True && _ext==-1) { 
+RDebugUtils.currentLine=393232;
+ //BA.debugLineNum = 393232;BA.debugLine="Dim result As Int";
+_result = 0;
+RDebugUtils.currentLine=393233;
+ //BA.debugLineNum = 393233;BA.debugLine="result = Msgbox2(\"Exit application?\",\"Exit\",\"Ye";
+_result = anywheresoftware.b4a.keywords.Common.Msgbox2(BA.ObjectToCharSequence("Exit application?"),BA.ObjectToCharSequence("Exit"),"Yes","Cancel","",(android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.Null),mostCurrent.activityBA);
+RDebugUtils.currentLine=393234;
+ //BA.debugLineNum = 393234;BA.debugLine="If result = DialogResponse.POSITIVE Then";
+if (_result==anywheresoftware.b4a.keywords.Common.DialogResponse.POSITIVE) { 
+RDebugUtils.currentLine=393235;
+ //BA.debugLineNum = 393235;BA.debugLine="ExitApplication";
+anywheresoftware.b4a.keywords.Common.ExitApplication();
+ };
+ };
+RDebugUtils.currentLine=393240;
+ //BA.debugLineNum = 393240;BA.debugLine="Return True";
+if (true) return anywheresoftware.b4a.keywords.Common.True;
+ }else {
+RDebugUtils.currentLine=393243;
+ //BA.debugLineNum = 393243;BA.debugLine="Return False";
+if (true) return anywheresoftware.b4a.keywords.Common.False;
+ };
+RDebugUtils.currentLine=393246;
+ //BA.debugLineNum = 393246;BA.debugLine="End Sub";
+return false;
+}
+public static String  _activity_pause(boolean _userclosed) throws Exception{
+RDebugUtils.currentModule="main";
+RDebugUtils.currentLine=262144;
+ //BA.debugLineNum = 262144;BA.debugLine="Sub Activity_Pause (UserClosed As Boolean)";
+RDebugUtils.currentLine=262146;
+ //BA.debugLineNum = 262146;BA.debugLine="End Sub";
+return "";
+}
+public static String  _activity_resume() throws Exception{
+RDebugUtils.currentModule="main";
+if (Debug.shouldDelegate(mostCurrent.activityBA, "activity_resume"))
+	return (String) Debug.delegate(mostCurrent.activityBA, "activity_resume", null);
+RDebugUtils.currentLine=196608;
+ //BA.debugLineNum = 196608;BA.debugLine="Sub Activity_Resume";
+RDebugUtils.currentLine=196610;
+ //BA.debugLineNum = 196610;BA.debugLine="End Sub";
 return "";
 }
 public static String  _showui() throws Exception{
- //BA.debugLineNum = 56;BA.debugLine="Sub ShowUI";
- //BA.debugLineNum = 57;BA.debugLine="If 	UIscreen.AsView.Visible = False Then";
-if (mostCurrent._uiscreen._asview().getVisible()==anywheresoftware.b4a.keywords.Common.False) { 
- //BA.debugLineNum = 58;BA.debugLine="UIscreen.AsView.Visible = True";
-mostCurrent._uiscreen._asview().setVisible(anywheresoftware.b4a.keywords.Common.True);
+RDebugUtils.currentModule="main";
+if (Debug.shouldDelegate(mostCurrent.activityBA, "showui"))
+	return (String) Debug.delegate(mostCurrent.activityBA, "showui", null);
+RDebugUtils.currentLine=327680;
+ //BA.debugLineNum = 327680;BA.debugLine="Sub ShowUI";
+RDebugUtils.currentLine=327681;
+ //BA.debugLineNum = 327681;BA.debugLine="If 	UIscreen.AsView.Visible = False Then";
+if (mostCurrent._uiscreen._asview(null).getVisible()==anywheresoftware.b4a.keywords.Common.False) { 
+RDebugUtils.currentLine=327682;
+ //BA.debugLineNum = 327682;BA.debugLine="UIscreen.AsView.Visible = True";
+mostCurrent._uiscreen._asview(null).setVisible(anywheresoftware.b4a.keywords.Common.True);
  }else {
- //BA.debugLineNum = 60;BA.debugLine="UIscreen.AsView.Visible = False";
-mostCurrent._uiscreen._asview().setVisible(anywheresoftware.b4a.keywords.Common.False);
+RDebugUtils.currentLine=327684;
+ //BA.debugLineNum = 327684;BA.debugLine="UIscreen.AsView.Visible = False";
+mostCurrent._uiscreen._asview(null).setVisible(anywheresoftware.b4a.keywords.Common.False);
  };
- //BA.debugLineNum = 62;BA.debugLine="End Sub";
+RDebugUtils.currentLine=327686;
+ //BA.debugLineNum = 327686;BA.debugLine="End Sub";
 return "";
 }
 }

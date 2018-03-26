@@ -10,29 +10,44 @@ private static types mostCurrent = new types();
 public static Object getObject() {
     throw new RuntimeException("Code module does not support this method.");
 }
- public anywheresoftware.b4a.keywords.Common __c = null;
-public b4a.example.main _main = null;
-public b4a.example.starter _starter = null;
+ 
 public static class _currentuser{
 public boolean IsInitialized;
 public String username;
 public String password;
 public boolean available;
+public int TypeOfWorker;
+public int CurrentTaskID;
 public void Initialize() {
 IsInitialized = true;
 username = "";
 password = "";
 available = false;
+TypeOfWorker = 0;
+CurrentTaskID = 0;
 }
 @Override
 		public String toString() {
 			return BA.TypeToString(this, false);
 		}}
-public static String  _process_globals() throws Exception{
- //BA.debugLineNum = 3;BA.debugLine="Sub Process_Globals";
- //BA.debugLineNum = 6;BA.debugLine="Type currentuser (username As String,password As";
-;
- //BA.debugLineNum = 7;BA.debugLine="End Sub";
-return "";
+public static class _task{
+public boolean IsInitialized;
+public int TaskID;
+public String TaskName;
+public int TaskType;
+public String TaskInfo;
+public void Initialize() {
+IsInitialized = true;
+TaskID = 0;
+TaskName = "";
+TaskType = 0;
+TaskInfo = "";
 }
+@Override
+		public String toString() {
+			return BA.TypeToString(this, false);
+		}}
+public anywheresoftware.b4a.keywords.Common __c = null;
+public b4a.example.main _main = null;
+public b4a.example.starter _starter = null;
 }

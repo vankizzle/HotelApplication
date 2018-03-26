@@ -7,7 +7,8 @@ Module4=LoginScreen
 Build1=Default,b4a.example
 ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: https://www.b4x.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="5" android:targetSdkVersion="19"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~'End of default text.~\n~
 IconFile=
-NumberOfFiles=0
+NumberOfFiles=1
+File1=refresh.png
 NumberOfLibraries=1
 Library1=core
 @EndOfDesignText@
@@ -45,6 +46,7 @@ Sub Activity_Create(FirstTime As Boolean)
 	currentuser.Initialize
 	currentuser.username = "TestUser"
 	currentuser.password = "testelsys1"
+	currentuser.TypeOfWorker = 1   '<- 0 = not a worker(Boss),1 = cleaner,2 = cook,3 = waiter
 	currentuser.available = True
 	currentuser.CurrentTaskID = 0
 	
