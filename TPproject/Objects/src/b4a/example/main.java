@@ -31,7 +31,8 @@ public class main extends Activity implements B4AActivity{
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		if (isFirst) {
+        mostCurrent = this;
+		if (processBA == null) {
 			processBA = new BA(this.getApplicationContext(), null, null, "b4a.example", "b4a.example.main");
 			processBA.loadHtSubs(this.getClass());
 	        float deviceScale = getApplicationContext().getResources().getDisplayMetrics().density;
@@ -45,6 +46,7 @@ public class main extends Activity implements B4AActivity{
 				p.finish();
 			}
 		}
+        processBA.setActivityPaused(true);
         processBA.runHook("oncreate", this, null);
 		if (!includeTitle) {
         	this.getWindow().requestFeature(android.view.Window.FEATURE_NO_TITLE);
@@ -53,7 +55,7 @@ public class main extends Activity implements B4AActivity{
         	getWindow().setFlags(android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN,   
         			android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
-		mostCurrent = this;
+		
         processBA.sharedProcessBA.activityBA = null;
 		layout = new BALayout(this);
 		setContentView(layout);
@@ -259,11 +261,14 @@ public class main extends Activity implements B4AActivity{
     @Override 
 	public void onPause() {
 		super.onPause();
-        if (_activity == null) //workaround for emulator bug (Issue 2423)
+        if (_activity == null)
             return;
+        if (this != mostCurrent)
+			return;
 		anywheresoftware.b4a.Msgbox.dismiss(true);
         BA.LogInfo("** Activity (main) Pause, UserClosed = " + activityBA.activity.isFinishing() + " **");
-        processBA.raiseEvent2(_activity, true, "activity_pause", false, activityBA.activity.isFinishing());		
+        if (mostCurrent != null)
+            processBA.raiseEvent2(_activity, true, "activity_pause", false, activityBA.activity.isFinishing());		
         processBA.setActivityPaused(true);
         mostCurrent = null;
         if (!activityBA.activity.isFinishing())
@@ -362,43 +367,43 @@ return "";
 public static boolean  _activity_keypress(int _keycode) throws Exception{
 int _ext = 0;
 int _result = 0;
- //BA.debugLineNum = 67;BA.debugLine="Sub Activity_KeyPress (KeyCode As Int) As Boolean";
- //BA.debugLineNum = 69;BA.debugLine="Dim ext As Int = 0";
+ //BA.debugLineNum = 69;BA.debugLine="Sub Activity_KeyPress (KeyCode As Int) As Boolean";
+ //BA.debugLineNum = 71;BA.debugLine="Dim ext As Int = 0";
 _ext = (int) (0);
- //BA.debugLineNum = 70;BA.debugLine="If KeyCode = KeyCodes.KEYCODE_BACK Then";
+ //BA.debugLineNum = 72;BA.debugLine="If KeyCode = KeyCodes.KEYCODE_BACK Then";
 if (_keycode==anywheresoftware.b4a.keywords.Common.KeyCodes.KEYCODE_BACK) { 
- //BA.debugLineNum = 72;BA.debugLine="If UIscreen.asView.Visible = True Then";
+ //BA.debugLineNum = 74;BA.debugLine="If UIscreen.asView.Visible = True Then";
 if (mostCurrent._uiscreen._asview().getVisible()==anywheresoftware.b4a.keywords.Common.True) { 
- //BA.debugLineNum = 73;BA.debugLine="UIscreen.asView.Visible = False";
+ //BA.debugLineNum = 75;BA.debugLine="UIscreen.asView.Visible = False";
 mostCurrent._uiscreen._asview().setVisible(anywheresoftware.b4a.keywords.Common.False);
- //BA.debugLineNum = 74;BA.debugLine="LoginScr.asView.Visible = True";
+ //BA.debugLineNum = 76;BA.debugLine="LoginScr.asView.Visible = True";
 mostCurrent._loginscr._asview().setVisible(anywheresoftware.b4a.keywords.Common.True);
- //BA.debugLineNum = 75;BA.debugLine="ext = ext + 1";
+ //BA.debugLineNum = 77;BA.debugLine="ext = ext + 1";
 _ext = (int) (_ext+1);
- //BA.debugLineNum = 76;BA.debugLine="LoginScr.loginbtn.Enabled = True";
+ //BA.debugLineNum = 78;BA.debugLine="LoginScr.loginbtn.Enabled = True";
 mostCurrent._loginscr._loginbtn.setEnabled(anywheresoftware.b4a.keywords.Common.True);
  };
- //BA.debugLineNum = 79;BA.debugLine="ext = ext - 1";
+ //BA.debugLineNum = 81;BA.debugLine="ext = ext - 1";
 _ext = (int) (_ext-1);
- //BA.debugLineNum = 81;BA.debugLine="If LoginScr.asView.Visible = True And ext = -1 T";
+ //BA.debugLineNum = 83;BA.debugLine="If LoginScr.asView.Visible = True And ext = -1 T";
 if (mostCurrent._loginscr._asview().getVisible()==anywheresoftware.b4a.keywords.Common.True && _ext==-1) { 
- //BA.debugLineNum = 83;BA.debugLine="Dim result As Int";
+ //BA.debugLineNum = 85;BA.debugLine="Dim result As Int";
 _result = 0;
- //BA.debugLineNum = 84;BA.debugLine="result = Msgbox2(\"Exit application?\",\"Exit\",\"Ye";
+ //BA.debugLineNum = 86;BA.debugLine="result = Msgbox2(\"Exit application?\",\"Exit\",\"Ye";
 _result = anywheresoftware.b4a.keywords.Common.Msgbox2(BA.ObjectToCharSequence("Exit application?"),BA.ObjectToCharSequence("Exit"),"Yes","Cancel","",(android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.Null),mostCurrent.activityBA);
- //BA.debugLineNum = 85;BA.debugLine="If result = DialogResponse.POSITIVE Then";
+ //BA.debugLineNum = 87;BA.debugLine="If result = DialogResponse.POSITIVE Then";
 if (_result==anywheresoftware.b4a.keywords.Common.DialogResponse.POSITIVE) { 
- //BA.debugLineNum = 86;BA.debugLine="ExitApplication";
+ //BA.debugLineNum = 88;BA.debugLine="ExitApplication";
 anywheresoftware.b4a.keywords.Common.ExitApplication();
  };
  };
- //BA.debugLineNum = 91;BA.debugLine="Return True";
+ //BA.debugLineNum = 93;BA.debugLine="Return True";
 if (true) return anywheresoftware.b4a.keywords.Common.True;
  }else {
- //BA.debugLineNum = 94;BA.debugLine="Return False";
+ //BA.debugLineNum = 96;BA.debugLine="Return False";
 if (true) return anywheresoftware.b4a.keywords.Common.False;
  };
- //BA.debugLineNum = 97;BA.debugLine="End Sub";
+ //BA.debugLineNum = 99;BA.debugLine="End Sub";
 return false;
 }
 public static String  _activity_pause(boolean _userclosed) throws Exception{
@@ -444,15 +449,19 @@ return "";
 }
 public static String  _showui() throws Exception{
  //BA.debugLineNum = 59;BA.debugLine="Sub ShowUI";
- //BA.debugLineNum = 60;BA.debugLine="If 	UIscreen.AsView.Visible = False Then";
+ //BA.debugLineNum = 60;BA.debugLine="ProgressDialogShow(\"Loading...\")";
+anywheresoftware.b4a.keywords.Common.ProgressDialogShow(mostCurrent.activityBA,BA.ObjectToCharSequence("Loading..."));
+ //BA.debugLineNum = 61;BA.debugLine="If 	UIscreen.AsView.Visible = False Then";
 if (mostCurrent._uiscreen._asview().getVisible()==anywheresoftware.b4a.keywords.Common.False) { 
- //BA.debugLineNum = 61;BA.debugLine="UIscreen.AsView.Visible = True";
+ //BA.debugLineNum = 62;BA.debugLine="UIscreen.AsView.Visible = True";
 mostCurrent._uiscreen._asview().setVisible(anywheresoftware.b4a.keywords.Common.True);
  }else {
- //BA.debugLineNum = 63;BA.debugLine="UIscreen.AsView.Visible = False";
+ //BA.debugLineNum = 64;BA.debugLine="UIscreen.AsView.Visible = False";
 mostCurrent._uiscreen._asview().setVisible(anywheresoftware.b4a.keywords.Common.False);
  };
- //BA.debugLineNum = 65;BA.debugLine="End Sub";
+ //BA.debugLineNum = 66;BA.debugLine="ProgressDialogHide";
+anywheresoftware.b4a.keywords.Common.ProgressDialogHide();
+ //BA.debugLineNum = 67;BA.debugLine="End Sub";
 return "";
 }
 }

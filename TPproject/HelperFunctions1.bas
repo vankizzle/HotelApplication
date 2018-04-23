@@ -1,7 +1,8 @@
-﻿Type=StaticCode
-Version=7.01
+﻿B4A=true
+Group=Default Group
 ModulesStructureVersion=1
-B4A=true
+Type=StaticCode
+Version=7.01
 @EndOfDesignText@
 Sub Process_Globals
 	Public sharePrice As String

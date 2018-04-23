@@ -1,7 +1,8 @@
-﻿Type=StaticCode
-Version=7.01
+﻿B4A=true
+Group=Default Group
 ModulesStructureVersion=1
-B4A=true
+Type=StaticCode
+Version=7.01
 @EndOfDesignText@
 'Code module
 'Subs in this code module will be accessible from all modules.

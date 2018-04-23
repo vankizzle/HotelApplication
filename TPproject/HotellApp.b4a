@@ -1,18 +1,24 @@
-﻿Version=7.01
-NumberOfModules=5
+﻿Build1=Default,b4a.example
+File1=hotelappscreen.jpg
+File2=mainscreenimg.png
+File3=refresh.png
+FileGroup1=Default Group
+FileGroup2=Default Group
+FileGroup3=Default Group
+Group=Default Group
+IconFile=
+Library1=core
+Library2=reflection
+ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: https://www.b4x.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="5" android:targetSdkVersion="19"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~'End of default text.~\n~
 Module1=Starter
 Module2=Types
 Module3=UserInterfaceMainScreen
 Module4=LoginScreen
 Module5=HelperFunctions1
-Build1=Default,b4a.example
-ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: https://www.b4x.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="5" android:targetSdkVersion="19"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~'End of default text.~\n~
-IconFile=
-NumberOfFiles=1
-File1=refresh.png
+NumberOfFiles=3
 NumberOfLibraries=2
-Library1=core
-Library2=reflection
+NumberOfModules=5
+Version=8
 @EndOfDesignText@
 #Region  Project Attributes 
 	#ApplicationLabel: TPproject
@@ -73,11 +79,13 @@ Sub Activity_Pause (UserClosed As Boolean)
 End Sub
 
 Sub ShowUI
+	ProgressDialogShow("Loading...")
 	If 	UIscreen.AsView.Visible = False Then
 		UIscreen.AsView.Visible = True
 	Else
 		UIscreen.AsView.Visible = False
 	End If
+	ProgressDialogHide
 End Sub
 
 Sub Activity_KeyPress (KeyCode As Int) As Boolean

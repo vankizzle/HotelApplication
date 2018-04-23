@@ -1,10 +1,12 @@
-﻿Type=Class
-Version=7.01
+﻿B4A=true
+Group=Default Group
 ModulesStructureVersion=1
-B4A=true
+Type=Class
+Version=7.01
 @EndOfDesignText@
 Sub Class_Globals
 	Dim  wholescreen As Panel
+	Dim screenimg As ImageView
 	
 	Dim TasksList As Map
 	
@@ -16,6 +18,7 @@ Sub Class_Globals
 	Dim tableType As Label
 	Dim tableofrequests As ScrollView
 	Dim submit As Button
+	Dim statusindicator As Label
 	
 	Dim refreshbtngraphic As Bitmap
 	Dim TasksRefreshBtn As Button
@@ -28,10 +31,14 @@ End Sub
 'Initializes the object. You can add parameters to this method if needed.
 Public Sub Initialize
 	wholescreen.Initialize("screenview")
-	wholescreen.Color =  Colors.rgb(0, 138, 230)
+	screenimg.Initialize("")
+	screenimg.SetBackgroundImage(LoadBitmap(File.DirAssets,"mainscreenimg.png"))
+	screenimg.Gravity = Gravity.FILL
+	wholescreen.AddView(screenimg,0,10%y,100%x,80%y)
 	
 	TasksList.Initialize
 	
+	statusindicator.Initialize("")
 	tableHolder.Initialize("table")
 	tableHeader.Initialize("Header")
 	tableFooter.Initialize("Footer")
@@ -54,7 +61,7 @@ Sub BuildUI
 	usernamelbl.Gravity = Gravity.CENTER
 	usernamelbl.Text = Main.currentuser.username
 	usernamelbl.TextSize = 30
-	wholescreen.AddView(usernamelbl,10%x,5%y,30%x,10%y)
+	wholescreen.AddView(usernamelbl,10%x,0%y,30%x,10%y)
 	
 	availability.TextColor = Colors.White
 	availability.Gravity = Gravity.CENTER
@@ -64,17 +71,22 @@ Sub BuildUI
 	Else
 		availability.Text = "Status: Available"
 	End If
-	wholescreen.AddView(availability,40%x,5%y,50%x,10%y)
+	HelperFunctions1.Apply_ViewStyle(statusindicator,Colors.Green,Colors.Green,Colors.Green,Colors.Green,Colors.Green,Colors.Green,Colors.Green,20)
+	wholescreen.AddView(availability,40%x,0%y,50%x,10%y)
+	wholescreen.AddView(statusindicator,availability.Left+availability.Width - 20dip,3.5%y,5%x,3%y)
 	
-	HelperFunctions1.Apply_ViewStyle(tableHeader,Colors.Black,Colors.rgb(255, 191, 0),Colors.White,Colors.rgb(255, 191, 0),Colors.Gray,Colors.Gray,Colors.Gray,0)
-	HelperFunctions1.Apply_ViewStyle(tableFooter,Colors.Black,Colors.White,Colors.rgb(255, 191, 0),Colors.Gray,Colors.rgb(255, 191, 0),Colors.Gray,Colors.Gray,0)
+'	statusindicator.Color = Colors.Green
+	tableHeader.color = Colors.ARGB(150,0,0,0)
+	tableFooter.color = Colors.ARGB(150,0,0,0)
+'	tableFooter.color = Colors.Red
 	tableType.Gravity = Gravity.CENTER
 	
 	submit.Text = "Accept"
 	HelperFunctions1.Apply_ViewStyle(submit,Colors.Black,Colors.rgb(0, 128, 255),Colors.White,Colors.rgb(0, 128, 255),Colors.Gray,Colors.Gray,Colors.Gray,10)
 	
 	TasksRefreshBtn.SetBackgroundImage(refreshbtngraphic)
-	tableType.TextColor = Colors.Black
+	tableType.TextColor = Colors.White
+	tableType.TextSize = 25
 	If Main.currentuser.TypeOfWorker = 1 Then
 		tableType.Text = "Workers Table"
 	Else If Main.currentuser.TypeOfWorker = 2 Then
@@ -84,12 +96,12 @@ Sub BuildUI
 	End If
 	
 	wholescreen.AddView(tableHolder,10%x,15%y,80%x,70%y)
-	tableofrequests.Color = Colors.White
-	tableHolder.AddView(tableofrequests,0%x,5%y,100%x,95%y)
+	tableofrequests.Color = Colors.ARGB(150,0,0,0)	
 	tableHolder.AddView(tableHeader,0%x,0%y,100%x,5%y)
-	tableHolder.AddView(tableFooter,0%x,64%y,100%x,6%y + 2dip)
-	tableHolder.AddView(submit,20%x,65%y,40%x,5%y - 2dip)
-	tableHeader.AddView(tableType,0,0,20%x,5%y)
+	tableHolder.AddView(tableofrequests,0%x,tableHeader.Top + tableHeader.Height,100%x,60%y)
+	tableHolder.AddView(tableFooter,0%x,65%y - 1dip,100%x,8%y)
+	tableFooter.AddView(submit,20%x,1%y - 2dip,40%x,4%y - 2dip)
+	tableHeader.AddView(tableType,0,0,40%x,5%y)
 	tableHeader.AddView(TasksRefreshBtn,73%x,0,8%x,5%y)
 End Sub
 
@@ -110,8 +122,10 @@ End Sub
 Sub avail_Click
 	If Main.currentuser.available = False Then
 		Main.currentuser.available = True
+		HelperFunctions1.Apply_ViewStyle(statusindicator,Colors.Green,Colors.Green,Colors.Green,Colors.Green,Colors.Green,Colors.Green,Colors.Green,20)
 	Else
 		Main.currentuser.available = False
+		HelperFunctions1.Apply_ViewStyle(statusindicator,Colors.Red,Colors.Red,Colors.Red,Colors.Red,Colors.Red,Colors.Red,Colors.Red,20)
 	End If
 	
 	If Main.currentuser.available = False Then
@@ -124,6 +138,7 @@ End Sub
 
 Sub refreshtask_Click
 	tableofrequests.Panel.RemoveAllViews
+	boxchecked = 0
 	Dim p As Int = 0
 	For Each i As Task In TasksList.Values
 		If i.TaskType = Main.currentuser.TypeOfWorker Then
@@ -174,9 +189,10 @@ End Sub
 
 Sub accept_CheckedChange(Checked As Boolean)
 	Dim cbox As CheckBox = Sender
-	If boxchecked < 3 Then
+	
 	
 	 If Checked = True Then
+		If boxchecked < 3 Then
 		For Each v As Panel In mapoftaskviews.Values
 			If cbox.Tag = v.Tag Then
 				ToastMessageShow("You selected task " & v.Tag,False)
@@ -190,15 +206,16 @@ Sub accept_CheckedChange(Checked As Boolean)
 		Next		
 		boxchecked = boxchecked + 1
 
-		Log(boxchecked)
-	Else 
-		 Checked = False
-		boxchecked = boxchecked - 1
-	End If
-	
-	Else
+			Log(boxchecked)
+		Else
 			cbox.Checked = False
 			ToastMessageShow("Cant accept more",False)
 		
+		End If
+	Else 
+		Checked = False
+		boxchecked = boxchecked - 1
 	End If
+	
+	
 End Sub
