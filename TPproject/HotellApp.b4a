@@ -15,9 +15,11 @@ Module2=Types
 Module3=UserInterfaceMainScreen
 Module4=LoginScreen
 Module5=HelperFunctions1
+Module6=TaskTable
+Module7=MyTasks
 NumberOfFiles=3
 NumberOfLibraries=2
-NumberOfModules=5
+NumberOfModules=7
 Version=8
 @EndOfDesignText@
 #Region  Project Attributes 
@@ -45,6 +47,8 @@ Sub Globals
 	'These variables can only be accessed from this module.
 	Dim LoginScr As LoginScreen
 	Dim UIscreen As UserInterfaceMainScreen
+	Dim TableTasks As TaskTable
+	Dim UserTasks As MyTasks
 	
 End Sub
 
@@ -60,24 +64,55 @@ Sub Activity_Create(FirstTime As Boolean)
 	
 	LoginScr.Initialize
 	UIscreen.Initialize
+	TableTasks.Initialize
+	UserTasks.Initialize
 	
 	Activity.AddView(LoginScr.AsView,0,0,100%x,100%y)
 	LoginScr.AsView.Visible = True
 	
 	Activity.AddView(UIscreen.AsView,0,0,100%x,100%y)
 	UIscreen.AsView.Visible = False
+	
+	
+	Activity.AddView(TableTasks.AsView,0,0,100%x,100%y)
+	TableTasks.AsView.Visible = False
+	
+	Activity.AddView(UserTasks.AsView,0,0,100%x,100%y)
+	UserTasks.AsView.Visible = False
+	
 End Sub
 
 Sub Activity_Resume
 
 End Sub
 
-
-
 Sub Activity_Pause (UserClosed As Boolean)
 
 End Sub
-
+Sub ShowMyTasks
+	If UserTasks.AsView.Visible = False Then
+		UserTasks.AsView.Visible = True
+		UIscreen.MenuHolder.Visible = False
+	Else
+		UserTasks.AsView.Visible = False
+		UIscreen.MenuHolder.Visible = True
+	End If
+End Sub
+Sub ShowTaskTable
+	If TableTasks.AsView.Visible = False Then
+		TableTasks.AsView.Visible = True
+		UIscreen.MenuHolder.Visible = False
+	Else
+		TableTasks.AsView.Visible = False
+		UIscreen.MenuHolder.Visible = True
+	End If
+End Sub
+Sub TaskTableToMyTasks
+	If TableTasks.AsView.Visible = True Then
+		TableTasks.AsView.Visible = False
+		UserTasks.AsView.Visible = True
+	End If
+End Sub
 Sub ShowUI
 	ProgressDialogShow("Loading...")
 	If 	UIscreen.AsView.Visible = False Then
@@ -100,6 +135,19 @@ Sub Activity_KeyPress (KeyCode As Int) As Boolean
 			LoginScr.loginbtn.Enabled = True
 		End If
 		
+		If TableTasks.AsView.Visible = True Then
+			TableTasks.AsView.Visible = False
+			UIscreen.asView.Visible = True
+			UIscreen.MenuHolder.Visible = True
+			ext = ext + 1
+		End If
+		
+		If UserTasks.AsView.Visible = True Then
+			UserTasks.AsView.Visible = False
+			UIscreen.asView.Visible = True
+			UIscreen.MenuHolder.Visible = True
+			ext = ext + 1
+		End If
 		ext = ext - 1
 		
 		If LoginScr.asView.Visible = True And ext = -1 Then
