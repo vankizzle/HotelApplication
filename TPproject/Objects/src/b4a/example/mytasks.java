@@ -10,7 +10,7 @@ public class mytasks extends B4AClass.ImplB4AClass implements BA.SubDelegator{
     private static java.util.HashMap<String, java.lang.reflect.Method> htSubs;
     private void innerInitialize(BA _ba) throws Exception {
         if (ba == null) {
-            ba = new anywheresoftware.b4a.ShellBA(_ba, this, htSubs, "b4a.example.mytasks");
+            ba = new BA(_ba, this, htSubs, "b4a.example.mytasks");
             if (htSubs == null) {
                 ba.loadHtSubs(this.getClass());
                 htSubs = ba.htSubs;
@@ -23,117 +23,171 @@ public class mytasks extends B4AClass.ImplB4AClass implements BA.SubDelegator{
             ba.raiseEvent2(null, true, "class_globals", false);
     }
 
- 
-    public void  innerInitializeHelper(anywheresoftware.b4a.BA _ba) throws Exception{
-        innerInitialize(_ba);
-    }
-    public Object callSub(String sub, Object sender, Object[] args) throws Exception {
-        return BA.SubDelegator.SubNotFound;
-    }
-public anywheresoftware.b4a.keywords.Common __c = null;
+ public anywheresoftware.b4a.keywords.Common __c = null;
 public anywheresoftware.b4a.objects.PanelWrapper _wholescreen = null;
-public anywheresoftware.b4a.objects.PanelWrapper _taskholder = null;
+public wrappers.MiScrollView _taskholder = null;
 public anywheresoftware.b4a.objects.PanelWrapper _taskheader = null;
 public anywheresoftware.b4a.objects.LabelWrapper _tablename = null;
+public anywheresoftware.b4a.objects.PanelWrapper _taskfakepan = null;
 public b4a.example.main _main = null;
 public b4a.example.starter _starter = null;
 public b4a.example.types _types = null;
 public b4a.example.helperfunctions1 _helperfunctions1 = null;
-public String  _initialize(b4a.example.mytasks __ref,anywheresoftware.b4a.BA _ba) throws Exception{
-__ref = this;
-innerInitialize(_ba);
-RDebugUtils.currentModule="mytasks";
-if (Debug.shouldDelegate(ba, "initialize"))
-	return (String) Debug.delegate(ba, "initialize", new Object[] {_ba});
-RDebugUtils.currentLine=5046272;
- //BA.debugLineNum = 5046272;BA.debugLine="Public Sub Initialize";
-RDebugUtils.currentLine=5046273;
- //BA.debugLineNum = 5046273;BA.debugLine="WholeScreen.Initialize(\"\")";
-__ref._wholescreen.Initialize(ba,"");
-RDebugUtils.currentLine=5046274;
- //BA.debugLineNum = 5046274;BA.debugLine="TaskHolder.Initialize(\"\")";
-__ref._taskholder.Initialize(ba,"");
-RDebugUtils.currentLine=5046275;
- //BA.debugLineNum = 5046275;BA.debugLine="TaskHeader.Initialize(\"\")";
-__ref._taskheader.Initialize(ba,"");
-RDebugUtils.currentLine=5046276;
- //BA.debugLineNum = 5046276;BA.debugLine="TableName.Initialize(\"\")";
-__ref._tablename.Initialize(ba,"");
-RDebugUtils.currentLine=5046277;
- //BA.debugLineNum = 5046277;BA.debugLine="BuildUI";
-__ref._buildui(null);
-RDebugUtils.currentLine=5046278;
- //BA.debugLineNum = 5046278;BA.debugLine="End Sub";
-return "";
-}
-public anywheresoftware.b4a.objects.ConcreteViewWrapper  _asview(b4a.example.mytasks __ref) throws Exception{
-__ref = this;
-RDebugUtils.currentModule="mytasks";
-if (Debug.shouldDelegate(ba, "asview"))
-	return (anywheresoftware.b4a.objects.ConcreteViewWrapper) Debug.delegate(ba, "asview", null);
-RDebugUtils.currentLine=5505024;
- //BA.debugLineNum = 5505024;BA.debugLine="Sub AsView As View";
-RDebugUtils.currentLine=5505025;
- //BA.debugLineNum = 5505025;BA.debugLine="Return WholeScreen";
-if (true) return (anywheresoftware.b4a.objects.ConcreteViewWrapper) anywheresoftware.b4a.AbsObjectWrapper.ConvertToWrapper(new anywheresoftware.b4a.objects.ConcreteViewWrapper(), (android.view.View)(__ref._wholescreen.getObject()));
-RDebugUtils.currentLine=5505026;
- //BA.debugLineNum = 5505026;BA.debugLine="End Sub";
+public anywheresoftware.b4a.objects.ConcreteViewWrapper  _asview() throws Exception{
+ //BA.debugLineNum = 33;BA.debugLine="Sub AsView As View";
+ //BA.debugLineNum = 34;BA.debugLine="Return WholeScreen";
+if (true) return (anywheresoftware.b4a.objects.ConcreteViewWrapper) anywheresoftware.b4a.AbsObjectWrapper.ConvertToWrapper(new anywheresoftware.b4a.objects.ConcreteViewWrapper(), (android.view.View)(_wholescreen.getObject()));
+ //BA.debugLineNum = 35;BA.debugLine="End Sub";
 return null;
 }
-public String  _buildui(b4a.example.mytasks __ref) throws Exception{
-__ref = this;
-RDebugUtils.currentModule="mytasks";
-if (Debug.shouldDelegate(ba, "buildui"))
-	return (String) Debug.delegate(ba, "buildui", null);
-RDebugUtils.currentLine=5963776;
- //BA.debugLineNum = 5963776;BA.debugLine="Sub BuildUI";
-RDebugUtils.currentLine=5963777;
- //BA.debugLineNum = 5963777;BA.debugLine="TaskHolder.Color = Colors.ARGB(150,0,0,0)";
-__ref._taskholder.setColor(__c.Colors.ARGB((int) (150),(int) (0),(int) (0),(int) (0)));
-RDebugUtils.currentLine=5963778;
- //BA.debugLineNum = 5963778;BA.debugLine="WholeScreen.AddView(TaskHolder,10%x,15%y,80%x,70%";
-__ref._wholescreen.AddView((android.view.View)(__ref._taskholder.getObject()),__c.PerXToCurrent((float) (10),ba),__c.PerYToCurrent((float) (15),ba),__c.PerXToCurrent((float) (80),ba),__c.PerYToCurrent((float) (70),ba));
-RDebugUtils.currentLine=5963779;
- //BA.debugLineNum = 5963779;BA.debugLine="TaskHolder.AddView(TaskHeader,0,0,80%x,5%y)";
-__ref._taskholder.AddView((android.view.View)(__ref._taskheader.getObject()),(int) (0),(int) (0),__c.PerXToCurrent((float) (80),ba),__c.PerYToCurrent((float) (5),ba));
-RDebugUtils.currentLine=5963780;
- //BA.debugLineNum = 5963780;BA.debugLine="TableName.Gravity = Gravity.CENTER";
-__ref._tablename.setGravity(__c.Gravity.CENTER);
-RDebugUtils.currentLine=5963781;
- //BA.debugLineNum = 5963781;BA.debugLine="TableName.Text = \"My Tasks\"";
-__ref._tablename.setText(BA.ObjectToCharSequence("My Tasks"));
-RDebugUtils.currentLine=5963782;
- //BA.debugLineNum = 5963782;BA.debugLine="TableName.TextColor = Colors.White";
-__ref._tablename.setTextColor(__c.Colors.White);
-RDebugUtils.currentLine=5963783;
- //BA.debugLineNum = 5963783;BA.debugLine="TableName.TextSize = 15";
-__ref._tablename.setTextSize((float) (15));
-RDebugUtils.currentLine=5963784;
- //BA.debugLineNum = 5963784;BA.debugLine="TaskHeader.AddView(TableName,20%x,0,40%x,5%y)";
-__ref._taskheader.AddView((android.view.View)(__ref._tablename.getObject()),__c.PerXToCurrent((float) (20),ba),(int) (0),__c.PerXToCurrent((float) (40),ba),__c.PerYToCurrent((float) (5),ba));
-RDebugUtils.currentLine=5963785;
- //BA.debugLineNum = 5963785;BA.debugLine="End Sub";
+public String  _buildui() throws Exception{
+ //BA.debugLineNum = 19;BA.debugLine="Sub BuildUI";
+ //BA.debugLineNum = 20;BA.debugLine="TaskFakePan.Color = Colors.ARGB(150,0,0,0)";
+_taskfakepan.setColor(__c.Colors.ARGB((int) (150),(int) (0),(int) (0),(int) (0)));
+ //BA.debugLineNum = 21;BA.debugLine="TaskHeader.Color = Colors.ARGB(150,0,0,0)";
+_taskheader.setColor(__c.Colors.ARGB((int) (150),(int) (0),(int) (0),(int) (0)));
+ //BA.debugLineNum = 22;BA.debugLine="WholeScreen.AddView(TaskHeader,10%x,15%y,80%x,5%y";
+_wholescreen.AddView((android.view.View)(_taskheader.getObject()),__c.PerXToCurrent((float) (10),ba),__c.PerYToCurrent((float) (15),ba),__c.PerXToCurrent((float) (80),ba),__c.PerYToCurrent((float) (5),ba));
+ //BA.debugLineNum = 23;BA.debugLine="WholeScreen.AddView(TaskFakePan,TaskHeader.Left,T";
+_wholescreen.AddView((android.view.View)(_taskfakepan.getObject()),_taskheader.getLeft(),(int) (_taskheader.getTop()+_taskheader.getHeight()),_taskheader.getWidth(),__c.PerYToCurrent((float) (60),ba));
+ //BA.debugLineNum = 24;BA.debugLine="WholeScreen.AddView(TaskHolder.ScrollView,TaskHea";
+_wholescreen.AddView(_taskholder.getScrollView(),_taskheader.getLeft(),(int) (_taskheader.getTop()+_taskheader.getHeight()),_taskheader.getWidth(),_taskfakepan.getHeight());
+ //BA.debugLineNum = 26;BA.debugLine="TableName.Gravity = Gravity.CENTER";
+_tablename.setGravity(__c.Gravity.CENTER);
+ //BA.debugLineNum = 27;BA.debugLine="TableName.Text = \"My Tasks\"";
+_tablename.setText(BA.ObjectToCharSequence("My Tasks"));
+ //BA.debugLineNum = 28;BA.debugLine="TableName.TextColor = Colors.White";
+_tablename.setTextColor(__c.Colors.White);
+ //BA.debugLineNum = 29;BA.debugLine="TableName.TextSize = 15";
+_tablename.setTextSize((float) (15));
+ //BA.debugLineNum = 30;BA.debugLine="TaskHeader.AddView(TableName,TaskHeader.Left + 10";
+_taskheader.AddView((android.view.View)(_tablename.getObject()),(int) (_taskheader.getLeft()+__c.PerXToCurrent((float) (10),ba)),(int) (0),(int) (_taskheader.getWidth()/(double)2),_taskheader.getHeight());
+ //BA.debugLineNum = 31;BA.debugLine="End Sub";
 return "";
 }
-public String  _class_globals(b4a.example.mytasks __ref) throws Exception{
-__ref = this;
-RDebugUtils.currentModule="mytasks";
-RDebugUtils.currentLine=4980736;
- //BA.debugLineNum = 4980736;BA.debugLine="Sub Class_Globals";
-RDebugUtils.currentLine=4980737;
- //BA.debugLineNum = 4980737;BA.debugLine="Dim WholeScreen As Panel";
+public String  _class_globals() throws Exception{
+ //BA.debugLineNum = 1;BA.debugLine="Sub Class_Globals";
+ //BA.debugLineNum = 2;BA.debugLine="Dim WholeScreen As Panel";
 _wholescreen = new anywheresoftware.b4a.objects.PanelWrapper();
-RDebugUtils.currentLine=4980738;
- //BA.debugLineNum = 4980738;BA.debugLine="Dim TaskHolder As Panel";
-_taskholder = new anywheresoftware.b4a.objects.PanelWrapper();
-RDebugUtils.currentLine=4980739;
- //BA.debugLineNum = 4980739;BA.debugLine="Dim TaskHeader As Panel";
+ //BA.debugLineNum = 3;BA.debugLine="Dim TaskHolder As MiScrollView";
+_taskholder = new wrappers.MiScrollView();
+ //BA.debugLineNum = 4;BA.debugLine="Dim TaskHeader As Panel";
 _taskheader = new anywheresoftware.b4a.objects.PanelWrapper();
-RDebugUtils.currentLine=4980740;
- //BA.debugLineNum = 4980740;BA.debugLine="Dim TableName As Label";
+ //BA.debugLineNum = 5;BA.debugLine="Dim TableName As Label";
 _tablename = new anywheresoftware.b4a.objects.LabelWrapper();
-RDebugUtils.currentLine=4980741;
- //BA.debugLineNum = 4980741;BA.debugLine="End Sub";
+ //BA.debugLineNum = 6;BA.debugLine="Dim TaskFakePan As Panel";
+_taskfakepan = new anywheresoftware.b4a.objects.PanelWrapper();
+ //BA.debugLineNum = 7;BA.debugLine="End Sub";
 return "";
+}
+public String  _getmytasks(anywheresoftware.b4a.objects.collections.Map _acceptedtasks) throws Exception{
+b4a.example.types._task _v = null;
+ //BA.debugLineNum = 37;BA.debugLine="Public Sub GetMyTasks(AcceptedTasks As Map)";
+ //BA.debugLineNum = 38;BA.debugLine="TaskHolder.removeAllViews";
+_taskholder.removeAllViews();
+ //BA.debugLineNum = 39;BA.debugLine="For Each v As Task In AcceptedTasks.Values";
+{
+final anywheresoftware.b4a.BA.IterableList group2 = _acceptedtasks.Values();
+final int groupLen2 = group2.getSize()
+;int index2 = 0;
+;
+for (; index2 < groupLen2;index2++){
+_v = (b4a.example.types._task)(group2.Get(index2));
+ //BA.debugLineNum = 41;BA.debugLine="TaskHolder.addView(PanBuilder(v.TaskID,v.TaskNam";
+_taskholder.addView((android.view.View)(_panbuilder(_v.TaskID,_v.TaskName,_v.TaskType,_v.TaskInfo).getObject()),__c.PerXToCurrent((float) (80),ba),__c.PerYToCurrent((float) (15),ba),(int) (0),(int) (0),(int) (0),__c.DipToCurrent((int) (2)));
+ }
+};
+ //BA.debugLineNum = 43;BA.debugLine="End Sub";
+return "";
+}
+public String  _initialize(anywheresoftware.b4a.BA _ba) throws Exception{
+innerInitialize(_ba);
+ //BA.debugLineNum = 10;BA.debugLine="Public Sub Initialize";
+ //BA.debugLineNum = 11;BA.debugLine="WholeScreen.Initialize(\"\")";
+_wholescreen.Initialize(ba,"");
+ //BA.debugLineNum = 12;BA.debugLine="TaskHolder.Initialize";
+_taskholder.Initialize(ba);
+ //BA.debugLineNum = 13;BA.debugLine="TaskHeader.Initialize(\"\")";
+_taskheader.Initialize(ba,"");
+ //BA.debugLineNum = 14;BA.debugLine="TableName.Initialize(\"\")";
+_tablename.Initialize(ba,"");
+ //BA.debugLineNum = 15;BA.debugLine="TaskFakePan.initialize(\"\")";
+_taskfakepan.Initialize(ba,"");
+ //BA.debugLineNum = 16;BA.debugLine="BuildUI";
+_buildui();
+ //BA.debugLineNum = 17;BA.debugLine="End Sub";
+return "";
+}
+public anywheresoftware.b4a.objects.PanelWrapper  _panbuilder(int _id,String _name,int _tasktype,String _info) throws Exception{
+anywheresoftware.b4a.objects.PanelWrapper _holder = null;
+anywheresoftware.b4a.objects.LabelWrapper _lblid = null;
+anywheresoftware.b4a.objects.LabelWrapper _lblname = null;
+wrappers.MiScrollView _viewinfo = null;
+anywheresoftware.b4a.objects.LabelWrapper _lblinfo = null;
+ //BA.debugLineNum = 45;BA.debugLine="Sub PanBuilder(ID As Int,Name As String,TaskType A";
+ //BA.debugLineNum = 46;BA.debugLine="Dim Holder As Panel";
+_holder = new anywheresoftware.b4a.objects.PanelWrapper();
+ //BA.debugLineNum = 47;BA.debugLine="Holder.Initialize(\"\")";
+_holder.Initialize(ba,"");
+ //BA.debugLineNum = 48;BA.debugLine="Dim lblID As Label";
+_lblid = new anywheresoftware.b4a.objects.LabelWrapper();
+ //BA.debugLineNum = 49;BA.debugLine="lblID.Initialize(\"\")";
+_lblid.Initialize(ba,"");
+ //BA.debugLineNum = 50;BA.debugLine="Dim lblName As Label";
+_lblname = new anywheresoftware.b4a.objects.LabelWrapper();
+ //BA.debugLineNum = 51;BA.debugLine="lblName.Initialize(\"\")";
+_lblname.Initialize(ba,"");
+ //BA.debugLineNum = 52;BA.debugLine="Dim ViewInfo As MiScrollView";
+_viewinfo = new wrappers.MiScrollView();
+ //BA.debugLineNum = 53;BA.debugLine="ViewInfo.Initialize";
+_viewinfo.Initialize(ba);
+ //BA.debugLineNum = 54;BA.debugLine="Dim lblInfo As Label";
+_lblinfo = new anywheresoftware.b4a.objects.LabelWrapper();
+ //BA.debugLineNum = 55;BA.debugLine="lblInfo.Initialize(\"\")";
+_lblinfo.Initialize(ba,"");
+ //BA.debugLineNum = 57;BA.debugLine="lblID.Color = Colors.rgb(0, 128, 255)";
+_lblid.setColor(__c.Colors.RGB((int) (0),(int) (128),(int) (255)));
+ //BA.debugLineNum = 58;BA.debugLine="lblID.Text = ID";
+_lblid.setText(BA.ObjectToCharSequence(_id));
+ //BA.debugLineNum = 59;BA.debugLine="lblID.TextSize = 20";
+_lblid.setTextSize((float) (20));
+ //BA.debugLineNum = 60;BA.debugLine="lblID.TextColor = Colors.White";
+_lblid.setTextColor(__c.Colors.White);
+ //BA.debugLineNum = 61;BA.debugLine="lblID.Gravity = Gravity.CENTER";
+_lblid.setGravity(__c.Gravity.CENTER);
+ //BA.debugLineNum = 62;BA.debugLine="Holder.AddView(lblID,0,0,10%x,15%y)";
+_holder.AddView((android.view.View)(_lblid.getObject()),(int) (0),(int) (0),__c.PerXToCurrent((float) (10),ba),__c.PerYToCurrent((float) (15),ba));
+ //BA.debugLineNum = 64;BA.debugLine="lblName.Color = Colors.rgb(0, 128, 255)";
+_lblname.setColor(__c.Colors.RGB((int) (0),(int) (128),(int) (255)));
+ //BA.debugLineNum = 65;BA.debugLine="lblName.Text = Name";
+_lblname.setText(BA.ObjectToCharSequence(_name));
+ //BA.debugLineNum = 66;BA.debugLine="lblName.TextSize = 20";
+_lblname.setTextSize((float) (20));
+ //BA.debugLineNum = 67;BA.debugLine="lblName.TextColor = Colors.White";
+_lblname.setTextColor(__c.Colors.White);
+ //BA.debugLineNum = 68;BA.debugLine="lblName.Gravity = Gravity.CENTER";
+_lblname.setGravity(__c.Gravity.CENTER);
+ //BA.debugLineNum = 69;BA.debugLine="Holder.AddView(lblName,0%x,0,80%x,5%y)";
+_holder.AddView((android.view.View)(_lblname.getObject()),__c.PerXToCurrent((float) (0),ba),(int) (0),__c.PerXToCurrent((float) (80),ba),__c.PerYToCurrent((float) (5),ba));
+ //BA.debugLineNum = 71;BA.debugLine="lblInfo.Text = Info";
+_lblinfo.setText(BA.ObjectToCharSequence(_info));
+ //BA.debugLineNum = 72;BA.debugLine="lblInfo.TextSize = 15";
+_lblinfo.setTextSize((float) (15));
+ //BA.debugLineNum = 73;BA.debugLine="lblInfo.TextColor = Colors.White";
+_lblinfo.setTextColor(__c.Colors.White);
+ //BA.debugLineNum = 74;BA.debugLine="lblInfo.Color = Colors.rgb(0, 128, 255)";
+_lblinfo.setColor(__c.Colors.RGB((int) (0),(int) (128),(int) (255)));
+ //BA.debugLineNum = 76;BA.debugLine="Holder.AddView(ViewInfo.ScrollView,10%x,5%y,70%x,";
+_holder.AddView(_viewinfo.getScrollView(),__c.PerXToCurrent((float) (10),ba),__c.PerYToCurrent((float) (5),ba),__c.PerXToCurrent((float) (70),ba),__c.PerYToCurrent((float) (10),ba));
+ //BA.debugLineNum = 77;BA.debugLine="ViewInfo.addView(lblInfo,70%x,15%y,0,0,0,0)";
+_viewinfo.addView((android.view.View)(_lblinfo.getObject()),__c.PerXToCurrent((float) (70),ba),__c.PerYToCurrent((float) (15),ba),(int) (0),(int) (0),(int) (0),(int) (0));
+ //BA.debugLineNum = 79;BA.debugLine="Return Holder";
+if (true) return _holder;
+ //BA.debugLineNum = 80;BA.debugLine="End Sub";
+return null;
+}
+public Object callSub(String sub, Object sender, Object[] args) throws Exception {
+BA.senderHolder.set(sender);
+return BA.SubDelegator.SubNotFound;
 }
 }

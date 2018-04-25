@@ -11,7 +11,7 @@ Sub Class_Globals
 	Dim tableHeader As Panel
 	Dim tableFooter As Panel
 	Dim tableType As Label
-	Dim tableofrequests As ScrollView
+	Dim tableofrequests As MiScrollView
 	Dim submit As Button
 	Dim refreshbtngraphic As Bitmap
 	Dim TasksRefreshBtn As Button
@@ -20,6 +20,8 @@ Sub Class_Globals
 	
 	Dim SelectedTasks As Map
 	
+	
+	Dim TaskFakePan As Panel
 End Sub
 
 'Initializes the object. You can add parameters to this method if needed.
@@ -33,9 +35,11 @@ Public Sub Initialize
 	refreshbtngraphic.Initialize(File.DirAssets,"refresh.png")
 	TasksRefreshBtn.Initialize("refreshtask")
 	submit.Initialize("Submit")
-	tableofrequests.Initialize(150%y)
+	tableofrequests.Initialize
 	mapoftaskviews.Initialize
 	SelectedTasks.Initialize
+	
+	TaskFakePan.initialize("")
 	BuildUI
 	Get_Tasks
 End Sub
@@ -45,6 +49,7 @@ Sub AsView As View
 End Sub
 
 Sub BuildUI
+	TaskFakePan.Color = Colors.ARGB(150,0,0,0)
 	tableHeader.color = Colors.ARGB(150,0,0,0)
 	tableFooter.color = Colors.ARGB(150,0,0,0)
 	tableType.Gravity = Gravity.CENTER
@@ -65,7 +70,8 @@ Sub BuildUI
 	WholeScreen.AddView(tableHolder,10%x,15%y,80%x,70%y)
 	tableofrequests.Color = Colors.ARGB(150,0,0,0)
 	tableHolder.AddView(tableHeader,0%x,0%y,100%x,5%y)
-	tableHolder.AddView(tableofrequests,0%x,tableHeader.Top + tableHeader.Height,100%x,60%y)
+'	WholeScreen.AddView(TaskFakePan,0%x,tableHeader.Top + tableHeader.Height,100%x,60%y)
+	tableHolder.AddView(tableofrequests.ScrollView,0%x,tableHeader.Top + tableHeader.Height,100%x,60%y)
 	tableHolder.AddView(tableFooter,0%x,65%y - 1dip,100%x,8%y)
 	tableFooter.AddView(submit,20%x,1%y - 2dip,40%x,4%y - 2dip)
 	tableHeader.AddView(tableType,0,0,40%x,5%y)
@@ -79,7 +85,7 @@ Sub Get_Tasks
 		Task.TaskID = i
 		Task.TaskName = "Task "&i
 		Task.TaskType = 1
-		Task.TaskInfo = "Test on Task->"&i
+		Task.TaskInfo = "This is a very long text that i will use to test this application and try to fing any mistakes in it.Currently we are on line:"&i
 		TasksList.Put(Task.TaskID,Task)
 	Next
 End Sub
@@ -89,7 +95,7 @@ Sub refreshtask_Click
 	Else
 		submit.Enabled = True
 	End If
-	tableofrequests.Panel.RemoveAllViews
+	tableofrequests.removeAllViews
 	boxchecked = 0
 	Dim p As Int = 0
 	For Each i As Task In TasksList.Values
@@ -128,8 +134,9 @@ Sub refreshtask_Click
 			checked.Gravity = Gravity.CENTER
 			TaskPanel.AddView(checked,70%x,0,10%x,5%y)
 			
-			TaskPanel.Color = Colors.DarkGray
-			tableofrequests.Panel.AddView(TaskPanel,0,(5%y+2dip)*p,100%x,5%y)
+			TaskPanel.Color = Colors.rgb(0, 128, 255)
+			tableofrequests.addView(TaskPanel,100%x,5%y,0,0,0,2dip)
+			
 			TaskPanel.Tag = p
 			checked.Tag = p
 			p = p + 1
@@ -147,7 +154,7 @@ Sub accept_CheckedChange(Checked As Boolean)
 			For Each v As Panel In mapoftaskviews.Values
 					If cbox.Tag = v.Tag Then
 						ToastMessageShow("You selected task " & v.Tag,False)
-						SelectedTasks.Put(TasksList.GetKeyAt(v.Tag),TasksList.Get(TasksList.GetKeyAt(v.Tag)))
+						SelectedTasks.Put(cbox.Tag,TasksList.Get(TasksList.GetKeyAt(v.Tag)))
 					End If
 			Next
 				boxchecked = boxchecked + 1
@@ -163,11 +170,10 @@ Sub accept_CheckedChange(Checked As Boolean)
 	Else
 		Checked = False
 		
-		For  x = 0 To SelectedTasks.Size  	
-			If cbox.Tag = x Then
-				SelectedTasks.Remove(SelectedTasks.GetKeyAt(cbox.Tag))
-			End If
-		Next
+	
+				SelectedTasks.Remove(cbox.tag)
+			
+		
 		
 '		SelectedTasks.Remove(SelectedTasks.)
 		boxchecked = boxchecked - 1
@@ -178,5 +184,6 @@ End Sub
 
 Sub Submit_Click
 	Log(SelectedTasks)
+	CallSub2(Main,"LoadMyTasks",SelectedTasks)
 	CallSub(Main,"TaskTableToMyTasks")
 End Sub
