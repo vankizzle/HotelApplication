@@ -32,8 +32,8 @@ public anywheresoftware.b4a.objects.EditTextWrapper _passwordfield = null;
 public anywheresoftware.b4a.objects.ButtonWrapper _loginbtn = null;
 public anywheresoftware.b4a.objects.ButtonWrapper _singup = null;
 public b4a.example.main _main = null;
-public b4a.example.starter _starter = null;
 public b4a.example.types _types = null;
+public b4a.example.starter _starter = null;
 public b4a.example.helperfunctions1 _helperfunctions1 = null;
 public anywheresoftware.b4a.objects.PanelWrapper  _asview() throws Exception{
  //BA.debugLineNum = 26;BA.debugLine="Sub AsView As Panel";

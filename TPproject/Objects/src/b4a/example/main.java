@@ -331,8 +331,8 @@ public b4a.example.loginscreen _loginscr = null;
 public b4a.example.userinterfacemainscreen _uiscreen = null;
 public b4a.example.tasktable _tabletasks = null;
 public b4a.example.mytasks _usertasks = null;
-public b4a.example.starter _starter = null;
 public b4a.example.types _types = null;
+public b4a.example.starter _starter = null;
 public b4a.example.helperfunctions1 _helperfunctions1 = null;
 
 public static boolean isAnyActivityVisible() {
@@ -479,8 +479,8 @@ public static void initializeProcessGlobals() {
 	    main.processGlobalsRun = true;
 		try {
 		        main._process_globals();
-starter._process_globals();
 types._process_globals();
+starter._process_globals();
 helperfunctions1._process_globals();
 		
         } catch (Exception e) {

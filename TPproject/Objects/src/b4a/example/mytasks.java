@@ -30,8 +30,8 @@ public anywheresoftware.b4a.objects.PanelWrapper _taskheader = null;
 public anywheresoftware.b4a.objects.LabelWrapper _tablename = null;
 public anywheresoftware.b4a.objects.PanelWrapper _taskfakepan = null;
 public b4a.example.main _main = null;
-public b4a.example.starter _starter = null;
 public b4a.example.types _types = null;
+public b4a.example.starter _starter = null;
 public b4a.example.helperfunctions1 _helperfunctions1 = null;
 public anywheresoftware.b4a.objects.ConcreteViewWrapper  _asview() throws Exception{
  //BA.debugLineNum = 33;BA.debugLine="Sub AsView As View";

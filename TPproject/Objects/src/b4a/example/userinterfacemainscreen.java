@@ -35,8 +35,8 @@ public anywheresoftware.b4a.objects.LabelWrapper _menuother1 = null;
 public anywheresoftware.b4a.objects.LabelWrapper _menuother2 = null;
 public anywheresoftware.b4a.objects.LabelWrapper _menuother3 = null;
 public b4a.example.main _main = null;
-public b4a.example.starter _starter = null;
 public b4a.example.types _types = null;
+public b4a.example.starter _starter = null;
 public b4a.example.helperfunctions1 _helperfunctions1 = null;
 public anywheresoftware.b4a.objects.PanelWrapper  _asview() throws Exception{
  //BA.debugLineNum = 92;BA.debugLine="Sub AsView As Panel";
