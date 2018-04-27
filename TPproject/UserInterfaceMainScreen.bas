@@ -104,6 +104,16 @@ End Sub
 Sub MyTask_Click
 	CallSub(Main,"ShowMyTasks")
 End Sub
+Public Sub SetBusy
+	Main.currentuser.available = False
+	availability.Text = "Status: Busy"
+	HelperFunctions1.Apply_ViewStyle(statusindicator,Colors.Red,Colors.Red,Colors.Red,Colors.Red,Colors.Red,Colors.Red,Colors.Red,30)
+End Sub
+Public Sub SetAvailable
+	Main.currentuser.available = True
+	availability.Text = "Status: Available"
+	HelperFunctions1.Apply_ViewStyle(statusindicator,Colors.Green,Colors.Green,Colors.Green,Colors.Green,Colors.Green,Colors.Green,Colors.Green,30)
+End Sub
 Sub avail_Click
 	If Main.currentuser.available = False Then
 		Main.currentuser.available = True

@@ -90,6 +90,12 @@ End Sub
 Sub Activity_Pause (UserClosed As Boolean)
 
 End Sub
+Sub SetUserBusy
+	UIscreen.SetBusy
+End Sub
+Sub SetUserAvailable
+	UIscreen.SetAvailable
+End Sub
 Sub ShowMyTasks
 	If UserTasks.AsView.Visible = False Then
 		UserTasks.AsView.Visible = True

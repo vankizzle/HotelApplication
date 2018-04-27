@@ -10,6 +10,11 @@ Sub Class_Globals
 	Dim TaskHeader As Panel
 	Dim TableName As Label
 	Dim TaskFakePan As Panel
+	Dim FinishBtn As Button
+	Dim MapOfView As Map
+	Dim ViewToRemove As Map
+	Dim chekboxtag As Int = 0
+	Dim checkNumbers As Int = 0
 End Sub
 
 'Initializes the object. You can add parameters to this method if needed.
@@ -19,16 +24,24 @@ Public Sub Initialize
 	TaskHeader.Initialize("")
 	TableName.Initialize("")
 	TaskFakePan.initialize("")
+	FinishBtn.Initialize("Finish")
+	MapOfView.Initialize
+	ViewToRemove.Initialize
 	BuildUI
 End Sub
 
 Sub BuildUI
 	TaskFakePan.Color = Colors.ARGB(150,0,0,0)
 	TaskHeader.Color = Colors.ARGB(150,0,0,0)
+	FinishBtn.Color = Colors.rgb(41, 163, 41)
+	FinishBtn.Gravity =Gravity.CENTER
+	FinishBtn.Text = "Finish"
+	FinishBtn.TextSize = 25
+	FinishBtn.Enabled = False
 	WholeScreen.AddView(TaskHeader,10%x,15%y,80%x,5%y)
 	WholeScreen.AddView(TaskFakePan,TaskHeader.Left,TaskHeader.Top+TaskHeader.Height,TaskHeader.Width,60%y)
 	WholeScreen.AddView(TaskHolder.ScrollView,TaskHeader.Left,TaskHeader.Top+TaskHeader.Height,TaskHeader.Width,TaskFakePan.Height)
-
+	WholeScreen.AddView(FinishBtn,TaskHeader.Left,TaskFakePan.top + TaskFakePan.Height,TaskFakePan.Width,10%y)
 	TableName.Gravity = Gravity.CENTER
 	TableName.Text = "My Tasks"
 	TableName.TextColor = Colors.White
@@ -44,43 +57,86 @@ Public Sub GetMyTasks(AcceptedTasks As Map)
 	TaskHolder.removeAllViews
 	For Each v As Task In AcceptedTasks.Values
 		
-		TaskHolder.addView(PanBuilder(v.TaskID,v.TaskName,v.TaskType,v.TaskInfo),80%x,15%y,0,0,0,2dip)
+		TaskHolder.addView(PanBuilder(v.TaskName,v.TaskType,v.TaskInfo),80%x,15%y,0,0,0,2dip)
 	Next
+
 End Sub
 
-Sub PanBuilder(ID As Int,Name As String,TaskType As Int,Info As String) As Panel
+Sub PanBuilder(Name As String,TaskType As Int,Info As String) As Panel
 	Dim Holder As Panel
 	Holder.Initialize("")
-	Dim lblID As Label
-	lblID.Initialize("")
+'	Dim lblID As Label
+'	lblID.Initialize("")
+	Dim header As Panel
+	header.Initialize("")
 	Dim lblName As Label
 	lblName.Initialize("")
 	Dim ViewInfo As MiScrollView
 	ViewInfo.Initialize
 	Dim lblInfo As Label
 	lblInfo.Initialize("")
+	Dim checked As CheckBox
+	checked.Initialize("finished")
+	Holder.AddView(header,0,0,80%x,5%y)
 	
-	lblID.Color = Colors.rgb(0, 128, 255)
-	lblID.Text = ID
-	lblID.TextSize = 20
-	lblID.TextColor = Colors.White
-	lblID.Gravity = Gravity.CENTER
-	Holder.AddView(lblID,0,0,10%x,15%y)
+	header.Color = Colors.rgb(0, 128, 255)
+	Holder.Tag = chekboxtag
+	checked.Tag = chekboxtag
+	checked.Gravity = Gravity.CENTER
+	header.AddView(checked,70%x,0,10%x,5%y)
 	
 	lblName.Color = Colors.rgb(0, 128, 255)
 	lblName.Text = Name
 	lblName.TextSize = 20
 	lblName.TextColor = Colors.White
 	lblName.Gravity = Gravity.CENTER
-	Holder.AddView(lblName,0%x,0,80%x,5%y)
+	header.AddView(lblName,20%x,0,40%x,5%y)
 	
 	lblInfo.Text = Info
 	lblInfo.TextSize = 15
 	lblInfo.TextColor = Colors.White
 	lblInfo.Color = Colors.rgb(0, 128, 255)
 	
-	Holder.AddView(ViewInfo.ScrollView,10%x,5%y,70%x,10%y)
-	ViewInfo.addView(lblInfo,70%x,15%y,0,0,0,0)
-	
+	Holder.AddView(ViewInfo.ScrollView,0%x,5%y,80%x,10%y)
+	ViewInfo.addView(lblInfo,80%x,15%y,0,0,0,0)
+	MapOfView.Put(checked.Tag,Holder)
+	chekboxtag = chekboxtag + 1
 	Return Holder
+End Sub
+
+Sub finished_CheckedChange(Checked As Boolean)
+	Dim cbox As CheckBox = Sender
+	
+If Checked = True Then
+	FinishBtn.Enabled = True
+	checkNumbers = checkNumbers + 1
+	For Each v As Panel In MapOfView.Values
+		If cbox.Tag = v.Tag Then
+			ToastMessageShow("You selected task " & v.Tag,False)
+				ViewToRemove.Put(cbox.Tag,MapOfView.Get(MapOfView.GetKeyAt(v.Tag)))
+		End If
+	Next
+Else
+	Checked = False
+	checkNumbers = checkNumbers - 1
+	ViewToRemove.Remove(cbox.tag)
+	
+	If 	checkNumbers = 0 Then
+			FinishBtn.Enabled = False
+	End If
+	
+End If
+	Log("Checked = "& checkNumbers)
+End Sub
+Sub Finish_Click
+	
+	For Each v As Panel In ViewToRemove.Values
+		v.RemoveAllViews
+		v.RemoveView
+	Next
+	For i = 0 To ViewToRemove.Size - 1 
+		ViewToRemove.Remove(i)
+	Next
+	CallSub(Main,"SetUserAvailable")
+	FinishBtn.Enabled = False
 End Sub

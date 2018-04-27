@@ -46,28 +46,28 @@ if (true) return _wholescreen;
 return null;
 }
 public String  _avail_click() throws Exception{
- //BA.debugLineNum = 101;BA.debugLine="Sub avail_Click";
- //BA.debugLineNum = 102;BA.debugLine="If Main.currentuser.available = False Then";
+ //BA.debugLineNum = 111;BA.debugLine="Sub avail_Click";
+ //BA.debugLineNum = 112;BA.debugLine="If Main.currentuser.available = False Then";
 if (_main._currentuser.available==__c.False) { 
- //BA.debugLineNum = 103;BA.debugLine="Main.currentuser.available = True";
+ //BA.debugLineNum = 113;BA.debugLine="Main.currentuser.available = True";
 _main._currentuser.available = __c.True;
- //BA.debugLineNum = 104;BA.debugLine="HelperFunctions1.Apply_ViewStyle(statusindicator";
+ //BA.debugLineNum = 114;BA.debugLine="HelperFunctions1.Apply_ViewStyle(statusindicator";
 _helperfunctions1._apply_viewstyle(ba,(anywheresoftware.b4a.objects.ConcreteViewWrapper) anywheresoftware.b4a.AbsObjectWrapper.ConvertToWrapper(new anywheresoftware.b4a.objects.ConcreteViewWrapper(), (android.view.View)(_statusindicator.getObject())),__c.Colors.Green,__c.Colors.Green,__c.Colors.Green,__c.Colors.Green,__c.Colors.Green,__c.Colors.Green,__c.Colors.Green,(int) (30));
  }else {
- //BA.debugLineNum = 106;BA.debugLine="Main.currentuser.available = False";
+ //BA.debugLineNum = 116;BA.debugLine="Main.currentuser.available = False";
 _main._currentuser.available = __c.False;
- //BA.debugLineNum = 107;BA.debugLine="HelperFunctions1.Apply_ViewStyle(statusindicator";
+ //BA.debugLineNum = 117;BA.debugLine="HelperFunctions1.Apply_ViewStyle(statusindicator";
 _helperfunctions1._apply_viewstyle(ba,(anywheresoftware.b4a.objects.ConcreteViewWrapper) anywheresoftware.b4a.AbsObjectWrapper.ConvertToWrapper(new anywheresoftware.b4a.objects.ConcreteViewWrapper(), (android.view.View)(_statusindicator.getObject())),__c.Colors.Red,__c.Colors.Red,__c.Colors.Red,__c.Colors.Red,__c.Colors.Red,__c.Colors.Red,__c.Colors.Red,(int) (30));
  };
- //BA.debugLineNum = 110;BA.debugLine="If Main.currentuser.available = False Then";
+ //BA.debugLineNum = 120;BA.debugLine="If Main.currentuser.available = False Then";
 if (_main._currentuser.available==__c.False) { 
- //BA.debugLineNum = 111;BA.debugLine="availability.Text = \"Status: Busy\"";
+ //BA.debugLineNum = 121;BA.debugLine="availability.Text = \"Status: Busy\"";
 _availability.setText(BA.ObjectToCharSequence("Status: Busy"));
  }else {
- //BA.debugLineNum = 113;BA.debugLine="availability.Text = \"Status: Available\"";
+ //BA.debugLineNum = 123;BA.debugLine="availability.Text = \"Status: Available\"";
 _availability.setText(BA.ObjectToCharSequence("Status: Available"));
  };
- //BA.debugLineNum = 116;BA.debugLine="End Sub";
+ //BA.debugLineNum = 126;BA.debugLine="End Sub";
 return "";
 }
 public String  _buildui() throws Exception{
@@ -222,11 +222,33 @@ __c.CallSubNew(ba,(Object)(_main.getObject()),"ShowMyTasks");
 return "";
 }
 public boolean  _screenview_click() throws Exception{
- //BA.debugLineNum = 118;BA.debugLine="Sub screenview_Click As Boolean";
- //BA.debugLineNum = 119;BA.debugLine="Return True";
+ //BA.debugLineNum = 128;BA.debugLine="Sub screenview_Click As Boolean";
+ //BA.debugLineNum = 129;BA.debugLine="Return True";
 if (true) return __c.True;
- //BA.debugLineNum = 120;BA.debugLine="End Sub";
+ //BA.debugLineNum = 130;BA.debugLine="End Sub";
 return false;
+}
+public String  _setavailable() throws Exception{
+ //BA.debugLineNum = 106;BA.debugLine="Public Sub SetAvailable";
+ //BA.debugLineNum = 107;BA.debugLine="Main.currentuser.available = True";
+_main._currentuser.available = __c.True;
+ //BA.debugLineNum = 108;BA.debugLine="availability.Text = \"Status: Available\"";
+_availability.setText(BA.ObjectToCharSequence("Status: Available"));
+ //BA.debugLineNum = 109;BA.debugLine="HelperFunctions1.Apply_ViewStyle(statusindicator,";
+_helperfunctions1._apply_viewstyle(ba,(anywheresoftware.b4a.objects.ConcreteViewWrapper) anywheresoftware.b4a.AbsObjectWrapper.ConvertToWrapper(new anywheresoftware.b4a.objects.ConcreteViewWrapper(), (android.view.View)(_statusindicator.getObject())),__c.Colors.Green,__c.Colors.Green,__c.Colors.Green,__c.Colors.Green,__c.Colors.Green,__c.Colors.Green,__c.Colors.Green,(int) (30));
+ //BA.debugLineNum = 110;BA.debugLine="End Sub";
+return "";
+}
+public String  _setbusy() throws Exception{
+ //BA.debugLineNum = 101;BA.debugLine="Public Sub SetBusy";
+ //BA.debugLineNum = 102;BA.debugLine="Main.currentuser.available = False";
+_main._currentuser.available = __c.False;
+ //BA.debugLineNum = 103;BA.debugLine="availability.Text = \"Status: Busy\"";
+_availability.setText(BA.ObjectToCharSequence("Status: Busy"));
+ //BA.debugLineNum = 104;BA.debugLine="HelperFunctions1.Apply_ViewStyle(statusindicator,";
+_helperfunctions1._apply_viewstyle(ba,(anywheresoftware.b4a.objects.ConcreteViewWrapper) anywheresoftware.b4a.AbsObjectWrapper.ConvertToWrapper(new anywheresoftware.b4a.objects.ConcreteViewWrapper(), (android.view.View)(_statusindicator.getObject())),__c.Colors.Red,__c.Colors.Red,__c.Colors.Red,__c.Colors.Red,__c.Colors.Red,__c.Colors.Red,__c.Colors.Red,(int) (30));
+ //BA.debugLineNum = 105;BA.debugLine="End Sub";
+return "";
 }
 public String  _tasks_click() throws Exception{
  //BA.debugLineNum = 95;BA.debugLine="Sub Tasks_Click";

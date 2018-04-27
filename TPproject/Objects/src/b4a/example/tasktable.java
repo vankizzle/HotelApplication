@@ -32,12 +32,11 @@ public anywheresoftware.b4a.objects.PanelWrapper _tablefooter = null;
 public anywheresoftware.b4a.objects.LabelWrapper _tabletype = null;
 public wrappers.MiScrollView _tableofrequests = null;
 public anywheresoftware.b4a.objects.ButtonWrapper _submit = null;
-public anywheresoftware.b4a.objects.drawable.CanvasWrapper.BitmapWrapper _refreshbtngraphic = null;
-public anywheresoftware.b4a.objects.ButtonWrapper _tasksrefreshbtn = null;
 public anywheresoftware.b4a.objects.collections.Map _mapoftaskviews = null;
 public int _boxchecked = 0;
 public anywheresoftware.b4a.objects.collections.Map _selectedtasks = null;
 public anywheresoftware.b4a.objects.PanelWrapper _taskfakepan = null;
+public anywheresoftware.b4a.objects.Timer _refreshtimer = null;
 public b4a.example.main _main = null;
 public b4a.example.types _types = null;
 public b4a.example.starter _starter = null;
@@ -45,108 +44,208 @@ public b4a.example.helperfunctions1 _helperfunctions1 = null;
 public String  _accept_checkedchange(boolean _checked) throws Exception{
 anywheresoftware.b4a.objects.CompoundButtonWrapper.CheckBoxWrapper _cbox = null;
 anywheresoftware.b4a.objects.PanelWrapper _v = null;
- //BA.debugLineNum = 142;BA.debugLine="Sub accept_CheckedChange(Checked As Boolean)";
- //BA.debugLineNum = 143;BA.debugLine="Dim cbox As CheckBox = Sender";
+ //BA.debugLineNum = 151;BA.debugLine="Sub accept_CheckedChange(Checked As Boolean)";
+ //BA.debugLineNum = 152;BA.debugLine="Dim cbox As CheckBox = Sender";
 _cbox = new anywheresoftware.b4a.objects.CompoundButtonWrapper.CheckBoxWrapper();
 _cbox.setObject((android.widget.CheckBox)(__c.Sender(ba)));
- //BA.debugLineNum = 146;BA.debugLine="If Checked = True Then";
+ //BA.debugLineNum = 155;BA.debugLine="If Checked = True Then";
 if (_checked==__c.True) { 
- //BA.debugLineNum = 147;BA.debugLine="If boxchecked < 3 Then";
+ //BA.debugLineNum = 156;BA.debugLine="RefreshTimer.Enabled = False";
+_refreshtimer.setEnabled(__c.False);
+ //BA.debugLineNum = 157;BA.debugLine="If boxchecked < 3 Then";
 if (_boxchecked<3) { 
- //BA.debugLineNum = 148;BA.debugLine="For Each v As Panel In mapoftaskviews.Values";
+ //BA.debugLineNum = 158;BA.debugLine="For Each v As Panel In mapoftaskviews.Values";
 _v = new anywheresoftware.b4a.objects.PanelWrapper();
 {
-final anywheresoftware.b4a.BA.IterableList group4 = _mapoftaskviews.Values();
-final int groupLen4 = group4.getSize()
-;int index4 = 0;
+final anywheresoftware.b4a.BA.IterableList group5 = _mapoftaskviews.Values();
+final int groupLen5 = group5.getSize()
+;int index5 = 0;
 ;
-for (; index4 < groupLen4;index4++){
-_v.setObject((android.view.ViewGroup)(group4.Get(index4)));
- //BA.debugLineNum = 149;BA.debugLine="If cbox.Tag = v.Tag Then";
+for (; index5 < groupLen5;index5++){
+_v.setObject((android.view.ViewGroup)(group5.Get(index5)));
+ //BA.debugLineNum = 159;BA.debugLine="If cbox.Tag = v.Tag Then";
 if ((_cbox.getTag()).equals(_v.getTag())) { 
- //BA.debugLineNum = 150;BA.debugLine="ToastMessageShow(\"You selected task \" & v.Ta";
+ //BA.debugLineNum = 160;BA.debugLine="ToastMessageShow(\"You selected task \" & v.Ta";
 __c.ToastMessageShow(BA.ObjectToCharSequence("You selected task "+BA.ObjectToString(_v.getTag())),__c.False);
- //BA.debugLineNum = 151;BA.debugLine="SelectedTasks.Put(cbox.Tag,TasksList.Get(Tas";
+ //BA.debugLineNum = 161;BA.debugLine="SelectedTasks.Put(cbox.Tag,TasksList.Get(Tas";
 _selectedtasks.Put(_cbox.getTag(),_taskslist.Get(_taskslist.GetKeyAt((int)(BA.ObjectToNumber(_v.getTag())))));
  };
  }
 };
- //BA.debugLineNum = 154;BA.debugLine="boxchecked = boxchecked + 1";
+ //BA.debugLineNum = 164;BA.debugLine="boxchecked = boxchecked + 1";
 _boxchecked = (int) (_boxchecked+1);
- //BA.debugLineNum = 155;BA.debugLine="Log(boxchecked)";
+ //BA.debugLineNum = 165;BA.debugLine="Log(boxchecked)";
 __c.Log(BA.NumberToString(_boxchecked));
  }else {
- //BA.debugLineNum = 159;BA.debugLine="cbox.Checked = False";
+ //BA.debugLineNum = 169;BA.debugLine="cbox.Checked = False";
 _cbox.setChecked(__c.False);
- //BA.debugLineNum = 160;BA.debugLine="ToastMessageShow(\"Cant accept more\",False)";
+ //BA.debugLineNum = 170;BA.debugLine="ToastMessageShow(\"Cant accept more\",False)";
 __c.ToastMessageShow(BA.ObjectToCharSequence("Cant accept more"),__c.False);
  };
  }else {
- //BA.debugLineNum = 165;BA.debugLine="Checked = False";
+ //BA.debugLineNum = 175;BA.debugLine="Checked = False";
 _checked = __c.False;
- //BA.debugLineNum = 168;BA.debugLine="SelectedTasks.Remove(cbox.tag)";
+ //BA.debugLineNum = 178;BA.debugLine="SelectedTasks.Remove(cbox.tag)";
 _selectedtasks.Remove(_cbox.getTag());
- //BA.debugLineNum = 173;BA.debugLine="boxchecked = boxchecked - 1";
+ //BA.debugLineNum = 183;BA.debugLine="boxchecked = boxchecked - 1";
 _boxchecked = (int) (_boxchecked-1);
+ //BA.debugLineNum = 184;BA.debugLine="If boxchecked = 0 Then";
+if (_boxchecked==0) { 
+ //BA.debugLineNum = 185;BA.debugLine="RefreshTimer.Enabled = True";
+_refreshtimer.setEnabled(__c.True);
  };
- //BA.debugLineNum = 177;BA.debugLine="End Sub";
+ };
+ //BA.debugLineNum = 190;BA.debugLine="End Sub";
 return "";
 }
 public anywheresoftware.b4a.objects.ConcreteViewWrapper  _asview() throws Exception{
- //BA.debugLineNum = 41;BA.debugLine="Sub AsView As View";
- //BA.debugLineNum = 42;BA.debugLine="Return WholeScreen";
+ //BA.debugLineNum = 46;BA.debugLine="Sub AsView As View";
+ //BA.debugLineNum = 47;BA.debugLine="Return WholeScreen";
 if (true) return (anywheresoftware.b4a.objects.ConcreteViewWrapper) anywheresoftware.b4a.AbsObjectWrapper.ConvertToWrapper(new anywheresoftware.b4a.objects.ConcreteViewWrapper(), (android.view.View)(_wholescreen.getObject()));
- //BA.debugLineNum = 43;BA.debugLine="End Sub";
+ //BA.debugLineNum = 48;BA.debugLine="End Sub";
 return null;
 }
+public String  _buildtasks() throws Exception{
+int _p = 0;
+b4a.example.types._task _i = null;
+anywheresoftware.b4a.objects.PanelWrapper _taskpanel = null;
+anywheresoftware.b4a.objects.LabelWrapper _taskidlbl = null;
+anywheresoftware.b4a.objects.LabelWrapper _tasknamelbl = null;
+anywheresoftware.b4a.objects.LabelWrapper _taskinfolbl = null;
+anywheresoftware.b4a.objects.CompoundButtonWrapper.CheckBoxWrapper _checked = null;
+ //BA.debugLineNum = 99;BA.debugLine="Sub buildTasks";
+ //BA.debugLineNum = 101;BA.debugLine="tableofrequests.removeAllViews";
+_tableofrequests.removeAllViews();
+ //BA.debugLineNum = 102;BA.debugLine="boxchecked = 0";
+_boxchecked = (int) (0);
+ //BA.debugLineNum = 103;BA.debugLine="Dim p As Int = 0";
+_p = (int) (0);
+ //BA.debugLineNum = 104;BA.debugLine="For Each i As Task In TasksList.Values";
+{
+final anywheresoftware.b4a.BA.IterableList group4 = _taskslist.Values();
+final int groupLen4 = group4.getSize()
+;int index4 = 0;
+;
+for (; index4 < groupLen4;index4++){
+_i = (b4a.example.types._task)(group4.Get(index4));
+ //BA.debugLineNum = 105;BA.debugLine="If i.TaskType = Main.currentuser.TypeOfWorker Th";
+if (_i.TaskType==_main._currentuser.TypeOfWorker) { 
+ //BA.debugLineNum = 106;BA.debugLine="Dim TaskPanel As Panel";
+_taskpanel = new anywheresoftware.b4a.objects.PanelWrapper();
+ //BA.debugLineNum = 107;BA.debugLine="Dim TaskIdLbl As Label";
+_taskidlbl = new anywheresoftware.b4a.objects.LabelWrapper();
+ //BA.debugLineNum = 108;BA.debugLine="Dim TaskNameLbl As Label";
+_tasknamelbl = new anywheresoftware.b4a.objects.LabelWrapper();
+ //BA.debugLineNum = 109;BA.debugLine="Dim taskInfoLbl As Label";
+_taskinfolbl = new anywheresoftware.b4a.objects.LabelWrapper();
+ //BA.debugLineNum = 110;BA.debugLine="Dim checked As CheckBox";
+_checked = new anywheresoftware.b4a.objects.CompoundButtonWrapper.CheckBoxWrapper();
+ //BA.debugLineNum = 112;BA.debugLine="TaskPanel.Initialize(\"\")";
+_taskpanel.Initialize(ba,"");
+ //BA.debugLineNum = 113;BA.debugLine="TaskIdLbl.Initialize(\"\")";
+_taskidlbl.Initialize(ba,"");
+ //BA.debugLineNum = 114;BA.debugLine="TaskNameLbl.Initialize(\"\")";
+_tasknamelbl.Initialize(ba,"");
+ //BA.debugLineNum = 115;BA.debugLine="taskInfoLbl.Initialize(\"\")";
+_taskinfolbl.Initialize(ba,"");
+ //BA.debugLineNum = 116;BA.debugLine="checked.Initialize(\"accept\")";
+_checked.Initialize(ba,"accept");
+ //BA.debugLineNum = 118;BA.debugLine="TaskIdLbl.Text = i.TaskID";
+_taskidlbl.setText(BA.ObjectToCharSequence(_i.TaskID));
+ //BA.debugLineNum = 119;BA.debugLine="TaskIdLbl.TextColor = Colors.White";
+_taskidlbl.setTextColor(__c.Colors.White);
+ //BA.debugLineNum = 120;BA.debugLine="TaskIdLbl.TextSize = 15";
+_taskidlbl.setTextSize((float) (15));
+ //BA.debugLineNum = 121;BA.debugLine="TaskIdLbl.Gravity = Gravity.CENTER";
+_taskidlbl.setGravity(__c.Gravity.CENTER);
+ //BA.debugLineNum = 122;BA.debugLine="TaskPanel.AddView(TaskIdLbl,0,0,10%x,5%y)";
+_taskpanel.AddView((android.view.View)(_taskidlbl.getObject()),(int) (0),(int) (0),__c.PerXToCurrent((float) (10),ba),__c.PerYToCurrent((float) (5),ba));
+ //BA.debugLineNum = 124;BA.debugLine="TaskNameLbl.Text = i.TaskName";
+_tasknamelbl.setText(BA.ObjectToCharSequence(_i.TaskName));
+ //BA.debugLineNum = 125;BA.debugLine="TaskNameLbl.TextColor = Colors.White";
+_tasknamelbl.setTextColor(__c.Colors.White);
+ //BA.debugLineNum = 126;BA.debugLine="TaskNameLbl.TextSize = 15";
+_tasknamelbl.setTextSize((float) (15));
+ //BA.debugLineNum = 127;BA.debugLine="TaskNameLbl.Gravity = Gravity.CENTER";
+_tasknamelbl.setGravity(__c.Gravity.CENTER);
+ //BA.debugLineNum = 128;BA.debugLine="TaskPanel.AddView(TaskNameLbl,10%x,0,10%x,5%y)";
+_taskpanel.AddView((android.view.View)(_tasknamelbl.getObject()),__c.PerXToCurrent((float) (10),ba),(int) (0),__c.PerXToCurrent((float) (10),ba),__c.PerYToCurrent((float) (5),ba));
+ //BA.debugLineNum = 130;BA.debugLine="taskInfoLbl.Text = i.TaskInfo";
+_taskinfolbl.setText(BA.ObjectToCharSequence(_i.TaskInfo));
+ //BA.debugLineNum = 131;BA.debugLine="taskInfoLbl.TextColor = Colors.White";
+_taskinfolbl.setTextColor(__c.Colors.White);
+ //BA.debugLineNum = 132;BA.debugLine="taskInfoLbl.TextSize = 10";
+_taskinfolbl.setTextSize((float) (10));
+ //BA.debugLineNum = 133;BA.debugLine="taskInfoLbl.Gravity = Gravity.CENTER";
+_taskinfolbl.setGravity(__c.Gravity.CENTER);
+ //BA.debugLineNum = 134;BA.debugLine="TaskPanel.AddView(taskInfoLbl,25%x,0,40%x,5%y)";
+_taskpanel.AddView((android.view.View)(_taskinfolbl.getObject()),__c.PerXToCurrent((float) (25),ba),(int) (0),__c.PerXToCurrent((float) (40),ba),__c.PerYToCurrent((float) (5),ba));
+ //BA.debugLineNum = 137;BA.debugLine="checked.Gravity = Gravity.CENTER";
+_checked.setGravity(__c.Gravity.CENTER);
+ //BA.debugLineNum = 138;BA.debugLine="TaskPanel.AddView(checked,70%x,0,10%x,5%y)";
+_taskpanel.AddView((android.view.View)(_checked.getObject()),__c.PerXToCurrent((float) (70),ba),(int) (0),__c.PerXToCurrent((float) (10),ba),__c.PerYToCurrent((float) (5),ba));
+ //BA.debugLineNum = 140;BA.debugLine="TaskPanel.Color = Colors.rgb(0, 128, 255)";
+_taskpanel.setColor(__c.Colors.RGB((int) (0),(int) (128),(int) (255)));
+ //BA.debugLineNum = 141;BA.debugLine="tableofrequests.addView(TaskPanel,100%x,5%y,0,0";
+_tableofrequests.addView((android.view.View)(_taskpanel.getObject()),__c.PerXToCurrent((float) (100),ba),__c.PerYToCurrent((float) (5),ba),(int) (0),(int) (0),(int) (0),__c.DipToCurrent((int) (2)));
+ //BA.debugLineNum = 143;BA.debugLine="TaskPanel.Tag = p";
+_taskpanel.setTag((Object)(_p));
+ //BA.debugLineNum = 144;BA.debugLine="checked.Tag = p";
+_checked.setTag((Object)(_p));
+ //BA.debugLineNum = 145;BA.debugLine="p = p + 1";
+_p = (int) (_p+1);
+ //BA.debugLineNum = 146;BA.debugLine="mapoftaskviews.Put(TaskPanel.Tag,TaskPanel)";
+_mapoftaskviews.Put(_taskpanel.getTag(),(Object)(_taskpanel.getObject()));
+ };
+ }
+};
+ //BA.debugLineNum = 150;BA.debugLine="End Sub";
+return "";
+}
 public String  _buildui() throws Exception{
- //BA.debugLineNum = 45;BA.debugLine="Sub BuildUI";
- //BA.debugLineNum = 46;BA.debugLine="TaskFakePan.Color = Colors.ARGB(150,0,0,0)";
+ //BA.debugLineNum = 58;BA.debugLine="Sub BuildUI";
+ //BA.debugLineNum = 59;BA.debugLine="TaskFakePan.Color = Colors.ARGB(150,0,0,0)";
 _taskfakepan.setColor(__c.Colors.ARGB((int) (150),(int) (0),(int) (0),(int) (0)));
- //BA.debugLineNum = 47;BA.debugLine="tableHeader.color = Colors.ARGB(150,0,0,0)";
+ //BA.debugLineNum = 60;BA.debugLine="tableHeader.color = Colors.ARGB(150,0,0,0)";
 _tableheader.setColor(__c.Colors.ARGB((int) (150),(int) (0),(int) (0),(int) (0)));
- //BA.debugLineNum = 48;BA.debugLine="tableFooter.color = Colors.ARGB(150,0,0,0)";
+ //BA.debugLineNum = 61;BA.debugLine="tableFooter.color = Colors.ARGB(150,0,0,0)";
 _tablefooter.setColor(__c.Colors.ARGB((int) (150),(int) (0),(int) (0),(int) (0)));
- //BA.debugLineNum = 49;BA.debugLine="tableType.Gravity = Gravity.CENTER";
+ //BA.debugLineNum = 62;BA.debugLine="tableType.Gravity = Gravity.CENTER";
 _tabletype.setGravity(__c.Gravity.CENTER);
- //BA.debugLineNum = 50;BA.debugLine="submit.Text = \"Accept\"";
+ //BA.debugLineNum = 63;BA.debugLine="submit.Text = \"Accept\"";
 _submit.setText(BA.ObjectToCharSequence("Accept"));
- //BA.debugLineNum = 51;BA.debugLine="HelperFunctions1.Apply_ViewStyle(submit,Colors.Bl";
+ //BA.debugLineNum = 64;BA.debugLine="HelperFunctions1.Apply_ViewStyle(submit,Colors.Bl";
 _helperfunctions1._apply_viewstyle(ba,(anywheresoftware.b4a.objects.ConcreteViewWrapper) anywheresoftware.b4a.AbsObjectWrapper.ConvertToWrapper(new anywheresoftware.b4a.objects.ConcreteViewWrapper(), (android.view.View)(_submit.getObject())),__c.Colors.Black,__c.Colors.RGB((int) (0),(int) (128),(int) (255)),__c.Colors.White,__c.Colors.RGB((int) (0),(int) (128),(int) (255)),__c.Colors.Gray,__c.Colors.Gray,__c.Colors.Gray,(int) (10));
- //BA.debugLineNum = 53;BA.debugLine="TasksRefreshBtn.SetBackgroundImage(refreshbtngrap";
-_tasksrefreshbtn.SetBackgroundImageNew((android.graphics.Bitmap)(_refreshbtngraphic.getObject()));
- //BA.debugLineNum = 54;BA.debugLine="tableType.TextColor = Colors.White";
+ //BA.debugLineNum = 67;BA.debugLine="tableType.TextColor = Colors.White";
 _tabletype.setTextColor(__c.Colors.White);
- //BA.debugLineNum = 55;BA.debugLine="tableType.TextSize = 25";
+ //BA.debugLineNum = 68;BA.debugLine="tableType.TextSize = 25";
 _tabletype.setTextSize((float) (25));
- //BA.debugLineNum = 56;BA.debugLine="If Main.currentuser.TypeOfWorker = 1 Then";
+ //BA.debugLineNum = 69;BA.debugLine="If Main.currentuser.TypeOfWorker = 1 Then";
 if (_main._currentuser.TypeOfWorker==1) { 
- //BA.debugLineNum = 57;BA.debugLine="tableType.Text = \"Workers Table\"";
+ //BA.debugLineNum = 70;BA.debugLine="tableType.Text = \"Workers Table\"";
 _tabletype.setText(BA.ObjectToCharSequence("Workers Table"));
  }else if(_main._currentuser.TypeOfWorker==2) { 
- //BA.debugLineNum = 59;BA.debugLine="tableType.Text = \"Cooks Table\"";
+ //BA.debugLineNum = 72;BA.debugLine="tableType.Text = \"Cooks Table\"";
 _tabletype.setText(BA.ObjectToCharSequence("Cooks Table"));
  }else if(_main._currentuser.TypeOfWorker==3) { 
- //BA.debugLineNum = 61;BA.debugLine="tableType.Text = \"Waiters Table\"";
+ //BA.debugLineNum = 74;BA.debugLine="tableType.Text = \"Waiters Table\"";
 _tabletype.setText(BA.ObjectToCharSequence("Waiters Table"));
  };
- //BA.debugLineNum = 64;BA.debugLine="WholeScreen.AddView(tableHolder,10%x,15%y,80%x,70";
+ //BA.debugLineNum = 77;BA.debugLine="WholeScreen.AddView(tableHolder,10%x,15%y,80%x,70";
 _wholescreen.AddView((android.view.View)(_tableholder.getObject()),__c.PerXToCurrent((float) (10),ba),__c.PerYToCurrent((float) (15),ba),__c.PerXToCurrent((float) (80),ba),__c.PerYToCurrent((float) (70),ba));
- //BA.debugLineNum = 65;BA.debugLine="tableofrequests.Color = Colors.ARGB(150,0,0,0)";
+ //BA.debugLineNum = 78;BA.debugLine="tableofrequests.Color = Colors.ARGB(150,0,0,0)";
 _tableofrequests.setColor(__c.Colors.ARGB((int) (150),(int) (0),(int) (0),(int) (0)));
- //BA.debugLineNum = 66;BA.debugLine="tableHolder.AddView(tableHeader,0%x,0%y,100%x,5%y";
+ //BA.debugLineNum = 79;BA.debugLine="tableHolder.AddView(tableHeader,0%x,0%y,100%x,5%y";
 _tableholder.AddView((android.view.View)(_tableheader.getObject()),__c.PerXToCurrent((float) (0),ba),__c.PerYToCurrent((float) (0),ba),__c.PerXToCurrent((float) (100),ba),__c.PerYToCurrent((float) (5),ba));
- //BA.debugLineNum = 68;BA.debugLine="tableHolder.AddView(tableofrequests.ScrollView,0%";
+ //BA.debugLineNum = 81;BA.debugLine="tableHolder.AddView(tableofrequests.ScrollView,0%";
 _tableholder.AddView(_tableofrequests.getScrollView(),__c.PerXToCurrent((float) (0),ba),(int) (_tableheader.getTop()+_tableheader.getHeight()),__c.PerXToCurrent((float) (100),ba),__c.PerYToCurrent((float) (60),ba));
- //BA.debugLineNum = 69;BA.debugLine="tableHolder.AddView(tableFooter,0%x,65%y - 1dip,1";
+ //BA.debugLineNum = 82;BA.debugLine="tableHolder.AddView(tableFooter,0%x,65%y - 1dip,1";
 _tableholder.AddView((android.view.View)(_tablefooter.getObject()),__c.PerXToCurrent((float) (0),ba),(int) (__c.PerYToCurrent((float) (65),ba)-__c.DipToCurrent((int) (1))),__c.PerXToCurrent((float) (100),ba),__c.PerYToCurrent((float) (8),ba));
- //BA.debugLineNum = 70;BA.debugLine="tableFooter.AddView(submit,20%x,1%y - 2dip,40%x,4";
+ //BA.debugLineNum = 83;BA.debugLine="tableFooter.AddView(submit,20%x,1%y - 2dip,40%x,4";
 _tablefooter.AddView((android.view.View)(_submit.getObject()),__c.PerXToCurrent((float) (20),ba),(int) (__c.PerYToCurrent((float) (1),ba)-__c.DipToCurrent((int) (2))),__c.PerXToCurrent((float) (40),ba),(int) (__c.PerYToCurrent((float) (4),ba)-__c.DipToCurrent((int) (2))));
- //BA.debugLineNum = 71;BA.debugLine="tableHeader.AddView(tableType,0,0,40%x,5%y)";
+ //BA.debugLineNum = 84;BA.debugLine="tableHeader.AddView(tableType,0,0,40%x,5%y)";
 _tableheader.AddView((android.view.View)(_tabletype.getObject()),(int) (0),(int) (0),__c.PerXToCurrent((float) (40),ba),__c.PerYToCurrent((float) (5),ba));
- //BA.debugLineNum = 72;BA.debugLine="tableHeader.AddView(TasksRefreshBtn,73%x,0,8%x,5%";
-_tableheader.AddView((android.view.View)(_tasksrefreshbtn.getObject()),__c.PerXToCurrent((float) (73),ba),(int) (0),__c.PerXToCurrent((float) (8),ba),__c.PerYToCurrent((float) (5),ba));
- //BA.debugLineNum = 73;BA.debugLine="End Sub";
+ //BA.debugLineNum = 86;BA.debugLine="End Sub";
 return "";
 }
 public String  _class_globals() throws Exception{
@@ -167,200 +266,127 @@ _tabletype = new anywheresoftware.b4a.objects.LabelWrapper();
 _tableofrequests = new wrappers.MiScrollView();
  //BA.debugLineNum = 9;BA.debugLine="Dim submit As Button";
 _submit = new anywheresoftware.b4a.objects.ButtonWrapper();
- //BA.debugLineNum = 10;BA.debugLine="Dim refreshbtngraphic As Bitmap";
-_refreshbtngraphic = new anywheresoftware.b4a.objects.drawable.CanvasWrapper.BitmapWrapper();
- //BA.debugLineNum = 11;BA.debugLine="Dim TasksRefreshBtn As Button";
-_tasksrefreshbtn = new anywheresoftware.b4a.objects.ButtonWrapper();
  //BA.debugLineNum = 12;BA.debugLine="Dim mapoftaskviews As Map";
 _mapoftaskviews = new anywheresoftware.b4a.objects.collections.Map();
  //BA.debugLineNum = 13;BA.debugLine="Dim boxchecked As Int = 0";
 _boxchecked = (int) (0);
  //BA.debugLineNum = 15;BA.debugLine="Dim SelectedTasks As Map";
 _selectedtasks = new anywheresoftware.b4a.objects.collections.Map();
- //BA.debugLineNum = 18;BA.debugLine="Dim TaskFakePan As Panel";
+ //BA.debugLineNum = 17;BA.debugLine="Dim TaskFakePan As Panel";
 _taskfakepan = new anywheresoftware.b4a.objects.PanelWrapper();
- //BA.debugLineNum = 19;BA.debugLine="End Sub";
+ //BA.debugLineNum = 19;BA.debugLine="Dim RefreshTimer As Timer";
+_refreshtimer = new anywheresoftware.b4a.objects.Timer();
+ //BA.debugLineNum = 20;BA.debugLine="End Sub";
 return "";
 }
 public String  _get_tasks() throws Exception{
 int _i = 0;
 b4a.example.types._task _task = null;
- //BA.debugLineNum = 75;BA.debugLine="Sub Get_Tasks";
- //BA.debugLineNum = 76;BA.debugLine="For i = 0 To 5";
+ //BA.debugLineNum = 88;BA.debugLine="Sub Get_Tasks";
+ //BA.debugLineNum = 89;BA.debugLine="For i = 0 To 5";
 {
 final int step1 = 1;
 final int limit1 = (int) (5);
 _i = (int) (0) ;
 for (;(step1 > 0 && _i <= limit1) || (step1 < 0 && _i >= limit1) ;_i = ((int)(0 + _i + step1))  ) {
- //BA.debugLineNum = 77;BA.debugLine="Dim Task As Task";
+ //BA.debugLineNum = 90;BA.debugLine="Dim Task As Task";
 _task = new b4a.example.types._task();
- //BA.debugLineNum = 78;BA.debugLine="Task.Initialize";
+ //BA.debugLineNum = 91;BA.debugLine="Task.Initialize";
 _task.Initialize();
- //BA.debugLineNum = 79;BA.debugLine="Task.TaskID = i";
+ //BA.debugLineNum = 92;BA.debugLine="Task.TaskID = i";
 _task.TaskID = _i;
- //BA.debugLineNum = 80;BA.debugLine="Task.TaskName = \"Task \"&i";
+ //BA.debugLineNum = 93;BA.debugLine="Task.TaskName = \"Task \"&i";
 _task.TaskName = "Task "+BA.NumberToString(_i);
- //BA.debugLineNum = 81;BA.debugLine="Task.TaskType = 1";
+ //BA.debugLineNum = 94;BA.debugLine="Task.TaskType = 1";
 _task.TaskType = (int) (1);
- //BA.debugLineNum = 82;BA.debugLine="Task.TaskInfo = \"This is a very long text that i";
+ //BA.debugLineNum = 95;BA.debugLine="Task.TaskInfo = \"This is a very long text that i";
 _task.TaskInfo = "This is a very long text that i will use to test this application and try to fing any mistakes in it.Currently we are on line:"+BA.NumberToString(_i);
- //BA.debugLineNum = 83;BA.debugLine="TasksList.Put(Task.TaskID,Task)";
+ //BA.debugLineNum = 96;BA.debugLine="TasksList.Put(Task.TaskID,Task)";
 _taskslist.Put((Object)(_task.TaskID),(Object)(_task));
  }
 };
- //BA.debugLineNum = 85;BA.debugLine="End Sub";
+ //BA.debugLineNum = 98;BA.debugLine="End Sub";
 return "";
 }
 public String  _initialize(anywheresoftware.b4a.BA _ba) throws Exception{
 innerInitialize(_ba);
- //BA.debugLineNum = 22;BA.debugLine="Public Sub Initialize";
- //BA.debugLineNum = 23;BA.debugLine="WholeScreen.Initialize(\"\")";
+ //BA.debugLineNum = 23;BA.debugLine="Public Sub Initialize";
+ //BA.debugLineNum = 24;BA.debugLine="WholeScreen.Initialize(\"\")";
 _wholescreen.Initialize(ba,"");
- //BA.debugLineNum = 24;BA.debugLine="TasksList.Initialize";
+ //BA.debugLineNum = 25;BA.debugLine="TasksList.Initialize";
 _taskslist.Initialize();
- //BA.debugLineNum = 25;BA.debugLine="tableHolder.Initialize(\"table\")";
+ //BA.debugLineNum = 26;BA.debugLine="tableHolder.Initialize(\"table\")";
 _tableholder.Initialize(ba,"table");
- //BA.debugLineNum = 26;BA.debugLine="tableHeader.Initialize(\"Header\")";
+ //BA.debugLineNum = 27;BA.debugLine="tableHeader.Initialize(\"Header\")";
 _tableheader.Initialize(ba,"Header");
- //BA.debugLineNum = 27;BA.debugLine="tableFooter.Initialize(\"Footer\")";
+ //BA.debugLineNum = 28;BA.debugLine="tableFooter.Initialize(\"Footer\")";
 _tablefooter.Initialize(ba,"Footer");
- //BA.debugLineNum = 28;BA.debugLine="tableType.Initialize(\"type\")";
+ //BA.debugLineNum = 29;BA.debugLine="tableType.Initialize(\"type\")";
 _tabletype.Initialize(ba,"type");
- //BA.debugLineNum = 29;BA.debugLine="refreshbtngraphic.Initialize(File.DirAssets,\"refr";
-_refreshbtngraphic.Initialize(__c.File.getDirAssets(),"refresh.png");
- //BA.debugLineNum = 30;BA.debugLine="TasksRefreshBtn.Initialize(\"refreshtask\")";
-_tasksrefreshbtn.Initialize(ba,"refreshtask");
- //BA.debugLineNum = 31;BA.debugLine="submit.Initialize(\"Submit\")";
+ //BA.debugLineNum = 32;BA.debugLine="submit.Initialize(\"Submit\")";
 _submit.Initialize(ba,"Submit");
- //BA.debugLineNum = 32;BA.debugLine="tableofrequests.Initialize";
+ //BA.debugLineNum = 33;BA.debugLine="tableofrequests.Initialize";
 _tableofrequests.Initialize(ba);
- //BA.debugLineNum = 33;BA.debugLine="mapoftaskviews.Initialize";
+ //BA.debugLineNum = 34;BA.debugLine="mapoftaskviews.Initialize";
 _mapoftaskviews.Initialize();
- //BA.debugLineNum = 34;BA.debugLine="SelectedTasks.Initialize";
+ //BA.debugLineNum = 35;BA.debugLine="SelectedTasks.Initialize";
 _selectedtasks.Initialize();
- //BA.debugLineNum = 36;BA.debugLine="TaskFakePan.initialize(\"\")";
+ //BA.debugLineNum = 37;BA.debugLine="TaskFakePan.initialize(\"\")";
 _taskfakepan.Initialize(ba,"");
- //BA.debugLineNum = 37;BA.debugLine="BuildUI";
+ //BA.debugLineNum = 39;BA.debugLine="RefreshTimer.Initialize(\"Refresh\",2000)";
+_refreshtimer.Initialize(ba,"Refresh",(long) (2000));
+ //BA.debugLineNum = 40;BA.debugLine="RefreshTimer.Enabled = True";
+_refreshtimer.setEnabled(__c.True);
+ //BA.debugLineNum = 42;BA.debugLine="BuildUI";
 _buildui();
- //BA.debugLineNum = 38;BA.debugLine="Get_Tasks";
+ //BA.debugLineNum = 43;BA.debugLine="Get_Tasks";
 _get_tasks();
- //BA.debugLineNum = 39;BA.debugLine="End Sub";
+ //BA.debugLineNum = 44;BA.debugLine="End Sub";
 return "";
 }
-public String  _refreshtask_click() throws Exception{
-int _p = 0;
-b4a.example.types._task _i = null;
-anywheresoftware.b4a.objects.PanelWrapper _taskpanel = null;
-anywheresoftware.b4a.objects.LabelWrapper _taskidlbl = null;
-anywheresoftware.b4a.objects.LabelWrapper _tasknamelbl = null;
-anywheresoftware.b4a.objects.LabelWrapper _taskinfolbl = null;
-anywheresoftware.b4a.objects.CompoundButtonWrapper.CheckBoxWrapper _checked = null;
- //BA.debugLineNum = 86;BA.debugLine="Sub refreshtask_Click";
- //BA.debugLineNum = 87;BA.debugLine="If Main.currentuser.available = False Then";
+public String  _refresh_tick() throws Exception{
+ //BA.debugLineNum = 49;BA.debugLine="Sub Refresh_Tick";
+ //BA.debugLineNum = 50;BA.debugLine="If Main.currentuser.available = False Then";
 if (_main._currentuser.available==__c.False) { 
- //BA.debugLineNum = 88;BA.debugLine="submit.Enabled = False";
+ //BA.debugLineNum = 51;BA.debugLine="submit.Enabled = False";
 _submit.setEnabled(__c.False);
  }else {
- //BA.debugLineNum = 90;BA.debugLine="submit.Enabled = True";
+ //BA.debugLineNum = 53;BA.debugLine="submit.Enabled = True";
 _submit.setEnabled(__c.True);
  };
- //BA.debugLineNum = 92;BA.debugLine="tableofrequests.removeAllViews";
-_tableofrequests.removeAllViews();
- //BA.debugLineNum = 93;BA.debugLine="boxchecked = 0";
-_boxchecked = (int) (0);
- //BA.debugLineNum = 94;BA.debugLine="Dim p As Int = 0";
-_p = (int) (0);
- //BA.debugLineNum = 95;BA.debugLine="For Each i As Task In TasksList.Values";
-{
-final anywheresoftware.b4a.BA.IterableList group9 = _taskslist.Values();
-final int groupLen9 = group9.getSize()
-;int index9 = 0;
-;
-for (; index9 < groupLen9;index9++){
-_i = (b4a.example.types._task)(group9.Get(index9));
- //BA.debugLineNum = 96;BA.debugLine="If i.TaskType = Main.currentuser.TypeOfWorker Th";
-if (_i.TaskType==_main._currentuser.TypeOfWorker) { 
- //BA.debugLineNum = 97;BA.debugLine="Dim TaskPanel As Panel";
-_taskpanel = new anywheresoftware.b4a.objects.PanelWrapper();
- //BA.debugLineNum = 98;BA.debugLine="Dim TaskIdLbl As Label";
-_taskidlbl = new anywheresoftware.b4a.objects.LabelWrapper();
- //BA.debugLineNum = 99;BA.debugLine="Dim TaskNameLbl As Label";
-_tasknamelbl = new anywheresoftware.b4a.objects.LabelWrapper();
- //BA.debugLineNum = 100;BA.debugLine="Dim taskInfoLbl As Label";
-_taskinfolbl = new anywheresoftware.b4a.objects.LabelWrapper();
- //BA.debugLineNum = 101;BA.debugLine="Dim checked As CheckBox";
-_checked = new anywheresoftware.b4a.objects.CompoundButtonWrapper.CheckBoxWrapper();
- //BA.debugLineNum = 103;BA.debugLine="TaskPanel.Initialize(\"\")";
-_taskpanel.Initialize(ba,"");
- //BA.debugLineNum = 104;BA.debugLine="TaskIdLbl.Initialize(\"\")";
-_taskidlbl.Initialize(ba,"");
- //BA.debugLineNum = 105;BA.debugLine="TaskNameLbl.Initialize(\"\")";
-_tasknamelbl.Initialize(ba,"");
- //BA.debugLineNum = 106;BA.debugLine="taskInfoLbl.Initialize(\"\")";
-_taskinfolbl.Initialize(ba,"");
- //BA.debugLineNum = 107;BA.debugLine="checked.Initialize(\"accept\")";
-_checked.Initialize(ba,"accept");
- //BA.debugLineNum = 109;BA.debugLine="TaskIdLbl.Text = i.TaskID";
-_taskidlbl.setText(BA.ObjectToCharSequence(_i.TaskID));
- //BA.debugLineNum = 110;BA.debugLine="TaskIdLbl.TextColor = Colors.White";
-_taskidlbl.setTextColor(__c.Colors.White);
- //BA.debugLineNum = 111;BA.debugLine="TaskIdLbl.TextSize = 15";
-_taskidlbl.setTextSize((float) (15));
- //BA.debugLineNum = 112;BA.debugLine="TaskIdLbl.Gravity = Gravity.CENTER";
-_taskidlbl.setGravity(__c.Gravity.CENTER);
- //BA.debugLineNum = 113;BA.debugLine="TaskPanel.AddView(TaskIdLbl,0,0,10%x,5%y)";
-_taskpanel.AddView((android.view.View)(_taskidlbl.getObject()),(int) (0),(int) (0),__c.PerXToCurrent((float) (10),ba),__c.PerYToCurrent((float) (5),ba));
- //BA.debugLineNum = 115;BA.debugLine="TaskNameLbl.Text = i.TaskName";
-_tasknamelbl.setText(BA.ObjectToCharSequence(_i.TaskName));
- //BA.debugLineNum = 116;BA.debugLine="TaskNameLbl.TextColor = Colors.White";
-_tasknamelbl.setTextColor(__c.Colors.White);
- //BA.debugLineNum = 117;BA.debugLine="TaskNameLbl.TextSize = 15";
-_tasknamelbl.setTextSize((float) (15));
- //BA.debugLineNum = 118;BA.debugLine="TaskNameLbl.Gravity = Gravity.CENTER";
-_tasknamelbl.setGravity(__c.Gravity.CENTER);
- //BA.debugLineNum = 119;BA.debugLine="TaskPanel.AddView(TaskNameLbl,10%x,0,10%x,5%y)";
-_taskpanel.AddView((android.view.View)(_tasknamelbl.getObject()),__c.PerXToCurrent((float) (10),ba),(int) (0),__c.PerXToCurrent((float) (10),ba),__c.PerYToCurrent((float) (5),ba));
- //BA.debugLineNum = 121;BA.debugLine="taskInfoLbl.Text = i.TaskInfo";
-_taskinfolbl.setText(BA.ObjectToCharSequence(_i.TaskInfo));
- //BA.debugLineNum = 122;BA.debugLine="taskInfoLbl.TextColor = Colors.White";
-_taskinfolbl.setTextColor(__c.Colors.White);
- //BA.debugLineNum = 123;BA.debugLine="taskInfoLbl.TextSize = 10";
-_taskinfolbl.setTextSize((float) (10));
- //BA.debugLineNum = 124;BA.debugLine="taskInfoLbl.Gravity = Gravity.CENTER";
-_taskinfolbl.setGravity(__c.Gravity.CENTER);
- //BA.debugLineNum = 125;BA.debugLine="TaskPanel.AddView(taskInfoLbl,25%x,0,40%x,5%y)";
-_taskpanel.AddView((android.view.View)(_taskinfolbl.getObject()),__c.PerXToCurrent((float) (25),ba),(int) (0),__c.PerXToCurrent((float) (40),ba),__c.PerYToCurrent((float) (5),ba));
- //BA.debugLineNum = 128;BA.debugLine="checked.Gravity = Gravity.CENTER";
-_checked.setGravity(__c.Gravity.CENTER);
- //BA.debugLineNum = 129;BA.debugLine="TaskPanel.AddView(checked,70%x,0,10%x,5%y)";
-_taskpanel.AddView((android.view.View)(_checked.getObject()),__c.PerXToCurrent((float) (70),ba),(int) (0),__c.PerXToCurrent((float) (10),ba),__c.PerYToCurrent((float) (5),ba));
- //BA.debugLineNum = 131;BA.debugLine="TaskPanel.Color = Colors.rgb(0, 128, 255)";
-_taskpanel.setColor(__c.Colors.RGB((int) (0),(int) (128),(int) (255)));
- //BA.debugLineNum = 132;BA.debugLine="tableofrequests.addView(TaskPanel,100%x,5%y,0,0";
-_tableofrequests.addView((android.view.View)(_taskpanel.getObject()),__c.PerXToCurrent((float) (100),ba),__c.PerYToCurrent((float) (5),ba),(int) (0),(int) (0),(int) (0),__c.DipToCurrent((int) (2)));
- //BA.debugLineNum = 134;BA.debugLine="TaskPanel.Tag = p";
-_taskpanel.setTag((Object)(_p));
- //BA.debugLineNum = 135;BA.debugLine="checked.Tag = p";
-_checked.setTag((Object)(_p));
- //BA.debugLineNum = 136;BA.debugLine="p = p + 1";
-_p = (int) (_p+1);
- //BA.debugLineNum = 137;BA.debugLine="mapoftaskviews.Put(TaskPanel.Tag,TaskPanel)";
-_mapoftaskviews.Put(_taskpanel.getTag(),(Object)(_taskpanel.getObject()));
- };
- }
-};
- //BA.debugLineNum = 141;BA.debugLine="End Sub";
+ //BA.debugLineNum = 55;BA.debugLine="buildTasks";
+_buildtasks();
+ //BA.debugLineNum = 56;BA.debugLine="Log(\"_TABLE REFRESHED_\")";
+__c.Log("_TABLE REFRESHED_");
+ //BA.debugLineNum = 57;BA.debugLine="End Sub";
 return "";
 }
 public String  _submit_click() throws Exception{
- //BA.debugLineNum = 179;BA.debugLine="Sub Submit_Click";
- //BA.debugLineNum = 180;BA.debugLine="Log(SelectedTasks)";
+int _i = 0;
+ //BA.debugLineNum = 192;BA.debugLine="Sub Submit_Click";
+ //BA.debugLineNum = 193;BA.debugLine="Log(SelectedTasks)";
 __c.Log(BA.ObjectToString(_selectedtasks));
- //BA.debugLineNum = 181;BA.debugLine="CallSub2(Main,\"LoadMyTasks\",SelectedTasks)";
+ //BA.debugLineNum = 194;BA.debugLine="CallSub(Main,\"SetUserBusy\")";
+__c.CallSubNew(ba,(Object)(_main.getObject()),"SetUserBusy");
+ //BA.debugLineNum = 195;BA.debugLine="CallSub2(Main,\"LoadMyTasks\",SelectedTasks)";
 __c.CallSubNew2(ba,(Object)(_main.getObject()),"LoadMyTasks",(Object)(_selectedtasks));
- //BA.debugLineNum = 182;BA.debugLine="CallSub(Main,\"TaskTableToMyTasks\")";
+ //BA.debugLineNum = 196;BA.debugLine="boxchecked = 0";
+_boxchecked = (int) (0);
+ //BA.debugLineNum = 197;BA.debugLine="RefreshTimer.Enabled = True";
+_refreshtimer.setEnabled(__c.True);
+ //BA.debugLineNum = 198;BA.debugLine="CallSub(Main,\"TaskTableToMyTasks\")";
 __c.CallSubNew(ba,(Object)(_main.getObject()),"TaskTableToMyTasks");
- //BA.debugLineNum = 183;BA.debugLine="End Sub";
+ //BA.debugLineNum = 199;BA.debugLine="For i = 0 To SelectedTasks.Size - 1";
+{
+final int step7 = 1;
+final int limit7 = (int) (_selectedtasks.getSize()-1);
+_i = (int) (0) ;
+for (;(step7 > 0 && _i <= limit7) || (step7 < 0 && _i >= limit7) ;_i = ((int)(0 + _i + step7))  ) {
+ //BA.debugLineNum = 200;BA.debugLine="SelectedTasks.Remove(i)";
+_selectedtasks.Remove((Object)(_i));
+ }
+};
+ //BA.debugLineNum = 203;BA.debugLine="End Sub";
 return "";
 }
 public Object callSub(String sub, Object sender, Object[] args) throws Exception {

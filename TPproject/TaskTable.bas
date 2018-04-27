@@ -13,15 +13,16 @@ Sub Class_Globals
 	Dim tableType As Label
 	Dim tableofrequests As MiScrollView
 	Dim submit As Button
-	Dim refreshbtngraphic As Bitmap
-	Dim TasksRefreshBtn As Button
+'	Dim refreshbtngraphic As Bitmap
+'	Dim TasksRefreshBtn As Button
 	Dim mapoftaskviews As Map
 	Dim boxchecked As Int = 0
 	
 	Dim SelectedTasks As Map
-	
-	
+
 	Dim TaskFakePan As Panel
+	
+	Dim RefreshTimer As Timer
 End Sub
 
 'Initializes the object. You can add parameters to this method if needed.
@@ -32,14 +33,18 @@ Public Sub Initialize
 	tableHeader.Initialize("Header")
 	tableFooter.Initialize("Footer")
 	tableType.Initialize("type")
-	refreshbtngraphic.Initialize(File.DirAssets,"refresh.png")
-	TasksRefreshBtn.Initialize("refreshtask")
+'	refreshbtngraphic.Initialize(File.DirAssets,"refresh.png")
+'	TasksRefreshBtn.Initialize("refreshtask")
 	submit.Initialize("Submit")
 	tableofrequests.Initialize
 	mapoftaskviews.Initialize
 	SelectedTasks.Initialize
 	
 	TaskFakePan.initialize("")
+	
+	RefreshTimer.Initialize("Refresh",2000)
+	RefreshTimer.Enabled = True
+	
 	BuildUI
 	Get_Tasks
 End Sub
@@ -47,7 +52,15 @@ End Sub
 Sub AsView As View
 	Return WholeScreen
 End Sub
-
+Sub Refresh_Tick
+	If Main.currentuser.available = False Then
+		submit.Enabled = False
+	Else
+		submit.Enabled = True
+	End If
+	buildTasks
+	Log("_TABLE REFRESHED_")
+End Sub
 Sub BuildUI
 	TaskFakePan.Color = Colors.ARGB(150,0,0,0)
 	tableHeader.color = Colors.ARGB(150,0,0,0)
@@ -56,7 +69,7 @@ Sub BuildUI
 	submit.Text = "Accept"
 	HelperFunctions1.Apply_ViewStyle(submit,Colors.Black,Colors.rgb(0, 128, 255),Colors.White,Colors.rgb(0, 128, 255),Colors.Gray,Colors.Gray,Colors.Gray,10)
 	
-	TasksRefreshBtn.SetBackgroundImage(refreshbtngraphic)
+'	TasksRefreshBtn.SetBackgroundImage(refreshbtngraphic)
 	tableType.TextColor = Colors.White
 	tableType.TextSize = 25
 	If Main.currentuser.TypeOfWorker = 1 Then
@@ -75,7 +88,7 @@ Sub BuildUI
 	tableHolder.AddView(tableFooter,0%x,65%y - 1dip,100%x,8%y)
 	tableFooter.AddView(submit,20%x,1%y - 2dip,40%x,4%y - 2dip)
 	tableHeader.AddView(tableType,0,0,40%x,5%y)
-	tableHeader.AddView(TasksRefreshBtn,73%x,0,8%x,5%y)
+'	tableHeader.AddView(TasksRefreshBtn,73%x,0,8%x,5%y)
 End Sub
 
 Sub Get_Tasks
@@ -89,12 +102,8 @@ Sub Get_Tasks
 		TasksList.Put(Task.TaskID,Task)
 	Next
 End Sub
-Sub refreshtask_Click
-	If Main.currentuser.available = False Then
-		submit.Enabled = False
-	Else
-		submit.Enabled = True
-	End If
+Sub buildTasks
+
 	tableofrequests.removeAllViews
 	boxchecked = 0
 	Dim p As Int = 0
@@ -150,6 +159,7 @@ Sub accept_CheckedChange(Checked As Boolean)
 	
 	
 	If Checked = True Then
+		RefreshTimer.Enabled = False
 		If boxchecked < 3 Then
 			For Each v As Panel In mapoftaskviews.Values
 					If cbox.Tag = v.Tag Then
@@ -177,6 +187,9 @@ Sub accept_CheckedChange(Checked As Boolean)
 		
 '		SelectedTasks.Remove(SelectedTasks.)
 		boxchecked = boxchecked - 1
+		If boxchecked = 0 Then
+			RefreshTimer.Enabled = True
+		End If
 	End If
 	
 	
@@ -184,6 +197,13 @@ End Sub
 
 Sub Submit_Click
 	Log(SelectedTasks)
+	CallSub(Main,"SetUserBusy")
 	CallSub2(Main,"LoadMyTasks",SelectedTasks)
+	boxchecked = 0
+	RefreshTimer.Enabled = True
 	CallSub(Main,"TaskTableToMyTasks")
+	For i = 0 To SelectedTasks.Size - 1
+		SelectedTasks.Remove(i)
+	Next
+	
 End Sub
