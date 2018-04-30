@@ -53,13 +53,21 @@ Sub AsView As View
 	Return WholeScreen
 End Sub
 Sub Refresh_Tick
-	If Main.currentuser.available = False Then
-		submit.Enabled = False
+	If Main.currentuser.available = True Then
+		buildTasks
+		
+		If boxchecked = 0 Then
+			submit.Enabled = False
+		Else
+			submit.Enabled = True
+		End If
+		
+		Log("_TABLE REFRESHED_")
 	Else
-		submit.Enabled = True
+		submit.Enabled = False
 	End If
-	buildTasks
-	Log("_TABLE REFRESHED_")
+	
+	
 End Sub
 Sub BuildUI
 	TaskFakePan.Color = Colors.ARGB(150,0,0,0)
@@ -68,6 +76,7 @@ Sub BuildUI
 	tableType.Gravity = Gravity.CENTER
 	submit.Text = "Accept"
 	HelperFunctions1.Apply_ViewStyle(submit,Colors.Black,Colors.rgb(0, 128, 255),Colors.White,Colors.rgb(0, 128, 255),Colors.Gray,Colors.Gray,Colors.Gray,10)
+	submit.Enabled = False
 	
 '	TasksRefreshBtn.SetBackgroundImage(refreshbtngraphic)
 	tableType.TextColor = Colors.White
@@ -159,6 +168,7 @@ Sub accept_CheckedChange(Checked As Boolean)
 	
 	
 	If Checked = True Then
+		submit.Enabled = True
 		RefreshTimer.Enabled = False
 		If boxchecked < 3 Then
 			For Each v As Panel In mapoftaskviews.Values
@@ -202,8 +212,6 @@ Sub Submit_Click
 	boxchecked = 0
 	RefreshTimer.Enabled = True
 	CallSub(Main,"TaskTableToMyTasks")
-	For i = 0 To SelectedTasks.Size - 1
-		SelectedTasks.Remove(i)
-	Next
+	SelectedTasks.Clear
 	
 End Sub

@@ -37,8 +37,8 @@ Public Sub Initialize
 	MenuHolder.Initialize("")
 	MenuTasks.Initialize("Tasks")
 	MenuOther1.Initialize("MyTask")
-	MenuOther2.Initialize("")
-	MenuOther3.Initialize("")
+	MenuOther2.Initialize("Menu3")
+	MenuOther3.Initialize("Menu4")
 	
 	
 	
@@ -103,6 +103,12 @@ Sub Tasks_Click
 End Sub
 Sub MyTask_Click
 	CallSub(Main,"ShowMyTasks")
+End Sub
+Sub Menu3_Click
+	CallSub(Main,"ShowMenu3")
+End Sub
+Sub Menu4_Click
+	CallSub(Main,"ShowMenu")
 End Sub
 Public Sub SetBusy
 	Main.currentuser.available = False

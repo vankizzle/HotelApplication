@@ -15,8 +15,8 @@ Module1=UserInterfaceMainScreen
 Module2=MyTasks
 Module3=Types
 Module4=TaskTable
-Module5=Starter
-Module6=HelperFunctions1
+Module5=HelperFunctions1
+Module6=Starter
 Module7=LoginScreen
 NumberOfFiles=3
 NumberOfLibraries=3
@@ -90,12 +90,15 @@ End Sub
 Sub Activity_Pause (UserClosed As Boolean)
 
 End Sub
+
 Sub SetUserBusy
 	UIscreen.SetBusy
 End Sub
+
 Sub SetUserAvailable
 	UIscreen.SetAvailable
 End Sub
+
 Sub ShowMyTasks
 	If UserTasks.AsView.Visible = False Then
 		UserTasks.AsView.Visible = True
@@ -105,6 +108,7 @@ Sub ShowMyTasks
 		UIscreen.MenuHolder.Visible = True
 	End If
 End Sub
+
 Sub ShowTaskTable
 	If TableTasks.AsView.Visible = False Then
 		TableTasks.AsView.Visible = True
@@ -114,6 +118,15 @@ Sub ShowTaskTable
 		UIscreen.MenuHolder.Visible = True
 	End If
 End Sub
+
+Sub ShowMenu3 As Boolean
+	Return True
+End Sub
+
+Sub ShowMenu4 As Boolean
+	Return True
+End Sub
+
 Sub TaskTableToMyTasks
 	If TableTasks.AsView.Visible = True Then
 		TableTasks.AsView.Visible = False

@@ -54,6 +54,9 @@ Sub AsView As View
 End Sub
 
 Public Sub GetMyTasks(AcceptedTasks As Map)
+	For i = 0 To MapOfView.Size
+		MapOfView.Remove(i)
+	Next
 	TaskHolder.removeAllViews
 	For Each v As Task In AcceptedTasks.Values
 		
@@ -106,15 +109,15 @@ End Sub
 
 Sub finished_CheckedChange(Checked As Boolean)
 	Dim cbox As CheckBox = Sender
-	
+
 If Checked = True Then
 	FinishBtn.Enabled = True
 	checkNumbers = checkNumbers + 1
-	For Each v As Panel In MapOfView.Values
-		If cbox.Tag = v.Tag Then
-			ToastMessageShow("You selected task " & v.Tag,False)
-				ViewToRemove.Put(cbox.Tag,MapOfView.Get(MapOfView.GetKeyAt(v.Tag)))
-		End If
+	For Each k As Int In MapOfView.Keys
+			If cbox.Tag = k Then
+				ToastMessageShow("You selected task " & k,False)
+				ViewToRemove.Put(k,MapOfView.Get(k))
+		    End If
 	Next
 Else
 	Checked = False
@@ -128,15 +131,35 @@ Else
 End If
 	Log("Checked = "& checkNumbers)
 End Sub
+
 Sub Finish_Click
+	Log(ViewToRemove)
+	Log(MapOfView)
+	
+	
+	
+	For Each k As Int In ViewToRemove.Keys
+		If MapOfView.ContainsKey(k) Then
+			MapOfView.Remove(k)
+		End If
+	Next
 	
 	For Each v As Panel In ViewToRemove.Values
 		v.RemoveAllViews
 		v.RemoveView
 	Next
-	For i = 0 To ViewToRemove.Size - 1 
-		ViewToRemove.Remove(i)
-	Next
-	CallSub(Main,"SetUserAvailable")
+	
+	ViewToRemove.Clear
+
+	Log("???????????????")
+	Log(ViewToRemove)
+	Log(MapOfView)
+	
 	FinishBtn.Enabled = False
+	
+	If MapOfView.Size = 0 Then
+		MapOfView.Clear
+		ViewToRemove.Clear
+		CallSub(Main,"SetUserAvailable")
+	End If
 End Sub
