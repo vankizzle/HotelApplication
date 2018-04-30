@@ -53,21 +53,11 @@ Sub AsView As View
 	Return WholeScreen
 End Sub
 Sub Refresh_Tick
-	If Main.currentuser.available = True Then
-		buildTasks
-		
-		If boxchecked = 0 Then
-			submit.Enabled = False
-		Else
-			submit.Enabled = True
-		End If
-		
+	If Main.currentuser.available = True  Then
+		buildTasks	
+		submit.Enabled = True
 		Log("_TABLE REFRESHED_")
-	Else
-		submit.Enabled = False
 	End If
-	
-	
 End Sub
 Sub BuildUI
 	TaskFakePan.Color = Colors.ARGB(150,0,0,0)
@@ -76,7 +66,7 @@ Sub BuildUI
 	tableType.Gravity = Gravity.CENTER
 	submit.Text = "Accept"
 	HelperFunctions1.Apply_ViewStyle(submit,Colors.Black,Colors.rgb(0, 128, 255),Colors.White,Colors.rgb(0, 128, 255),Colors.Gray,Colors.Gray,Colors.Gray,10)
-	submit.Enabled = False
+'	submit.Enabled = False
 	
 '	TasksRefreshBtn.SetBackgroundImage(refreshbtngraphic)
 	tableType.TextColor = Colors.White
@@ -168,19 +158,17 @@ Sub accept_CheckedChange(Checked As Boolean)
 	
 	
 	If Checked = True Then
-		submit.Enabled = True
+'		submit.Enabled = True
 		RefreshTimer.Enabled = False
 		If boxchecked < 3 Then
+			boxchecked = boxchecked + 1
+			Log(boxchecked)
 			For Each v As Panel In mapoftaskviews.Values
 					If cbox.Tag = v.Tag Then
 						ToastMessageShow("You selected task " & v.Tag,False)
 						SelectedTasks.Put(cbox.Tag,TasksList.Get(TasksList.GetKeyAt(v.Tag)))
 					End If
 			Next
-				boxchecked = boxchecked + 1
-				Log(boxchecked)
-			
-			
 		Else
 			cbox.Checked = False
 			ToastMessageShow("Cant accept more",False)
@@ -189,29 +177,25 @@ Sub accept_CheckedChange(Checked As Boolean)
 	
 	Else
 		Checked = False
-		
-	
-				SelectedTasks.Remove(cbox.tag)
-			
-		
-		
-'		SelectedTasks.Remove(SelectedTasks.)
+		SelectedTasks.Remove(cbox.tag)
 		boxchecked = boxchecked - 1
 		If boxchecked = 0 Then
 			RefreshTimer.Enabled = True
 		End If
 	End If
-	
-	
 End Sub
 
 Sub Submit_Click
-	Log(SelectedTasks)
-	CallSub(Main,"SetUserBusy")
-	CallSub2(Main,"LoadMyTasks",SelectedTasks)
-	boxchecked = 0
-	RefreshTimer.Enabled = True
-	CallSub(Main,"TaskTableToMyTasks")
-	SelectedTasks.Clear
-	
+	If SelectedTasks.Size > 0 Then
+		boxchecked = 0
+		RefreshTimer.Enabled = True
+		submit.Enabled = False
+		Log(SelectedTasks)
+		CallSub(Main,"SetUserBusy")
+		CallSub2(Main,"LoadMyTasks",SelectedTasks)
+		CallSub(Main,"TaskTableToMyTasks")
+		SelectedTasks.Clear
+	Else
+		ToastMessageShow("Please select a task to continue!",False)
+	End If
 End Sub
