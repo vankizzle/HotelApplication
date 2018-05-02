@@ -29,46 +29,20 @@ public anywheresoftware.b4a.objects.ImageViewWrapper _screenimg = null;
 public anywheresoftware.b4a.objects.LabelWrapper _usernamelbl = null;
 public anywheresoftware.b4a.objects.LabelWrapper _availability = null;
 public anywheresoftware.b4a.objects.LabelWrapper _statusindicator = null;
-public anywheresoftware.b4a.objects.PanelWrapper _menuholder = null;
+public anywheresoftware.b4a.objects.ScrollViewWrapper _menuholder = null;
 public anywheresoftware.b4a.objects.LabelWrapper _menutasks = null;
 public anywheresoftware.b4a.objects.LabelWrapper _menuother1 = null;
-public anywheresoftware.b4a.objects.LabelWrapper _menuother2 = null;
-public anywheresoftware.b4a.objects.LabelWrapper _menuother3 = null;
+public anywheresoftware.b4a.objects.LabelWrapper _createmenu = null;
 public b4a.example.main _main = null;
 public b4a.example.types _types = null;
 public b4a.example.helperfunctions1 _helperfunctions1 = null;
 public b4a.example.starter _starter = null;
 public anywheresoftware.b4a.objects.PanelWrapper  _asview() throws Exception{
- //BA.debugLineNum = 92;BA.debugLine="Sub AsView As Panel";
- //BA.debugLineNum = 93;BA.debugLine="Return wholescreen";
+ //BA.debugLineNum = 86;BA.debugLine="Sub AsView As Panel";
+ //BA.debugLineNum = 87;BA.debugLine="Return wholescreen";
 if (true) return _wholescreen;
- //BA.debugLineNum = 94;BA.debugLine="End Sub";
+ //BA.debugLineNum = 88;BA.debugLine="End Sub";
 return null;
-}
-public String  _avail_click() throws Exception{
- //BA.debugLineNum = 117;BA.debugLine="Sub avail_Click";
- //BA.debugLineNum = 118;BA.debugLine="If Main.currentuser.available = False Then";
-if (_main._currentuser.available==__c.False) { 
- //BA.debugLineNum = 119;BA.debugLine="Main.currentuser.available = True";
-_main._currentuser.available = __c.True;
- //BA.debugLineNum = 120;BA.debugLine="HelperFunctions1.Apply_ViewStyle(statusindicator";
-_helperfunctions1._apply_viewstyle(ba,(anywheresoftware.b4a.objects.ConcreteViewWrapper) anywheresoftware.b4a.AbsObjectWrapper.ConvertToWrapper(new anywheresoftware.b4a.objects.ConcreteViewWrapper(), (android.view.View)(_statusindicator.getObject())),__c.Colors.Green,__c.Colors.Green,__c.Colors.Green,__c.Colors.Green,__c.Colors.Green,__c.Colors.Green,__c.Colors.Green,(int) (30));
- }else {
- //BA.debugLineNum = 122;BA.debugLine="Main.currentuser.available = False";
-_main._currentuser.available = __c.False;
- //BA.debugLineNum = 123;BA.debugLine="HelperFunctions1.Apply_ViewStyle(statusindicator";
-_helperfunctions1._apply_viewstyle(ba,(anywheresoftware.b4a.objects.ConcreteViewWrapper) anywheresoftware.b4a.AbsObjectWrapper.ConvertToWrapper(new anywheresoftware.b4a.objects.ConcreteViewWrapper(), (android.view.View)(_statusindicator.getObject())),__c.Colors.Red,__c.Colors.Red,__c.Colors.Red,__c.Colors.Red,__c.Colors.Red,__c.Colors.Red,__c.Colors.Red,(int) (30));
- };
- //BA.debugLineNum = 126;BA.debugLine="If Main.currentuser.available = False Then";
-if (_main._currentuser.available==__c.False) { 
- //BA.debugLineNum = 127;BA.debugLine="availability.Text = \"Status: Busy\"";
-_availability.setText(BA.ObjectToCharSequence("Status: Busy"));
- }else {
- //BA.debugLineNum = 129;BA.debugLine="availability.Text = \"Status: Available\"";
-_availability.setText(BA.ObjectToCharSequence("Status: Available"));
- };
- //BA.debugLineNum = 132;BA.debugLine="End Sub";
-return "";
 }
 public String  _buildui() throws Exception{
  //BA.debugLineNum = 43;BA.debugLine="Sub BuildUI";
@@ -114,8 +88,8 @@ _menutasks.setTextColor(__c.Colors.White);
 _menutasks.setTextSize((float) (15));
  //BA.debugLineNum = 67;BA.debugLine="HelperFunctions1.Apply_ViewStyle(MenuTasks,Colors";
 _helperfunctions1._apply_viewstyle(ba,(anywheresoftware.b4a.objects.ConcreteViewWrapper) anywheresoftware.b4a.AbsObjectWrapper.ConvertToWrapper(new anywheresoftware.b4a.objects.ConcreteViewWrapper(), (android.view.View)(_menutasks.getObject())),__c.Colors.White,__c.Colors.ARGB((int) (150),(int) (0),(int) (0),(int) (0)),__c.Colors.ARGB((int) (120),(int) (0),(int) (0),(int) (0)),__c.Colors.ARGB((int) (200),(int) (0),(int) (0),(int) (0)),__c.Colors.ARGB((int) (160),(int) (0),(int) (0),(int) (0)),__c.Colors.Black,__c.Colors.Black,(int) (0));
- //BA.debugLineNum = 68;BA.debugLine="MenuHolder.AddView(MenuTasks,0%x,0%y,30%x,20%y)";
-_menuholder.AddView((android.view.View)(_menutasks.getObject()),__c.PerXToCurrent((float) (0),ba),__c.PerYToCurrent((float) (0),ba),__c.PerXToCurrent((float) (30),ba),__c.PerYToCurrent((float) (20),ba));
+ //BA.debugLineNum = 68;BA.debugLine="MenuHolder.Panel.AddView(MenuTasks,0%x,0%y,30%x,2";
+_menuholder.getPanel().AddView((android.view.View)(_menutasks.getObject()),__c.PerXToCurrent((float) (0),ba),__c.PerYToCurrent((float) (0),ba),__c.PerXToCurrent((float) (30),ba),__c.PerYToCurrent((float) (20),ba));
  //BA.debugLineNum = 70;BA.debugLine="MenuOther1.Gravity = Gravity.CENTER";
 _menuother1.setGravity(__c.Gravity.CENTER);
  //BA.debugLineNum = 71;BA.debugLine="MenuOther1.Text = \"My Task\"";
@@ -126,33 +100,21 @@ _menuother1.setTextColor(__c.Colors.White);
 _menuother1.setTextSize((float) (15));
  //BA.debugLineNum = 74;BA.debugLine="HelperFunctions1.Apply_ViewStyle(MenuOther1,Color";
 _helperfunctions1._apply_viewstyle(ba,(anywheresoftware.b4a.objects.ConcreteViewWrapper) anywheresoftware.b4a.AbsObjectWrapper.ConvertToWrapper(new anywheresoftware.b4a.objects.ConcreteViewWrapper(), (android.view.View)(_menuother1.getObject())),__c.Colors.White,__c.Colors.ARGB((int) (150),(int) (0),(int) (0),(int) (0)),__c.Colors.ARGB((int) (120),(int) (0),(int) (0),(int) (0)),__c.Colors.ARGB((int) (200),(int) (0),(int) (0),(int) (0)),__c.Colors.ARGB((int) (160),(int) (0),(int) (0),(int) (0)),__c.Colors.Black,__c.Colors.Black,(int) (0));
- //BA.debugLineNum = 75;BA.debugLine="MenuHolder.AddView(MenuOther1,(MenuTasks.Left+Men";
-_menuholder.AddView((android.view.View)(_menuother1.getObject()),(int) ((_menutasks.getLeft()+_menutasks.getWidth())+__c.DipToCurrent((int) (4))),_menutasks.getTop(),_menutasks.getWidth(),_menutasks.getHeight());
- //BA.debugLineNum = 77;BA.debugLine="MenuOther2.Gravity = Gravity.CENTER";
-_menuother2.setGravity(__c.Gravity.CENTER);
- //BA.debugLineNum = 78;BA.debugLine="MenuOther2.Text = \"Menu 3\"";
-_menuother2.setText(BA.ObjectToCharSequence("Menu 3"));
- //BA.debugLineNum = 79;BA.debugLine="MenuOther2.TextColor = Colors.White";
-_menuother2.setTextColor(__c.Colors.White);
- //BA.debugLineNum = 80;BA.debugLine="MenuOther2.TextSize = 15";
-_menuother2.setTextSize((float) (15));
- //BA.debugLineNum = 81;BA.debugLine="HelperFunctions1.Apply_ViewStyle(MenuOther2,Color";
-_helperfunctions1._apply_viewstyle(ba,(anywheresoftware.b4a.objects.ConcreteViewWrapper) anywheresoftware.b4a.AbsObjectWrapper.ConvertToWrapper(new anywheresoftware.b4a.objects.ConcreteViewWrapper(), (android.view.View)(_menuother2.getObject())),__c.Colors.White,__c.Colors.ARGB((int) (150),(int) (0),(int) (0),(int) (0)),__c.Colors.ARGB((int) (120),(int) (0),(int) (0),(int) (0)),__c.Colors.ARGB((int) (200),(int) (0),(int) (0),(int) (0)),__c.Colors.ARGB((int) (160),(int) (0),(int) (0),(int) (0)),__c.Colors.Black,__c.Colors.Black,(int) (0));
- //BA.debugLineNum = 82;BA.debugLine="MenuHolder.AddView(MenuOther2,MenuTasks.Left,(Men";
-_menuholder.AddView((android.view.View)(_menuother2.getObject()),_menutasks.getLeft(),(int) ((_menutasks.getTop()+_menutasks.getHeight())+__c.DipToCurrent((int) (4))),_menutasks.getWidth(),_menutasks.getHeight());
- //BA.debugLineNum = 84;BA.debugLine="MenuOther3.Gravity = Gravity.CENTER";
-_menuother3.setGravity(__c.Gravity.CENTER);
- //BA.debugLineNum = 85;BA.debugLine="MenuOther3.Text = \"Menu 4\"";
-_menuother3.setText(BA.ObjectToCharSequence("Menu 4"));
- //BA.debugLineNum = 86;BA.debugLine="MenuOther3.TextColor = Colors.White";
-_menuother3.setTextColor(__c.Colors.White);
- //BA.debugLineNum = 87;BA.debugLine="MenuOther3.TextSize = 15";
-_menuother3.setTextSize((float) (15));
- //BA.debugLineNum = 88;BA.debugLine="HelperFunctions1.Apply_ViewStyle(MenuOther3,Color";
-_helperfunctions1._apply_viewstyle(ba,(anywheresoftware.b4a.objects.ConcreteViewWrapper) anywheresoftware.b4a.AbsObjectWrapper.ConvertToWrapper(new anywheresoftware.b4a.objects.ConcreteViewWrapper(), (android.view.View)(_menuother3.getObject())),__c.Colors.White,__c.Colors.ARGB((int) (150),(int) (0),(int) (0),(int) (0)),__c.Colors.ARGB((int) (120),(int) (0),(int) (0),(int) (0)),__c.Colors.ARGB((int) (200),(int) (0),(int) (0),(int) (0)),__c.Colors.ARGB((int) (160),(int) (0),(int) (0),(int) (0)),__c.Colors.Black,__c.Colors.Black,(int) (0));
- //BA.debugLineNum = 89;BA.debugLine="MenuHolder.AddView(MenuOther3,(MenuTasks.Left+Men";
-_menuholder.AddView((android.view.View)(_menuother3.getObject()),(int) ((_menutasks.getLeft()+_menutasks.getWidth())+__c.DipToCurrent((int) (4))),(int) ((_menutasks.getTop()+_menutasks.getHeight())+__c.DipToCurrent((int) (4))),_menutasks.getWidth(),_menutasks.getHeight());
- //BA.debugLineNum = 90;BA.debugLine="End Sub";
+ //BA.debugLineNum = 75;BA.debugLine="MenuHolder.Panel.AddView(MenuOther1,(MenuTasks.Le";
+_menuholder.getPanel().AddView((android.view.View)(_menuother1.getObject()),(int) ((_menutasks.getLeft()+_menutasks.getWidth())+__c.DipToCurrent((int) (4))),_menutasks.getTop(),_menutasks.getWidth(),_menutasks.getHeight());
+ //BA.debugLineNum = 77;BA.debugLine="CreateMenu.Gravity = Gravity.CENTER";
+_createmenu.setGravity(__c.Gravity.CENTER);
+ //BA.debugLineNum = 78;BA.debugLine="CreateMenu.Text = \"+\"";
+_createmenu.setText(BA.ObjectToCharSequence("+"));
+ //BA.debugLineNum = 79;BA.debugLine="CreateMenu.TextColor = Colors.White";
+_createmenu.setTextColor(__c.Colors.White);
+ //BA.debugLineNum = 80;BA.debugLine="CreateMenu.TextSize = 25";
+_createmenu.setTextSize((float) (25));
+ //BA.debugLineNum = 81;BA.debugLine="HelperFunctions1.Apply_ViewStyle(CreateMenu,Color";
+_helperfunctions1._apply_viewstyle(ba,(anywheresoftware.b4a.objects.ConcreteViewWrapper) anywheresoftware.b4a.AbsObjectWrapper.ConvertToWrapper(new anywheresoftware.b4a.objects.ConcreteViewWrapper(), (android.view.View)(_createmenu.getObject())),__c.Colors.White,__c.Colors.ARGB((int) (150),(int) (0),(int) (0),(int) (0)),__c.Colors.ARGB((int) (120),(int) (0),(int) (0),(int) (0)),__c.Colors.ARGB((int) (200),(int) (0),(int) (0),(int) (0)),__c.Colors.ARGB((int) (160),(int) (0),(int) (0),(int) (0)),__c.Colors.Black,__c.Colors.Black,(int) (0));
+ //BA.debugLineNum = 82;BA.debugLine="MenuHolder.Panel.AddView(CreateMenu,MenuTasks.Lef";
+_menuholder.getPanel().AddView((android.view.View)(_createmenu.getObject()),_menutasks.getLeft(),(int) ((_menutasks.getTop()+_menutasks.getHeight())+__c.DipToCurrent((int) (4))),_menutasks.getWidth(),_menutasks.getHeight());
+ //BA.debugLineNum = 84;BA.debugLine="End Sub";
 return "";
 }
 public String  _class_globals() throws Exception{
@@ -167,17 +129,47 @@ _usernamelbl = new anywheresoftware.b4a.objects.LabelWrapper();
 _availability = new anywheresoftware.b4a.objects.LabelWrapper();
  //BA.debugLineNum = 7;BA.debugLine="Dim statusindicator As Label";
 _statusindicator = new anywheresoftware.b4a.objects.LabelWrapper();
- //BA.debugLineNum = 9;BA.debugLine="Dim MenuHolder As Panel";
-_menuholder = new anywheresoftware.b4a.objects.PanelWrapper();
+ //BA.debugLineNum = 9;BA.debugLine="Dim MenuHolder As ScrollView";
+_menuholder = new anywheresoftware.b4a.objects.ScrollViewWrapper();
  //BA.debugLineNum = 10;BA.debugLine="Dim MenuTasks As Label";
 _menutasks = new anywheresoftware.b4a.objects.LabelWrapper();
  //BA.debugLineNum = 11;BA.debugLine="Dim MenuOther1 As Label";
 _menuother1 = new anywheresoftware.b4a.objects.LabelWrapper();
- //BA.debugLineNum = 12;BA.debugLine="Dim MenuOther2 As Label";
-_menuother2 = new anywheresoftware.b4a.objects.LabelWrapper();
- //BA.debugLineNum = 13;BA.debugLine="Dim MenuOther3 As Label";
-_menuother3 = new anywheresoftware.b4a.objects.LabelWrapper();
+ //BA.debugLineNum = 12;BA.debugLine="Dim CreateMenu As Label";
+_createmenu = new anywheresoftware.b4a.objects.LabelWrapper();
  //BA.debugLineNum = 17;BA.debugLine="End Sub";
+return "";
+}
+public String  _createmenuicon() throws Exception{
+anywheresoftware.b4a.objects.LabelWrapper _menunew = null;
+ //BA.debugLineNum = 99;BA.debugLine="Sub CreateMenuIcon";
+ //BA.debugLineNum = 100;BA.debugLine="Dim MenuNew As Label";
+_menunew = new anywheresoftware.b4a.objects.LabelWrapper();
+ //BA.debugLineNum = 101;BA.debugLine="MenuNew.Initialize(\"BonusMenu\")";
+_menunew.Initialize(ba,"BonusMenu");
+ //BA.debugLineNum = 102;BA.debugLine="MenuNew.Gravity = Gravity.CENTER";
+_menunew.setGravity(__c.Gravity.CENTER);
+ //BA.debugLineNum = 103;BA.debugLine="MenuNew.Text = \"Menu\"";
+_menunew.setText(BA.ObjectToCharSequence("Menu"));
+ //BA.debugLineNum = 104;BA.debugLine="MenuNew.TextColor = Colors.White";
+_menunew.setTextColor(__c.Colors.White);
+ //BA.debugLineNum = 105;BA.debugLine="MenuNew.TextSize = 15";
+_menunew.setTextSize((float) (15));
+ //BA.debugLineNum = 107;BA.debugLine="HelperFunctions1.Apply_ViewStyle(MenuNew,Colors.W";
+_helperfunctions1._apply_viewstyle(ba,(anywheresoftware.b4a.objects.ConcreteViewWrapper) anywheresoftware.b4a.AbsObjectWrapper.ConvertToWrapper(new anywheresoftware.b4a.objects.ConcreteViewWrapper(), (android.view.View)(_menunew.getObject())),__c.Colors.White,__c.Colors.ARGB((int) (150),(int) (0),(int) (0),(int) (0)),__c.Colors.ARGB((int) (120),(int) (0),(int) (0),(int) (0)),__c.Colors.ARGB((int) (200),(int) (0),(int) (0),(int) (0)),__c.Colors.ARGB((int) (160),(int) (0),(int) (0),(int) (0)),__c.Colors.Black,__c.Colors.Black,(int) (0));
+ //BA.debugLineNum = 108;BA.debugLine="MenuHolder.Panel.AddView(MenuNew,CreateMenu.Left,";
+_menuholder.getPanel().AddView((android.view.View)(_menunew.getObject()),_createmenu.getLeft(),_createmenu.getTop(),_createmenu.getWidth(),_createmenu.getHeight());
+ //BA.debugLineNum = 110;BA.debugLine="If CreateMenu.Left = MenuTasks.Left Then";
+if (_createmenu.getLeft()==_menutasks.getLeft()) { 
+ //BA.debugLineNum = 111;BA.debugLine="CreateMenu.SetLayoutAnimated(500,(MenuTasks.Left";
+_createmenu.SetLayoutAnimated((int) (500),(int) ((_menutasks.getLeft()+_menutasks.getWidth())+__c.DipToCurrent((int) (4))),_menunew.getTop(),_menunew.getWidth(),_menunew.getHeight());
+ }else if(_createmenu.getLeft()==(_menutasks.getLeft()+_menutasks.getWidth())+__c.DipToCurrent((int) (4))) { 
+ //BA.debugLineNum = 113;BA.debugLine="CreateMenu.SetLayoutAnimated(500,MenuTasks.Left,";
+_createmenu.SetLayoutAnimated((int) (500),_menutasks.getLeft(),(int) ((_menunew.getTop()+_menunew.getHeight())+__c.DipToCurrent((int) (4))),_menunew.getWidth(),_menunew.getHeight());
+ //BA.debugLineNum = 114;BA.debugLine="MenuHolder.panel.Height = MenuHolder.panel.Heigh";
+_menuholder.getPanel().setHeight((int) (_menuholder.getPanel().getHeight()+_menunew.getHeight()));
+ };
+ //BA.debugLineNum = 116;BA.debugLine="End Sub";
 return "";
 }
 public String  _initialize(anywheresoftware.b4a.BA _ba) throws Exception{
@@ -199,76 +191,74 @@ _statusindicator.Initialize(ba,"");
 _usernamelbl.Initialize(ba,"username");
  //BA.debugLineNum = 29;BA.debugLine="availability.Initialize(\"avail\")";
 _availability.Initialize(ba,"avail");
- //BA.debugLineNum = 31;BA.debugLine="MenuHolder.Initialize(\"\")";
-_menuholder.Initialize(ba,"");
+ //BA.debugLineNum = 31;BA.debugLine="MenuHolder.Initialize(40%y+4dip)";
+_menuholder.Initialize(ba,(int) (__c.PerYToCurrent((float) (40),ba)+__c.DipToCurrent((int) (4))));
  //BA.debugLineNum = 32;BA.debugLine="MenuTasks.Initialize(\"Tasks\")";
 _menutasks.Initialize(ba,"Tasks");
  //BA.debugLineNum = 33;BA.debugLine="MenuOther1.Initialize(\"MyTask\")";
 _menuother1.Initialize(ba,"MyTask");
- //BA.debugLineNum = 34;BA.debugLine="MenuOther2.Initialize(\"Menu3\")";
-_menuother2.Initialize(ba,"Menu3");
- //BA.debugLineNum = 35;BA.debugLine="MenuOther3.Initialize(\"Menu4\")";
-_menuother3.Initialize(ba,"Menu4");
+ //BA.debugLineNum = 34;BA.debugLine="CreateMenu.Initialize(\"MenuCreator\")";
+_createmenu.Initialize(ba,"MenuCreator");
  //BA.debugLineNum = 39;BA.debugLine="BuildUI";
 _buildui();
  //BA.debugLineNum = 41;BA.debugLine="End Sub";
 return "";
 }
-public String  _menu3_click() throws Exception{
- //BA.debugLineNum = 101;BA.debugLine="Sub Menu3_Click";
- //BA.debugLineNum = 102;BA.debugLine="CallSub(Main,\"ShowMenu3\")";
-__c.CallSubNew(ba,(Object)(_main.getObject()),"ShowMenu3");
- //BA.debugLineNum = 103;BA.debugLine="End Sub";
+public String  _menu4_click() throws Exception{
+ //BA.debugLineNum = 117;BA.debugLine="Sub Menu4_Click";
+ //BA.debugLineNum = 118;BA.debugLine="CallSub(Main,\"ShowMenu4\")";
+__c.CallSubNew(ba,(Object)(_main.getObject()),"ShowMenu4");
+ //BA.debugLineNum = 119;BA.debugLine="End Sub";
 return "";
 }
-public String  _menu4_click() throws Exception{
- //BA.debugLineNum = 104;BA.debugLine="Sub Menu4_Click";
- //BA.debugLineNum = 105;BA.debugLine="CallSub(Main,\"ShowMenu\")";
-__c.CallSubNew(ba,(Object)(_main.getObject()),"ShowMenu");
- //BA.debugLineNum = 106;BA.debugLine="End Sub";
+public String  _menucreator_click() throws Exception{
+ //BA.debugLineNum = 95;BA.debugLine="Sub MenuCreator_Click";
+ //BA.debugLineNum = 96;BA.debugLine="CreateMenuIcon";
+_createmenuicon();
+ //BA.debugLineNum = 97;BA.debugLine="End Sub";
 return "";
 }
 public String  _mytask_click() throws Exception{
- //BA.debugLineNum = 98;BA.debugLine="Sub MyTask_Click";
- //BA.debugLineNum = 99;BA.debugLine="CallSub(Main,\"ShowMyTasks\")";
+ //BA.debugLineNum = 92;BA.debugLine="Sub MyTask_Click";
+ //BA.debugLineNum = 93;BA.debugLine="CallSub(Main,\"ShowMyTasks\")";
 __c.CallSubNew(ba,(Object)(_main.getObject()),"ShowMyTasks");
- //BA.debugLineNum = 100;BA.debugLine="End Sub";
+ //BA.debugLineNum = 94;BA.debugLine="End Sub";
 return "";
 }
 public boolean  _screenview_click() throws Exception{
- //BA.debugLineNum = 134;BA.debugLine="Sub screenview_Click As Boolean";
- //BA.debugLineNum = 135;BA.debugLine="Return True";
+ //BA.debugLineNum = 131;BA.debugLine="Sub screenview_Click As Boolean";
+ //BA.debugLineNum = 132;BA.debugLine="Return True";
 if (true) return __c.True;
- //BA.debugLineNum = 136;BA.debugLine="End Sub";
+ //BA.debugLineNum = 133;BA.debugLine="End Sub";
 return false;
 }
 public String  _setavailable() throws Exception{
- //BA.debugLineNum = 112;BA.debugLine="Public Sub SetAvailable";
- //BA.debugLineNum = 113;BA.debugLine="Main.currentuser.available = True";
+ //BA.debugLineNum = 125;BA.debugLine="Public Sub SetAvailable";
+ //BA.debugLineNum = 126;BA.debugLine="Main.currentuser.available = True";
 _main._currentuser.available = __c.True;
- //BA.debugLineNum = 114;BA.debugLine="availability.Text = \"Status: Available\"";
+ //BA.debugLineNum = 127;BA.debugLine="availability.Text = \"Status: Available\"";
 _availability.setText(BA.ObjectToCharSequence("Status: Available"));
- //BA.debugLineNum = 115;BA.debugLine="HelperFunctions1.Apply_ViewStyle(statusindicator,";
+ //BA.debugLineNum = 128;BA.debugLine="HelperFunctions1.Apply_ViewStyle(statusindicator,";
 _helperfunctions1._apply_viewstyle(ba,(anywheresoftware.b4a.objects.ConcreteViewWrapper) anywheresoftware.b4a.AbsObjectWrapper.ConvertToWrapper(new anywheresoftware.b4a.objects.ConcreteViewWrapper(), (android.view.View)(_statusindicator.getObject())),__c.Colors.Green,__c.Colors.Green,__c.Colors.Green,__c.Colors.Green,__c.Colors.Green,__c.Colors.Green,__c.Colors.Green,(int) (30));
- //BA.debugLineNum = 116;BA.debugLine="End Sub";
+ //BA.debugLineNum = 129;BA.debugLine="End Sub";
 return "";
 }
 public String  _setbusy() throws Exception{
- //BA.debugLineNum = 107;BA.debugLine="Public Sub SetBusy";
- //BA.debugLineNum = 108;BA.debugLine="Main.currentuser.available = False";
+ //BA.debugLineNum = 120;BA.debugLine="Public Sub SetBusy";
+ //BA.debugLineNum = 121;BA.debugLine="Main.currentuser.available = False";
 _main._currentuser.available = __c.False;
- //BA.debugLineNum = 109;BA.debugLine="availability.Text = \"Status: Busy\"";
+ //BA.debugLineNum = 122;BA.debugLine="availability.Text = \"Status: Busy\"";
 _availability.setText(BA.ObjectToCharSequence("Status: Busy"));
- //BA.debugLineNum = 110;BA.debugLine="HelperFunctions1.Apply_ViewStyle(statusindicator,";
+ //BA.debugLineNum = 123;BA.debugLine="HelperFunctions1.Apply_ViewStyle(statusindicator,";
 _helperfunctions1._apply_viewstyle(ba,(anywheresoftware.b4a.objects.ConcreteViewWrapper) anywheresoftware.b4a.AbsObjectWrapper.ConvertToWrapper(new anywheresoftware.b4a.objects.ConcreteViewWrapper(), (android.view.View)(_statusindicator.getObject())),__c.Colors.Red,__c.Colors.Red,__c.Colors.Red,__c.Colors.Red,__c.Colors.Red,__c.Colors.Red,__c.Colors.Red,(int) (30));
- //BA.debugLineNum = 111;BA.debugLine="End Sub";
+ //BA.debugLineNum = 124;BA.debugLine="End Sub";
 return "";
 }
 public String  _tasks_click() throws Exception{
- //BA.debugLineNum = 95;BA.debugLine="Sub Tasks_Click";
- //BA.debugLineNum = 96;BA.debugLine="CallSub(Main,\"ShowTaskTable\")";
+ //BA.debugLineNum = 89;BA.debugLine="Sub Tasks_Click";
+ //BA.debugLineNum = 90;BA.debugLine="CallSub(Main,\"ShowTaskTable\")";
 __c.CallSubNew(ba,(Object)(_main.getObject()),"ShowTaskTable");
- //BA.debugLineNum = 97;BA.debugLine="End Sub";
+ //BA.debugLineNum = 91;BA.debugLine="End Sub";
 return "";
 }
 public Object callSub(String sub, Object sender, Object[] args) throws Exception {
