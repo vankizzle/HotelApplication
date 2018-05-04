@@ -13,12 +13,12 @@
 	    android:anyDensity="true"/>
 	<application
 		android:icon="@drawable/icon"
-		android:label="TPproject">
+		android:label="Hotel App">
 		<activity
 			android:windowSoftInputMode="stateHidden"
 			android:launchMode="singleTop"
 			android:name=".main"
-			android:label="TPproject"
+			android:label="Hotel App"
 			android:screenOrientation="portrait">
 			<intent-filter>
 			   <action android:name="android.intent.action.MAIN" />

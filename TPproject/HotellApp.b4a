@@ -24,7 +24,7 @@ NumberOfModules=7
 Version=8
 @EndOfDesignText@
  #Region  Project Attributes 
-	#ApplicationLabel: TPproject
+	#ApplicationLabel: Hotel App
 	#VersionCode: 1
 	#VersionName: 
 	'SupportedOrientations possible values: unspecified, landscape or portrait.

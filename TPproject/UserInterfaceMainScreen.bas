@@ -208,6 +208,7 @@ Sub MenuTypeSelected_CheckedChange(Checked As Boolean)
 	If Checked = True Then
 		
 	Else
+		Checked = False
 		
 	End If
 End Sub
