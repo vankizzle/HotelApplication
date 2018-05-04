@@ -190,6 +190,13 @@ Sub Submit_Click
 		boxchecked = 0
 		RefreshTimer.Enabled = True
 		submit.Enabled = False
+		Dim i As Int = 0
+		
+		For Each v As Task In SelectedTasks.Values
+			Main.currentuser.CurrentTaskID(i) = v.TaskID
+			i = i + 1
+		Next
+		
 		Log(SelectedTasks)
 		CallSub(Main,"SetUserBusy")
 		CallSub2(Main,"LoadMyTasks",SelectedTasks)

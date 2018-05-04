@@ -359,6 +359,8 @@ __c.Log("_TABLE REFRESHED_");
 return "";
 }
 public String  _submit_click() throws Exception{
+int _i = 0;
+b4a.example.types._task _v = null;
  //BA.debugLineNum = 182;BA.debugLine="Sub Submit_Click";
  //BA.debugLineNum = 183;BA.debugLine="If SelectedTasks.Size > 0 Then";
 if (_selectedtasks.getSize()>0) { 
@@ -368,21 +370,37 @@ _boxchecked = (int) (0);
 _refreshtimer.setEnabled(__c.True);
  //BA.debugLineNum = 186;BA.debugLine="submit.Enabled = False";
 _submit.setEnabled(__c.False);
- //BA.debugLineNum = 187;BA.debugLine="Log(SelectedTasks)";
+ //BA.debugLineNum = 187;BA.debugLine="Dim i As Int = 0";
+_i = (int) (0);
+ //BA.debugLineNum = 189;BA.debugLine="For Each v As Task In SelectedTasks.Values";
+{
+final anywheresoftware.b4a.BA.IterableList group6 = _selectedtasks.Values();
+final int groupLen6 = group6.getSize()
+;int index6 = 0;
+;
+for (; index6 < groupLen6;index6++){
+_v = (b4a.example.types._task)(group6.Get(index6));
+ //BA.debugLineNum = 190;BA.debugLine="Main.currentuser.CurrentTaskID(i) = v.TaskID";
+_main._currentuser.CurrentTaskID[_i] = _v.TaskID;
+ //BA.debugLineNum = 191;BA.debugLine="i = i + 1";
+_i = (int) (_i+1);
+ }
+};
+ //BA.debugLineNum = 194;BA.debugLine="Log(SelectedTasks)";
 __c.Log(BA.ObjectToString(_selectedtasks));
- //BA.debugLineNum = 188;BA.debugLine="CallSub(Main,\"SetUserBusy\")";
+ //BA.debugLineNum = 195;BA.debugLine="CallSub(Main,\"SetUserBusy\")";
 __c.CallSubNew(ba,(Object)(_main.getObject()),"SetUserBusy");
- //BA.debugLineNum = 189;BA.debugLine="CallSub2(Main,\"LoadMyTasks\",SelectedTasks)";
+ //BA.debugLineNum = 196;BA.debugLine="CallSub2(Main,\"LoadMyTasks\",SelectedTasks)";
 __c.CallSubNew2(ba,(Object)(_main.getObject()),"LoadMyTasks",(Object)(_selectedtasks));
- //BA.debugLineNum = 190;BA.debugLine="CallSub(Main,\"TaskTableToMyTasks\")";
+ //BA.debugLineNum = 197;BA.debugLine="CallSub(Main,\"TaskTableToMyTasks\")";
 __c.CallSubNew(ba,(Object)(_main.getObject()),"TaskTableToMyTasks");
- //BA.debugLineNum = 191;BA.debugLine="SelectedTasks.Clear";
+ //BA.debugLineNum = 198;BA.debugLine="SelectedTasks.Clear";
 _selectedtasks.Clear();
  }else {
- //BA.debugLineNum = 193;BA.debugLine="ToastMessageShow(\"Please select a task to contin";
+ //BA.debugLineNum = 200;BA.debugLine="ToastMessageShow(\"Please select a task to contin";
 __c.ToastMessageShow(BA.ObjectToCharSequence("Please select a task to continue!"),__c.False);
  };
- //BA.debugLineNum = 195;BA.debugLine="End Sub";
+ //BA.debugLineNum = 202;BA.debugLine="End Sub";
 return "";
 }
 public Object callSub(String sub, Object sender, Object[] args) throws Exception {

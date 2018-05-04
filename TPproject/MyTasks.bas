@@ -60,12 +60,12 @@ Public Sub GetMyTasks(AcceptedTasks As Map)
 	TaskHolder.removeAllViews
 	For Each v As Task In AcceptedTasks.Values
 		
-		TaskHolder.addView(PanBuilder(v.TaskName,v.TaskType,v.TaskInfo),80%x,15%y,0,0,0,2dip)
+		TaskHolder.addView(PanBuilder(v.TaskName,v.TaskType,v.TaskInfo,v.TaskID),80%x,15%y,0,0,0,2dip)
 	Next
 
 End Sub
 
-Sub PanBuilder(Name As String,TaskType As Int,Info As String) As Panel
+Sub PanBuilder(Name As String,TaskType As Int,Info As String,ID As Int) As Panel
 	Dim Holder As Panel
 	Holder.Initialize("")
 '	Dim lblID As Label
@@ -78,6 +78,8 @@ Sub PanBuilder(Name As String,TaskType As Int,Info As String) As Panel
 	ViewInfo.Initialize
 	Dim lblInfo As Label
 	lblInfo.Initialize("")
+	Dim lblID As Label
+	lblID.Initialize("")
 	Dim checked As CheckBox
 	checked.Initialize("finished")
 	Holder.AddView(header,0,0,80%x,5%y)
@@ -94,6 +96,10 @@ Sub PanBuilder(Name As String,TaskType As Int,Info As String) As Panel
 	lblName.TextColor = Colors.White
 	lblName.Gravity = Gravity.CENTER
 	header.AddView(lblName,20%x,0,40%x,5%y)
+	
+	lblID.Text = ID
+	header.AddView(lblID,5%x,0,5%x,5%y)
+	lblID.Visible = False
 	
 	lblInfo.Text = Info
 	lblInfo.TextSize = 15
@@ -136,8 +142,11 @@ Sub Finish_Click
 	Log(ViewToRemove)
 	Log(MapOfView)
 	
+	For i = 0 To ViewToRemove.Size - 1
+		Main.currentuser.CurrentTaskID(i) = 0
+	Next
 	
-	
+	Main.currentuser.CurrentTaskID(0) = 5
 	For Each k As Int In ViewToRemove.Keys
 		If MapOfView.ContainsKey(k) Then
 			MapOfView.Remove(k)

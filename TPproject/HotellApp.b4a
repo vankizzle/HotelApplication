@@ -23,7 +23,7 @@ NumberOfLibraries=3
 NumberOfModules=7
 Version=8
 @EndOfDesignText@
-#Region  Project Attributes 
+ #Region  Project Attributes 
 	#ApplicationLabel: TPproject
 	#VersionCode: 1
 	#VersionName: 
@@ -59,7 +59,7 @@ Sub Activity_Create(FirstTime As Boolean)
 	currentuser.Initialize
 	currentuser.username = "TestUser"
 	currentuser.password = "testelsys1"
-	currentuser.TypeOfWorker = 1   '<- 0 = not a worker(Boss),1 = cleaner,2 = cook,3 = waiter
+	currentuser.TypeOfWorker = 0   '<- 0 = not a worker(Boss),1 = cleaner,2 = cook,3 = waiter
 	currentuser.available = True
 '	currentuser.CurrentTaskID = 0
 	
