@@ -18,9 +18,10 @@ Module4=TaskTable
 Module5=HelperFunctions1
 Module6=Starter
 Module7=LoginScreen
+Module8=ChooseMenuType
 NumberOfFiles=3
 NumberOfLibraries=3
-NumberOfModules=7
+NumberOfModules=8
 Version=8
 @EndOfDesignText@
  #Region  Project Attributes 

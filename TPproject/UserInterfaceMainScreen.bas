@@ -15,13 +15,14 @@ Sub Class_Globals
 	Dim MenuHolder As ScrollView
 	Dim MenuTasks As Label
 	Dim MenuOther1 As Label
+	Dim MenuOther2 As Label
 	Dim CreateMenu As Label
 '	Dim MenuOther3 As Label
 	
+
+	
 	Dim NumberOfMenus As Int = 0
-	
-	Dim PropertyWindowHolder As Panel
-	
+	Dim MenuTypes As ChooseMenuType
 End Sub
 
 'Initializes the object. You can add parameters to this method if needed.
@@ -39,10 +40,10 @@ Public Sub Initialize
 	MenuHolder.Initialize(40%y+4dip)
 	MenuTasks.Initialize("Tasks")
 	MenuOther1.Initialize("MyTask")
+	MenuOther2.Initialize("MyWorkers")
 	CreateMenu.Initialize("MenuCreator")
 '	MenuOther3.Initialize("Menu4")
-
-	PropertyWindowHolder.Initialize("propwindow")
+	MenuTypes.Initialize
 	
 	
 	BuildUI
@@ -83,6 +84,15 @@ Sub BuildUI
 	HelperFunctions1.Apply_ViewStyle(MenuOther1,Colors.White,Colors.ARGB(150,0,0,0),Colors.ARGB(120,0,0,0),Colors.ARGB(200,0,0,0),Colors.ARGB(160,0,0,0),Colors.Black,Colors.Black,0)
 	MenuHolder.Panel.AddView(MenuOther1,(MenuTasks.Left+MenuTasks.Width)+4dip,MenuTasks.Top,MenuTasks.Width,MenuTasks.Height)
 	
+	MenuOther2.Gravity = Gravity.CENTER
+	MenuOther2.Text = "Workers"
+	MenuOther2.TextColor = Colors.White
+	MenuOther2.TextSize = 15
+	HelperFunctions1.Apply_ViewStyle(MenuOther2,Colors.White,Colors.ARGB(150,0,0,0),Colors.ARGB(120,0,0,0),Colors.ARGB(200,0,0,0),Colors.ARGB(160,0,0,0),Colors.Black,Colors.Black,0)
+	MenuHolder.Panel.AddView(MenuOther2,(MenuTasks.Left+MenuTasks.Width)+4dip,MenuTasks.Top,MenuTasks.Width,MenuTasks.Height)
+	MenuOther2.Visible = False
+	MenuOther2.Enabled = False
+	
 	CreateMenu.Gravity = Gravity.CENTER
 	CreateMenu.Text = "+"
 	CreateMenu.TextColor = Colors.White
@@ -91,13 +101,19 @@ Sub BuildUI
 	MenuHolder.Panel.AddView(CreateMenu,MenuTasks.Left,(MenuTasks.Top+MenuTasks.Height)+4dip,MenuTasks.Width,MenuTasks.Height)
 	CreateMenu.Visible = False
 	CreateMenu.Enabled = False
+	
+	wholescreen.AddView(MenuTypes.AsView,MenuHolder.Left,MenuHolder.Top,MenuHolder.Width,MenuHolder.Height)
+	MenuTypes.AsView.Visible = False
+	
 	If Main.currentuser.TypeOfWorker = 0 Then
 		CreateMenu.Visible = True
 		CreateMenu.Enabled = True
+		MenuOther1.Visible = False
+		MenuOther1.Enabled = False
+		MenuOther2.Visible = True
+		MenuOther2.Enabled = True
 	End If
-	
-	BuildMenuPropertyWindow
-	
+
 End Sub
 
 Sub AsView As Panel
@@ -138,70 +154,13 @@ Sub CreateMenuIcon
 		Msgbox("You have reached maximum number of menus!Please buy more!","We are sorry!")	
 	End If
 End Sub
+
 Sub BonusMenu_LongClick
-	PropertyWindowHolder.Visible = True
+	MenuTypes.AsView.Visible = True
 End Sub
 
-Sub BuildMenuPropertyWindow
-	PropertyWindowHolder.Color = Colors.rgb(77, 77, 77)
-	wholescreen.AddView(PropertyWindowHolder,MenuHolder.Left,MenuHolder.Top,MenuHolder.Width,MenuHolder.Height)
-	PropertyWindowHolder.Visible = False
-	
-	Dim optionholder As Panel
-	optionholder.Initialize("")
-	Dim checkbox As CheckBox
-	checkbox.Initialize("MenuTypeSelected")
-	checkbox.Tag = 0
-	Dim name As Label
-	name.Initialize("")
-	optionholder.AddView(checkbox,5%x,0,10%x,5%y)
-	name.Gravity = Gravity.CENTER
-	name.Text = "Workers manager"
-	name.TextColor = Colors.White
-	name.TextSize = 13
-	optionholder.AddView(name,15%x,0,30%x,5%y)	
-	PropertyWindowHolder.AddView(optionholder,5%x,5%y,MenuHolder.Width,5%y)
-	
-	Dim optionholder1 As Panel
-	optionholder1.Initialize("")
-	Dim checkbox1 As CheckBox
-	checkbox1.Initialize("MenuTypeSelected")
-	checkbox1.Tag = 1
-	Dim name1 As Label
-	name1.Initialize("")
-	optionholder1.AddView(checkbox1,5%x,0,10%x,5%y)
-	name1.Gravity = Gravity.CENTER
-	name1.Text = "Efficiency check"
-	name1.TextColor = Colors.White
-	name1.TextSize = 13
-	optionholder1.AddView(name1,15%x,0,30%x,5%y)
-	PropertyWindowHolder.AddView(optionholder1,5%x,10%y,MenuHolder.Width,5%y)
-	
-	Dim optionholder2 As Panel
-	optionholder2.Initialize("")
-	Dim checkbox2 As CheckBox
-	checkbox2.Initialize("MenuTypeSelected")
-	checkbox2.Tag = 2
-	Dim name2 As Label
-	name2.Initialize("")
-	optionholder2.AddView(checkbox2,5%x,0,10%x,5%y)
-	name2.Gravity = Gravity.CENTER
-	name2.Text = "Tasks Manager"
-	name2.TextColor = Colors.White
-	name2.TextSize = 13
-	optionholder2.AddView(name2,15%x,0,30%x,5%y)
-	PropertyWindowHolder.AddView(optionholder2,5%x,15%y,MenuHolder.Width,5%y)
-	
-	Dim OKbtn As Button
-	OKbtn.Initialize("SelectedMenuType")
-	OKbtn.Gravity = Gravity.CENTER
-	OKbtn.Text = "OK"
-	HelperFunctions1.Apply_ViewStyle(OKbtn,Colors.Black,Colors.rgb(0, 128, 255),Colors.White,Colors.rgb(0, 128, 255),Colors.Gray,Colors.Gray,Colors.Gray,10)
-	PropertyWindowHolder.AddView(OKbtn,15%x,30%y,MenuHolder.Width/2,5%y)
-End Sub
-Sub SelectedMenuType_Click
-	PropertyWindowHolder.Visible = False
-End Sub
+
+
 Sub MenuTypeSelected_CheckedChange(Checked As Boolean)
 	Dim cbox As CheckBox = Sender
 	
