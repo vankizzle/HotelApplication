@@ -327,10 +327,14 @@ public class main extends Activity implements B4AActivity{
 
 public anywheresoftware.b4a.keywords.Common __c = null;
 public static b4a.example.types._currentuser _currentuser = null;
+public static boolean _connectiontointernet = false;
 public b4a.example.loginscreen _loginscr = null;
 public b4a.example.userinterfacemainscreen _uiscreen = null;
 public b4a.example.tasktable _tabletasks = null;
 public b4a.example.mytasks _usertasks = null;
+public b4a.example.workerstable _myworkers = null;
+public anywheresoftware.b4a.samples.httputils2.httpjob _job = null;
+public anywheresoftware.b4a.samples.httputils2.httputils2service _httputils2service = null;
 public b4a.example.types _types = null;
 public b4a.example.helperfunctions1 _helperfunctions1 = null;
 public b4a.example.starter _starter = null;
@@ -340,136 +344,166 @@ public static boolean isAnyActivityVisible() {
 vis = vis | (main.mostCurrent != null);
 return vis;}
 public static String  _activity_create(boolean _firsttime) throws Exception{
- //BA.debugLineNum = 31;BA.debugLine="Sub Activity_Create(FirstTime As Boolean)";
- //BA.debugLineNum = 34;BA.debugLine="currentuser.Initialize";
-_currentuser.Initialize();
- //BA.debugLineNum = 35;BA.debugLine="currentuser.username = \"TestUser\"";
-_currentuser.username = "TestUser";
- //BA.debugLineNum = 36;BA.debugLine="currentuser.password = \"testelsys1\"";
-_currentuser.password = "testelsys1";
- //BA.debugLineNum = 37;BA.debugLine="currentuser.TypeOfWorker = 0   '<- 0 = not a work";
-_currentuser.TypeOfWorker = (int) (0);
- //BA.debugLineNum = 38;BA.debugLine="currentuser.available = True";
-_currentuser.available = anywheresoftware.b4a.keywords.Common.True;
- //BA.debugLineNum = 41;BA.debugLine="LoginScr.Initialize";
+ //BA.debugLineNum = 33;BA.debugLine="Sub Activity_Create(FirstTime As Boolean)";
+ //BA.debugLineNum = 43;BA.debugLine="LoginScr.Initialize";
 mostCurrent._loginscr._initialize(mostCurrent.activityBA);
- //BA.debugLineNum = 42;BA.debugLine="UIscreen.Initialize";
+ //BA.debugLineNum = 44;BA.debugLine="UIscreen.Initialize";
 mostCurrent._uiscreen._initialize(mostCurrent.activityBA);
- //BA.debugLineNum = 43;BA.debugLine="TableTasks.Initialize";
+ //BA.debugLineNum = 45;BA.debugLine="TableTasks.Initialize";
 mostCurrent._tabletasks._initialize(mostCurrent.activityBA);
- //BA.debugLineNum = 44;BA.debugLine="UserTasks.Initialize";
+ //BA.debugLineNum = 46;BA.debugLine="UserTasks.Initialize";
 mostCurrent._usertasks._initialize(mostCurrent.activityBA);
- //BA.debugLineNum = 46;BA.debugLine="Activity.AddView(LoginScr.AsView,0,0,100%x,100%y)";
+ //BA.debugLineNum = 47;BA.debugLine="MyWorkers.Initialize";
+mostCurrent._myworkers._initialize(mostCurrent.activityBA);
+ //BA.debugLineNum = 49;BA.debugLine="Activity.AddView(LoginScr.AsView,0,0,100%x,100%y)";
 mostCurrent._activity.AddView((android.view.View)(mostCurrent._loginscr._asview().getObject()),(int) (0),(int) (0),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (100),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (100),mostCurrent.activityBA));
- //BA.debugLineNum = 47;BA.debugLine="LoginScr.AsView.Visible = True";
+ //BA.debugLineNum = 50;BA.debugLine="LoginScr.AsView.Visible = True";
 mostCurrent._loginscr._asview().setVisible(anywheresoftware.b4a.keywords.Common.True);
- //BA.debugLineNum = 49;BA.debugLine="Activity.AddView(UIscreen.AsView,0,0,100%x,100%y)";
+ //BA.debugLineNum = 52;BA.debugLine="Activity.AddView(UIscreen.AsView,0,0,100%x,100%y)";
 mostCurrent._activity.AddView((android.view.View)(mostCurrent._uiscreen._asview().getObject()),(int) (0),(int) (0),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (100),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (100),mostCurrent.activityBA));
- //BA.debugLineNum = 50;BA.debugLine="UIscreen.AsView.Visible = False";
+ //BA.debugLineNum = 53;BA.debugLine="UIscreen.AsView.Visible = False";
 mostCurrent._uiscreen._asview().setVisible(anywheresoftware.b4a.keywords.Common.False);
- //BA.debugLineNum = 53;BA.debugLine="Activity.AddView(TableTasks.AsView,0,0,100%x,100%";
+ //BA.debugLineNum = 56;BA.debugLine="Activity.AddView(TableTasks.AsView,0,0,100%x,100%";
 mostCurrent._activity.AddView((android.view.View)(mostCurrent._tabletasks._asview().getObject()),(int) (0),(int) (0),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (100),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (100),mostCurrent.activityBA));
- //BA.debugLineNum = 54;BA.debugLine="TableTasks.AsView.Visible = False";
+ //BA.debugLineNum = 57;BA.debugLine="TableTasks.AsView.Visible = False";
 mostCurrent._tabletasks._asview().setVisible(anywheresoftware.b4a.keywords.Common.False);
- //BA.debugLineNum = 56;BA.debugLine="Activity.AddView(UserTasks.AsView,0,0,100%x,100%y";
+ //BA.debugLineNum = 59;BA.debugLine="Activity.AddView(UserTasks.AsView,0,0,100%x,100%y";
 mostCurrent._activity.AddView((android.view.View)(mostCurrent._usertasks._asview().getObject()),(int) (0),(int) (0),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (100),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (100),mostCurrent.activityBA));
- //BA.debugLineNum = 57;BA.debugLine="UserTasks.AsView.Visible = False";
+ //BA.debugLineNum = 60;BA.debugLine="UserTasks.AsView.Visible = False";
 mostCurrent._usertasks._asview().setVisible(anywheresoftware.b4a.keywords.Common.False);
- //BA.debugLineNum = 59;BA.debugLine="End Sub";
+ //BA.debugLineNum = 62;BA.debugLine="Activity.AddView(MyWorkers.AsView,0,0,100%x,100%y";
+mostCurrent._activity.AddView((android.view.View)(mostCurrent._myworkers._asview().getObject()),(int) (0),(int) (0),anywheresoftware.b4a.keywords.Common.PerXToCurrent((float) (100),mostCurrent.activityBA),anywheresoftware.b4a.keywords.Common.PerYToCurrent((float) (100),mostCurrent.activityBA));
+ //BA.debugLineNum = 63;BA.debugLine="MyWorkers.AsView.Visible = False";
+mostCurrent._myworkers._asview().setVisible(anywheresoftware.b4a.keywords.Common.False);
+ //BA.debugLineNum = 65;BA.debugLine="job.Initialize(\"Job1\", Me)";
+mostCurrent._job._initialize(processBA,"Job1",main.getObject());
+ //BA.debugLineNum = 66;BA.debugLine="job.Download(\"http://www.google.com\")";
+mostCurrent._job._download("http://www.google.com");
+ //BA.debugLineNum = 67;BA.debugLine="End Sub";
 return "";
 }
 public static boolean  _activity_keypress(int _keycode) throws Exception{
 int _ext = 0;
 int _result = 0;
- //BA.debugLineNum = 123;BA.debugLine="Sub Activity_KeyPress (KeyCode As Int) As Boolean";
- //BA.debugLineNum = 125;BA.debugLine="Dim ext As Int = 0";
+ //BA.debugLineNum = 150;BA.debugLine="Sub Activity_KeyPress (KeyCode As Int) As Boolean";
+ //BA.debugLineNum = 152;BA.debugLine="Dim ext As Int = 0";
 _ext = (int) (0);
- //BA.debugLineNum = 126;BA.debugLine="If KeyCode = KeyCodes.KEYCODE_BACK Then";
+ //BA.debugLineNum = 153;BA.debugLine="If KeyCode = KeyCodes.KEYCODE_BACK Then";
 if (_keycode==anywheresoftware.b4a.keywords.Common.KeyCodes.KEYCODE_BACK) { 
- //BA.debugLineNum = 128;BA.debugLine="If UIscreen.asView.Visible = True Then";
+ //BA.debugLineNum = 155;BA.debugLine="If UIscreen.asView.Visible = True Then";
 if (mostCurrent._uiscreen._asview().getVisible()==anywheresoftware.b4a.keywords.Common.True) { 
- //BA.debugLineNum = 129;BA.debugLine="UIscreen.asView.Visible = False";
+ //BA.debugLineNum = 156;BA.debugLine="UIscreen.asView.Visible = False";
 mostCurrent._uiscreen._asview().setVisible(anywheresoftware.b4a.keywords.Common.False);
- //BA.debugLineNum = 130;BA.debugLine="LoginScr.asView.Visible = True";
+ //BA.debugLineNum = 157;BA.debugLine="LoginScr.asView.Visible = True";
 mostCurrent._loginscr._asview().setVisible(anywheresoftware.b4a.keywords.Common.True);
- //BA.debugLineNum = 131;BA.debugLine="ext = ext + 1";
+ //BA.debugLineNum = 158;BA.debugLine="ext = ext + 1";
 _ext = (int) (_ext+1);
- //BA.debugLineNum = 132;BA.debugLine="LoginScr.loginbtn.Enabled = True";
+ //BA.debugLineNum = 159;BA.debugLine="LoginScr.loginbtn.Enabled = True";
 mostCurrent._loginscr._loginbtn.setEnabled(anywheresoftware.b4a.keywords.Common.True);
  };
- //BA.debugLineNum = 135;BA.debugLine="If TableTasks.AsView.Visible = True Then";
+ //BA.debugLineNum = 162;BA.debugLine="If TableTasks.AsView.Visible = True Then";
 if (mostCurrent._tabletasks._asview().getVisible()==anywheresoftware.b4a.keywords.Common.True) { 
- //BA.debugLineNum = 136;BA.debugLine="TableTasks.AsView.Visible = False";
+ //BA.debugLineNum = 163;BA.debugLine="TableTasks.AsView.Visible = False";
 mostCurrent._tabletasks._asview().setVisible(anywheresoftware.b4a.keywords.Common.False);
- //BA.debugLineNum = 137;BA.debugLine="UIscreen.asView.Visible = True";
+ //BA.debugLineNum = 164;BA.debugLine="UIscreen.asView.Visible = True";
 mostCurrent._uiscreen._asview().setVisible(anywheresoftware.b4a.keywords.Common.True);
- //BA.debugLineNum = 138;BA.debugLine="UIscreen.MenuHolder.Visible = True";
+ //BA.debugLineNum = 165;BA.debugLine="UIscreen.MenuHolder.Visible = True";
 mostCurrent._uiscreen._menuholder.setVisible(anywheresoftware.b4a.keywords.Common.True);
- //BA.debugLineNum = 139;BA.debugLine="ext = ext + 1";
+ //BA.debugLineNum = 166;BA.debugLine="ext = ext + 1";
 _ext = (int) (_ext+1);
  };
- //BA.debugLineNum = 142;BA.debugLine="If UserTasks.AsView.Visible = True Then";
+ //BA.debugLineNum = 169;BA.debugLine="If UserTasks.AsView.Visible = True Then";
 if (mostCurrent._usertasks._asview().getVisible()==anywheresoftware.b4a.keywords.Common.True) { 
- //BA.debugLineNum = 143;BA.debugLine="UserTasks.AsView.Visible = False";
+ //BA.debugLineNum = 170;BA.debugLine="UserTasks.AsView.Visible = False";
 mostCurrent._usertasks._asview().setVisible(anywheresoftware.b4a.keywords.Common.False);
- //BA.debugLineNum = 144;BA.debugLine="UIscreen.asView.Visible = True";
+ //BA.debugLineNum = 171;BA.debugLine="UIscreen.asView.Visible = True";
 mostCurrent._uiscreen._asview().setVisible(anywheresoftware.b4a.keywords.Common.True);
- //BA.debugLineNum = 145;BA.debugLine="UIscreen.MenuHolder.Visible = True";
+ //BA.debugLineNum = 172;BA.debugLine="UIscreen.MenuHolder.Visible = True";
 mostCurrent._uiscreen._menuholder.setVisible(anywheresoftware.b4a.keywords.Common.True);
- //BA.debugLineNum = 146;BA.debugLine="ext = ext + 1";
+ //BA.debugLineNum = 173;BA.debugLine="ext = ext + 1";
 _ext = (int) (_ext+1);
  };
- //BA.debugLineNum = 148;BA.debugLine="ext = ext - 1";
+ //BA.debugLineNum = 176;BA.debugLine="If 	MyWorkers.AsView.Visible = True Then";
+if (mostCurrent._myworkers._asview().getVisible()==anywheresoftware.b4a.keywords.Common.True) { 
+ //BA.debugLineNum = 177;BA.debugLine="MyWorkers.AsView.Visible = False";
+mostCurrent._myworkers._asview().setVisible(anywheresoftware.b4a.keywords.Common.False);
+ //BA.debugLineNum = 178;BA.debugLine="UIscreen.asView.Visible = True";
+mostCurrent._uiscreen._asview().setVisible(anywheresoftware.b4a.keywords.Common.True);
+ //BA.debugLineNum = 179;BA.debugLine="UIscreen.MenuHolder.Visible = True";
+mostCurrent._uiscreen._menuholder.setVisible(anywheresoftware.b4a.keywords.Common.True);
+ //BA.debugLineNum = 180;BA.debugLine="ext = ext + 1";
+_ext = (int) (_ext+1);
+ };
+ //BA.debugLineNum = 183;BA.debugLine="ext = ext - 1";
 _ext = (int) (_ext-1);
- //BA.debugLineNum = 150;BA.debugLine="If LoginScr.asView.Visible = True And ext = -1 T";
+ //BA.debugLineNum = 185;BA.debugLine="If LoginScr.asView.Visible = True And ext = -1 T";
 if (mostCurrent._loginscr._asview().getVisible()==anywheresoftware.b4a.keywords.Common.True && _ext==-1) { 
- //BA.debugLineNum = 152;BA.debugLine="Dim result As Int";
+ //BA.debugLineNum = 187;BA.debugLine="Dim result As Int";
 _result = 0;
- //BA.debugLineNum = 153;BA.debugLine="result = Msgbox2(\"Exit application?\",\"Exit\",\"Ye";
+ //BA.debugLineNum = 188;BA.debugLine="result = Msgbox2(\"Exit application?\",\"Exit\",\"Ye";
 _result = anywheresoftware.b4a.keywords.Common.Msgbox2(BA.ObjectToCharSequence("Exit application?"),BA.ObjectToCharSequence("Exit"),"Yes","Cancel","",(android.graphics.Bitmap)(anywheresoftware.b4a.keywords.Common.Null),mostCurrent.activityBA);
- //BA.debugLineNum = 154;BA.debugLine="If result = DialogResponse.POSITIVE Then";
+ //BA.debugLineNum = 189;BA.debugLine="If result = DialogResponse.POSITIVE Then";
 if (_result==anywheresoftware.b4a.keywords.Common.DialogResponse.POSITIVE) { 
- //BA.debugLineNum = 155;BA.debugLine="ExitApplication";
+ //BA.debugLineNum = 190;BA.debugLine="ExitApplication";
 anywheresoftware.b4a.keywords.Common.ExitApplication();
  };
  };
- //BA.debugLineNum = 160;BA.debugLine="Return True";
+ //BA.debugLineNum = 195;BA.debugLine="Return True";
 if (true) return anywheresoftware.b4a.keywords.Common.True;
  }else {
- //BA.debugLineNum = 163;BA.debugLine="Return False";
+ //BA.debugLineNum = 198;BA.debugLine="Return False";
 if (true) return anywheresoftware.b4a.keywords.Common.False;
  };
- //BA.debugLineNum = 166;BA.debugLine="End Sub";
+ //BA.debugLineNum = 201;BA.debugLine="End Sub";
 return false;
 }
 public static String  _activity_pause(boolean _userclosed) throws Exception{
- //BA.debugLineNum = 65;BA.debugLine="Sub Activity_Pause (UserClosed As Boolean)";
- //BA.debugLineNum = 67;BA.debugLine="End Sub";
+ //BA.debugLineNum = 82;BA.debugLine="Sub Activity_Pause (UserClosed As Boolean)";
+ //BA.debugLineNum = 84;BA.debugLine="End Sub";
 return "";
 }
 public static String  _activity_resume() throws Exception{
- //BA.debugLineNum = 61;BA.debugLine="Sub Activity_Resume";
- //BA.debugLineNum = 63;BA.debugLine="End Sub";
+ //BA.debugLineNum = 78;BA.debugLine="Sub Activity_Resume";
+ //BA.debugLineNum = 80;BA.debugLine="End Sub";
 return "";
 }
 public static String  _globals() throws Exception{
- //BA.debugLineNum = 21;BA.debugLine="Sub Globals";
- //BA.debugLineNum = 24;BA.debugLine="Dim LoginScr As LoginScreen";
+ //BA.debugLineNum = 22;BA.debugLine="Sub Globals";
+ //BA.debugLineNum = 25;BA.debugLine="Dim LoginScr As LoginScreen";
 mostCurrent._loginscr = new b4a.example.loginscreen();
- //BA.debugLineNum = 25;BA.debugLine="Dim UIscreen As UserInterfaceMainScreen";
+ //BA.debugLineNum = 26;BA.debugLine="Dim UIscreen As UserInterfaceMainScreen";
 mostCurrent._uiscreen = new b4a.example.userinterfacemainscreen();
- //BA.debugLineNum = 26;BA.debugLine="Dim TableTasks As TaskTable";
+ //BA.debugLineNum = 27;BA.debugLine="Dim TableTasks As TaskTable";
 mostCurrent._tabletasks = new b4a.example.tasktable();
- //BA.debugLineNum = 27;BA.debugLine="Dim UserTasks As MyTasks";
+ //BA.debugLineNum = 28;BA.debugLine="Dim UserTasks As MyTasks";
 mostCurrent._usertasks = new b4a.example.mytasks();
- //BA.debugLineNum = 29;BA.debugLine="End Sub";
+ //BA.debugLineNum = 29;BA.debugLine="Dim MyWorkers As WorkersTable";
+mostCurrent._myworkers = new b4a.example.workerstable();
+ //BA.debugLineNum = 30;BA.debugLine="Dim job As HttpJob";
+mostCurrent._job = new anywheresoftware.b4a.samples.httputils2.httpjob();
+ //BA.debugLineNum = 31;BA.debugLine="End Sub";
+return "";
+}
+public static String  _jobdone(anywheresoftware.b4a.samples.httputils2.httpjob _job1) throws Exception{
+ //BA.debugLineNum = 69;BA.debugLine="Sub JobDone(job1 As HttpJob)";
+ //BA.debugLineNum = 70;BA.debugLine="If job1.JobName=\"Job1\" And job1.Success=False The";
+if ((_job1._jobname).equals("Job1") && _job1._success==anywheresoftware.b4a.keywords.Common.False) { 
+ //BA.debugLineNum = 71;BA.debugLine="ConnectionToInternet = False";
+_connectiontointernet = anywheresoftware.b4a.keywords.Common.False;
+ }else {
+ //BA.debugLineNum = 73;BA.debugLine="ConnectionToInternet = True";
+_connectiontointernet = anywheresoftware.b4a.keywords.Common.True;
+ };
+ //BA.debugLineNum = 75;BA.debugLine="job1.Release";
+_job1._release();
+ //BA.debugLineNum = 76;BA.debugLine="End Sub";
 return "";
 }
 public static String  _loadmytasks(anywheresoftware.b4a.objects.collections.Map _tasks) throws Exception{
- //BA.debugLineNum = 120;BA.debugLine="Public Sub LoadMyTasks(Tasks As Map)";
- //BA.debugLineNum = 121;BA.debugLine="UserTasks.GetMyTasks(Tasks)";
+ //BA.debugLineNum = 147;BA.debugLine="Public Sub LoadMyTasks(Tasks As Map)";
+ //BA.debugLineNum = 148;BA.debugLine="UserTasks.GetMyTasks(Tasks)";
 mostCurrent._usertasks._getmytasks(_tasks);
- //BA.debugLineNum = 122;BA.debugLine="End Sub";
+ //BA.debugLineNum = 149;BA.debugLine="End Sub";
 return "";
 }
 
@@ -478,7 +512,8 @@ public static void initializeProcessGlobals() {
     if (main.processGlobalsRun == false) {
 	    main.processGlobalsRun = true;
 		try {
-		        main._process_globals();
+		        anywheresoftware.b4a.samples.httputils2.httputils2service._process_globals();
+main._process_globals();
 types._process_globals();
 helperfunctions1._process_globals();
 starter._process_globals();
@@ -491,98 +526,117 @@ starter._process_globals();
  //BA.debugLineNum = 15;BA.debugLine="Sub Process_Globals";
  //BA.debugLineNum = 18;BA.debugLine="Dim currentuser As currentuser";
 _currentuser = new b4a.example.types._currentuser();
- //BA.debugLineNum = 19;BA.debugLine="End Sub";
+ //BA.debugLineNum = 19;BA.debugLine="Dim ConnectionToInternet As Boolean";
+_connectiontointernet = false;
+ //BA.debugLineNum = 20;BA.debugLine="End Sub";
 return "";
 }
 public static String  _setuseravailable() throws Exception{
- //BA.debugLineNum = 73;BA.debugLine="Sub SetUserAvailable";
- //BA.debugLineNum = 74;BA.debugLine="UIscreen.SetAvailable";
+ //BA.debugLineNum = 90;BA.debugLine="Sub SetUserAvailable";
+ //BA.debugLineNum = 91;BA.debugLine="UIscreen.SetAvailable";
 mostCurrent._uiscreen._setavailable();
- //BA.debugLineNum = 75;BA.debugLine="End Sub";
+ //BA.debugLineNum = 92;BA.debugLine="End Sub";
 return "";
 }
 public static String  _setuserbusy() throws Exception{
- //BA.debugLineNum = 69;BA.debugLine="Sub SetUserBusy";
- //BA.debugLineNum = 70;BA.debugLine="UIscreen.SetBusy";
+ //BA.debugLineNum = 86;BA.debugLine="Sub SetUserBusy";
+ //BA.debugLineNum = 87;BA.debugLine="UIscreen.SetBusy";
 mostCurrent._uiscreen._setbusy();
- //BA.debugLineNum = 71;BA.debugLine="End Sub";
+ //BA.debugLineNum = 88;BA.debugLine="End Sub";
 return "";
 }
 public static boolean  _showmenu3() throws Exception{
- //BA.debugLineNum = 97;BA.debugLine="Sub ShowMenu3 As Boolean";
- //BA.debugLineNum = 98;BA.debugLine="Return True";
+ //BA.debugLineNum = 124;BA.debugLine="Sub ShowMenu3 As Boolean";
+ //BA.debugLineNum = 125;BA.debugLine="Return True";
 if (true) return anywheresoftware.b4a.keywords.Common.True;
- //BA.debugLineNum = 99;BA.debugLine="End Sub";
+ //BA.debugLineNum = 126;BA.debugLine="End Sub";
 return false;
 }
 public static boolean  _showmenu4() throws Exception{
- //BA.debugLineNum = 101;BA.debugLine="Sub ShowMenu4 As Boolean";
- //BA.debugLineNum = 102;BA.debugLine="Return True";
+ //BA.debugLineNum = 128;BA.debugLine="Sub ShowMenu4 As Boolean";
+ //BA.debugLineNum = 129;BA.debugLine="Return True";
 if (true) return anywheresoftware.b4a.keywords.Common.True;
- //BA.debugLineNum = 103;BA.debugLine="End Sub";
+ //BA.debugLineNum = 130;BA.debugLine="End Sub";
 return false;
 }
 public static String  _showmytasks() throws Exception{
- //BA.debugLineNum = 77;BA.debugLine="Sub ShowMyTasks";
- //BA.debugLineNum = 78;BA.debugLine="If UserTasks.AsView.Visible = False Then";
+ //BA.debugLineNum = 94;BA.debugLine="Sub ShowMyTasks";
+ //BA.debugLineNum = 95;BA.debugLine="If UserTasks.AsView.Visible = False Then";
 if (mostCurrent._usertasks._asview().getVisible()==anywheresoftware.b4a.keywords.Common.False) { 
- //BA.debugLineNum = 79;BA.debugLine="UserTasks.AsView.Visible = True";
+ //BA.debugLineNum = 96;BA.debugLine="UserTasks.AsView.Visible = True";
 mostCurrent._usertasks._asview().setVisible(anywheresoftware.b4a.keywords.Common.True);
- //BA.debugLineNum = 80;BA.debugLine="UIscreen.MenuHolder.Visible = False";
+ //BA.debugLineNum = 97;BA.debugLine="UIscreen.MenuHolder.Visible = False";
 mostCurrent._uiscreen._menuholder.setVisible(anywheresoftware.b4a.keywords.Common.False);
  }else {
- //BA.debugLineNum = 82;BA.debugLine="UserTasks.AsView.Visible = False";
+ //BA.debugLineNum = 99;BA.debugLine="UserTasks.AsView.Visible = False";
 mostCurrent._usertasks._asview().setVisible(anywheresoftware.b4a.keywords.Common.False);
- //BA.debugLineNum = 83;BA.debugLine="UIscreen.MenuHolder.Visible = True";
+ //BA.debugLineNum = 100;BA.debugLine="UIscreen.MenuHolder.Visible = True";
 mostCurrent._uiscreen._menuholder.setVisible(anywheresoftware.b4a.keywords.Common.True);
  };
- //BA.debugLineNum = 85;BA.debugLine="End Sub";
+ //BA.debugLineNum = 102;BA.debugLine="End Sub";
+return "";
+}
+public static String  _showmyworkers() throws Exception{
+ //BA.debugLineNum = 104;BA.debugLine="Sub ShowMyWorkers";
+ //BA.debugLineNum = 105;BA.debugLine="If MyWorkers.AsView.Visible = False Then";
+if (mostCurrent._myworkers._asview().getVisible()==anywheresoftware.b4a.keywords.Common.False) { 
+ //BA.debugLineNum = 106;BA.debugLine="MyWorkers.AsView.Visible = True";
+mostCurrent._myworkers._asview().setVisible(anywheresoftware.b4a.keywords.Common.True);
+ //BA.debugLineNum = 107;BA.debugLine="UIscreen.MenuHolder.Visible = False";
+mostCurrent._uiscreen._menuholder.setVisible(anywheresoftware.b4a.keywords.Common.False);
+ }else {
+ //BA.debugLineNum = 109;BA.debugLine="MyWorkers.AsView.Visible = False";
+mostCurrent._myworkers._asview().setVisible(anywheresoftware.b4a.keywords.Common.False);
+ //BA.debugLineNum = 110;BA.debugLine="UIscreen.MenuHolder.Visible = True";
+mostCurrent._uiscreen._menuholder.setVisible(anywheresoftware.b4a.keywords.Common.True);
+ };
+ //BA.debugLineNum = 112;BA.debugLine="End Sub";
 return "";
 }
 public static String  _showtasktable() throws Exception{
- //BA.debugLineNum = 87;BA.debugLine="Sub ShowTaskTable";
- //BA.debugLineNum = 88;BA.debugLine="If TableTasks.AsView.Visible = False Then";
+ //BA.debugLineNum = 114;BA.debugLine="Sub ShowTaskTable";
+ //BA.debugLineNum = 115;BA.debugLine="If TableTasks.AsView.Visible = False Then";
 if (mostCurrent._tabletasks._asview().getVisible()==anywheresoftware.b4a.keywords.Common.False) { 
- //BA.debugLineNum = 89;BA.debugLine="TableTasks.AsView.Visible = True";
+ //BA.debugLineNum = 116;BA.debugLine="TableTasks.AsView.Visible = True";
 mostCurrent._tabletasks._asview().setVisible(anywheresoftware.b4a.keywords.Common.True);
- //BA.debugLineNum = 90;BA.debugLine="UIscreen.MenuHolder.Visible = False";
+ //BA.debugLineNum = 117;BA.debugLine="UIscreen.MenuHolder.Visible = False";
 mostCurrent._uiscreen._menuholder.setVisible(anywheresoftware.b4a.keywords.Common.False);
  }else {
- //BA.debugLineNum = 92;BA.debugLine="TableTasks.AsView.Visible = False";
+ //BA.debugLineNum = 119;BA.debugLine="TableTasks.AsView.Visible = False";
 mostCurrent._tabletasks._asview().setVisible(anywheresoftware.b4a.keywords.Common.False);
- //BA.debugLineNum = 93;BA.debugLine="UIscreen.MenuHolder.Visible = True";
+ //BA.debugLineNum = 120;BA.debugLine="UIscreen.MenuHolder.Visible = True";
 mostCurrent._uiscreen._menuholder.setVisible(anywheresoftware.b4a.keywords.Common.True);
  };
- //BA.debugLineNum = 95;BA.debugLine="End Sub";
+ //BA.debugLineNum = 122;BA.debugLine="End Sub";
 return "";
 }
 public static String  _showui() throws Exception{
- //BA.debugLineNum = 111;BA.debugLine="Sub ShowUI";
- //BA.debugLineNum = 112;BA.debugLine="ProgressDialogShow(\"Loading...\")";
+ //BA.debugLineNum = 138;BA.debugLine="Sub ShowUI";
+ //BA.debugLineNum = 139;BA.debugLine="ProgressDialogShow(\"Loading...\")";
 anywheresoftware.b4a.keywords.Common.ProgressDialogShow(mostCurrent.activityBA,BA.ObjectToCharSequence("Loading..."));
- //BA.debugLineNum = 113;BA.debugLine="If 	UIscreen.AsView.Visible = False Then";
+ //BA.debugLineNum = 140;BA.debugLine="If 	UIscreen.AsView.Visible = False Then";
 if (mostCurrent._uiscreen._asview().getVisible()==anywheresoftware.b4a.keywords.Common.False) { 
- //BA.debugLineNum = 114;BA.debugLine="UIscreen.AsView.Visible = True";
+ //BA.debugLineNum = 141;BA.debugLine="UIscreen.AsView.Visible = True";
 mostCurrent._uiscreen._asview().setVisible(anywheresoftware.b4a.keywords.Common.True);
  }else {
- //BA.debugLineNum = 116;BA.debugLine="UIscreen.AsView.Visible = False";
+ //BA.debugLineNum = 143;BA.debugLine="UIscreen.AsView.Visible = False";
 mostCurrent._uiscreen._asview().setVisible(anywheresoftware.b4a.keywords.Common.False);
  };
- //BA.debugLineNum = 118;BA.debugLine="ProgressDialogHide";
+ //BA.debugLineNum = 145;BA.debugLine="ProgressDialogHide";
 anywheresoftware.b4a.keywords.Common.ProgressDialogHide();
- //BA.debugLineNum = 119;BA.debugLine="End Sub";
+ //BA.debugLineNum = 146;BA.debugLine="End Sub";
 return "";
 }
 public static String  _tasktabletomytasks() throws Exception{
- //BA.debugLineNum = 105;BA.debugLine="Sub TaskTableToMyTasks";
- //BA.debugLineNum = 106;BA.debugLine="If TableTasks.AsView.Visible = True Then";
+ //BA.debugLineNum = 132;BA.debugLine="Sub TaskTableToMyTasks";
+ //BA.debugLineNum = 133;BA.debugLine="If TableTasks.AsView.Visible = True Then";
 if (mostCurrent._tabletasks._asview().getVisible()==anywheresoftware.b4a.keywords.Common.True) { 
- //BA.debugLineNum = 107;BA.debugLine="TableTasks.AsView.Visible = False";
+ //BA.debugLineNum = 134;BA.debugLine="TableTasks.AsView.Visible = False";
 mostCurrent._tabletasks._asview().setVisible(anywheresoftware.b4a.keywords.Common.False);
- //BA.debugLineNum = 108;BA.debugLine="UserTasks.AsView.Visible = True";
+ //BA.debugLineNum = 135;BA.debugLine="UserTasks.AsView.Visible = True";
 mostCurrent._usertasks._asview().setVisible(anywheresoftware.b4a.keywords.Common.True);
  };
- //BA.debugLineNum = 110;BA.debugLine="End Sub";
+ //BA.debugLineNum = 137;BA.debugLine="End Sub";
 return "";
 }
 }

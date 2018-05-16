@@ -36,6 +36,7 @@ public anywheresoftware.b4a.objects.LabelWrapper _menuother2 = null;
 public anywheresoftware.b4a.objects.LabelWrapper _createmenu = null;
 public int _numberofmenus = 0;
 public b4a.example.choosemenutype _menutypes = null;
+public anywheresoftware.b4a.samples.httputils2.httputils2service _httputils2service = null;
 public b4a.example.main _main = null;
 public b4a.example.types _types = null;
 public b4a.example.helperfunctions1 _helperfunctions1 = null;
@@ -48,10 +49,10 @@ if (true) return _wholescreen;
 return null;
 }
 public String  _bonusmenu_longclick() throws Exception{
- //BA.debugLineNum = 152;BA.debugLine="Sub BonusMenu_LongClick";
- //BA.debugLineNum = 153;BA.debugLine="MenuTypes.AsView.Visible = True";
+ //BA.debugLineNum = 155;BA.debugLine="Sub BonusMenu_LongClick";
+ //BA.debugLineNum = 156;BA.debugLine="MenuTypes.AsView.Visible = True";
 _menutypes._asview().setVisible(__c.True);
- //BA.debugLineNum = 154;BA.debugLine="End Sub";
+ //BA.debugLineNum = 157;BA.debugLine="End Sub";
 return "";
 }
 public String  _buildui() throws Exception{
@@ -280,17 +281,17 @@ return "";
 }
 public String  _menutypeselected_checkedchange(boolean _checked) throws Exception{
 anywheresoftware.b4a.objects.CompoundButtonWrapper.CheckBoxWrapper _cbox = null;
- //BA.debugLineNum = 158;BA.debugLine="Sub MenuTypeSelected_CheckedChange(Checked As Bool";
- //BA.debugLineNum = 159;BA.debugLine="Dim cbox As CheckBox = Sender";
+ //BA.debugLineNum = 161;BA.debugLine="Sub MenuTypeSelected_CheckedChange(Checked As Bool";
+ //BA.debugLineNum = 162;BA.debugLine="Dim cbox As CheckBox = Sender";
 _cbox = new anywheresoftware.b4a.objects.CompoundButtonWrapper.CheckBoxWrapper();
 _cbox.setObject((android.widget.CheckBox)(__c.Sender(ba)));
- //BA.debugLineNum = 161;BA.debugLine="If Checked = True Then";
+ //BA.debugLineNum = 164;BA.debugLine="If Checked = True Then";
 if (_checked==__c.True) { 
  }else {
- //BA.debugLineNum = 164;BA.debugLine="Checked = False";
+ //BA.debugLineNum = 167;BA.debugLine="Checked = False";
 _checked = __c.False;
  };
- //BA.debugLineNum = 167;BA.debugLine="End Sub";
+ //BA.debugLineNum = 170;BA.debugLine="End Sub";
 return "";
 }
 public String  _mytask_click() throws Exception{
@@ -298,6 +299,13 @@ public String  _mytask_click() throws Exception{
  //BA.debugLineNum = 120;BA.debugLine="CallSub(Main,\"ShowMyTasks\")";
 __c.CallSubNew(ba,(Object)(_main.getObject()),"ShowMyTasks");
  //BA.debugLineNum = 121;BA.debugLine="End Sub";
+return "";
+}
+public String  _myworkers_click() throws Exception{
+ //BA.debugLineNum = 151;BA.debugLine="Sub MyWorkers_Click";
+ //BA.debugLineNum = 152;BA.debugLine="CallSub(Main,\"ShowMyWorkers\")";
+__c.CallSubNew(ba,(Object)(_main.getObject()),"ShowMyWorkers");
+ //BA.debugLineNum = 153;BA.debugLine="End Sub";
 return "";
 }
 public boolean  _propwindow_click() throws Exception{
@@ -308,32 +316,32 @@ if (true) return __c.True;
 return false;
 }
 public boolean  _screenview_click() throws Exception{
- //BA.debugLineNum = 179;BA.debugLine="Sub screenview_Click As Boolean";
- //BA.debugLineNum = 180;BA.debugLine="Return True";
+ //BA.debugLineNum = 182;BA.debugLine="Sub screenview_Click As Boolean";
+ //BA.debugLineNum = 183;BA.debugLine="Return True";
 if (true) return __c.True;
- //BA.debugLineNum = 181;BA.debugLine="End Sub";
+ //BA.debugLineNum = 184;BA.debugLine="End Sub";
 return false;
 }
 public String  _setavailable() throws Exception{
- //BA.debugLineNum = 173;BA.debugLine="Public Sub SetAvailable";
- //BA.debugLineNum = 174;BA.debugLine="Main.currentuser.available = True";
+ //BA.debugLineNum = 176;BA.debugLine="Public Sub SetAvailable";
+ //BA.debugLineNum = 177;BA.debugLine="Main.currentuser.available = True";
 _main._currentuser.available = __c.True;
- //BA.debugLineNum = 175;BA.debugLine="availability.Text = \"Status: Available\"";
+ //BA.debugLineNum = 178;BA.debugLine="availability.Text = \"Status: Available\"";
 _availability.setText(BA.ObjectToCharSequence("Status: Available"));
- //BA.debugLineNum = 176;BA.debugLine="HelperFunctions1.Apply_ViewStyle(statusindicator,";
+ //BA.debugLineNum = 179;BA.debugLine="HelperFunctions1.Apply_ViewStyle(statusindicator,";
 _helperfunctions1._apply_viewstyle(ba,(anywheresoftware.b4a.objects.ConcreteViewWrapper) anywheresoftware.b4a.AbsObjectWrapper.ConvertToWrapper(new anywheresoftware.b4a.objects.ConcreteViewWrapper(), (android.view.View)(_statusindicator.getObject())),__c.Colors.Green,__c.Colors.Green,__c.Colors.Green,__c.Colors.Green,__c.Colors.Green,__c.Colors.Green,__c.Colors.Green,(int) (30));
- //BA.debugLineNum = 177;BA.debugLine="End Sub";
+ //BA.debugLineNum = 180;BA.debugLine="End Sub";
 return "";
 }
 public String  _setbusy() throws Exception{
- //BA.debugLineNum = 168;BA.debugLine="Public Sub SetBusy";
- //BA.debugLineNum = 169;BA.debugLine="Main.currentuser.available = False";
+ //BA.debugLineNum = 171;BA.debugLine="Public Sub SetBusy";
+ //BA.debugLineNum = 172;BA.debugLine="Main.currentuser.available = False";
 _main._currentuser.available = __c.False;
- //BA.debugLineNum = 170;BA.debugLine="availability.Text = \"Status: Busy\"";
+ //BA.debugLineNum = 173;BA.debugLine="availability.Text = \"Status: Busy\"";
 _availability.setText(BA.ObjectToCharSequence("Status: Busy"));
- //BA.debugLineNum = 171;BA.debugLine="HelperFunctions1.Apply_ViewStyle(statusindicator,";
+ //BA.debugLineNum = 174;BA.debugLine="HelperFunctions1.Apply_ViewStyle(statusindicator,";
 _helperfunctions1._apply_viewstyle(ba,(anywheresoftware.b4a.objects.ConcreteViewWrapper) anywheresoftware.b4a.AbsObjectWrapper.ConvertToWrapper(new anywheresoftware.b4a.objects.ConcreteViewWrapper(), (android.view.View)(_statusindicator.getObject())),__c.Colors.Red,__c.Colors.Red,__c.Colors.Red,__c.Colors.Red,__c.Colors.Red,__c.Colors.Red,__c.Colors.Red,(int) (30));
- //BA.debugLineNum = 172;BA.debugLine="End Sub";
+ //BA.debugLineNum = 175;BA.debugLine="End Sub";
 return "";
 }
 public String  _tasks_click() throws Exception{

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<user>
+		<name>Lil Pump</name>
+		<password>12345</password>
+		<available></available>
+		<TypeOfWorker>0</TypeOfWorker>
+		<CurrentTaskID></CurrentTaskID>
+		<id>001</id>
+	</user>
+
+	<user>
+		<name>Gen1</name>
+		<password>abc</password>
+		<available>True</available>
+		<TypeOfWorker>1</TypeOfWorker>
+		<CurrentTaskID></CurrentTaskID>
+		<id>001</id>
+	</user>
+	
+	<user>
+		<name>Gen2</name>
+		<password>abcd</password>
+		<available>False</available>
+		<TypeOfWorker>1</TypeOfWorker>
+		<CurrentTaskID>1,2,3</CurrentTaskID>
+		<id>001</id>
+	</user>
+	
+	<user>
+		<name>Gen2</name>
+		<password>abcde</password>
+		<available>True</available>
+		<TypeOfWorker>1</TypeOfWorker>
+		<CurrentTaskID></CurrentTaskID>
+		<id>001</id>
+	</user>

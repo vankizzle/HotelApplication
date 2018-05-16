@@ -12,7 +12,9 @@ Sub Class_Globals
 	Dim passwordfield As EditText
 	Dim loginbtn As Button
 	Dim singup As Button
-	
+	Dim myxml As SaxParser
+	Dim userslist As List
+	Dim workingUser As currentuser
 End Sub
 
 'Initializes the object. You can add parameters to this method if needed.
@@ -24,7 +26,8 @@ Public Sub Initialize
 	screenimg.Initialize("")
 	infoholder.Initialize("")
 	singup.Initialize("register")
-	
+	myxml.Initialize
+	userslist.Initialize
 	BuildUI
 End Sub
 
@@ -87,6 +90,33 @@ Sub login_Click
 '	Main.currentuser.username = usernamefield.Text
 '	Main.currentuser.password = passwordfield.Text
 '	Main.currentuser.available = True
+	myxml.Parse(File.OpenInput(File.DirAssets,"ExampleXML.xml"),"Parse")
 	Log(Main.currentuser)
 	CallSub(Main,"ShowUI")
+End Sub
+
+Sub Parse_StartElement (Uri As String, Name As String, Attributes As Attributes)
+	If Name.EqualsIgnoreCase("user") Then
+		workingUser.Initialize
+	End If
+End Sub
+
+Sub Parse_EndElement (Uri As String, Name As String, Text As StringBuilder)
+	If Name.EqualsIgnoreCase("user") Then
+		Dim newUser As currentuser
+		newUser.Initialize
+		newUser.available = workingUser.available
+		newUser.CurrentTaskID = workingUser.CurrentTaskID
+		newUser.ID = workingUser.ID
+		newUser.password = workingUser.password
+		newUser.username = workingUser.username
+		newUser.TypeOfWorker = workingUser.TypeOfWorker
+		userslist.Add(newUser)
+	End If
+	
+	If Name.EqualsIgnoreCase("name") Then workingUser.username = Text.ToString
+	If Name.EqualsIgnoreCase("password") Then workingUser.password = Text.ToString
+	If Name.EqualsIgnoreCase("available") Then workingUser.available = Text.ToString
+	If Name.EqualsIgnoreCase("TypeOfWorker") Then workingUser.TypeOfWorker = Text.ToString
+	If Name.EqualsIgnoreCase("id") Then workingUser.ID = Text.ToString
 End Sub

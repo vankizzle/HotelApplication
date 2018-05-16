@@ -34,6 +34,7 @@ public anywheresoftware.b4a.objects.collections.Map _mapofview = null;
 public anywheresoftware.b4a.objects.collections.Map _viewtoremove = null;
 public int _chekboxtag = 0;
 public int _checknumbers = 0;
+public anywheresoftware.b4a.samples.httputils2.httputils2service _httputils2service = null;
 public b4a.example.main _main = null;
 public b4a.example.types _types = null;
 public b4a.example.helperfunctions1 _helperfunctions1 = null;

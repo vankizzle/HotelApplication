@@ -154,6 +154,9 @@ Sub CreateMenuIcon
 		Msgbox("You have reached maximum number of menus!Please buy more!","We are sorry!")	
 	End If
 End Sub
+Sub MyWorkers_Click
+	CallSub(Main,"ShowMyWorkers")
+End Sub
 
 Sub BonusMenu_LongClick
 	MenuTypes.AsView.Visible = True

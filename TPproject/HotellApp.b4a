@@ -1,27 +1,32 @@
 ﻿Build1=Default,b4a.example
-File1=hotelappscreen.jpg
-File2=mainscreenimg.png
-File3=refresh.png
+File1=ExampleXML.xml
+File2=hotelappscreen.jpg
+File3=mainscreenimg.png
+File4=refresh.png
 FileGroup1=Default Group
 FileGroup2=Default Group
 FileGroup3=Default Group
+FileGroup4=Default Group
 Group=Default Group
 IconFile=
 Library1=core
 Library2=reflection
 Library3=micustomviews
+Library4=httputils2
+Library5=xmlsax
 ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: https://www.b4x.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="5" android:targetSdkVersion="19"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~'End of default text.~\n~
-Module1=UserInterfaceMainScreen
-Module2=ChooseMenuType
-Module3=MyTasks
-Module4=Types
-Module5=TaskTable
-Module6=HelperFunctions1
-Module7=Starter
-Module8=LoginScreen
-NumberOfFiles=3
-NumberOfLibraries=3
-NumberOfModules=8
+Module1=WorkersTable
+Module2=Types
+Module3=UserInterfaceMainScreen
+Module4=ChooseMenuType
+Module5=MyTasks
+Module6=TaskTable
+Module7=HelperFunctions1
+Module8=Starter
+Module9=LoginScreen
+NumberOfFiles=4
+NumberOfLibraries=5
+NumberOfModules=9
 Version=8
 @EndOfDesignText@
  #Region  Project Attributes 
@@ -42,6 +47,7 @@ Sub Process_Globals
 	'These global variables will be declared once when the application starts.
 	'These variables can be accessed from all modules.
 	Dim currentuser As currentuser
+	Dim ConnectionToInternet As Boolean
 End Sub
 
 Sub Globals
@@ -51,23 +57,25 @@ Sub Globals
 	Dim UIscreen As UserInterfaceMainScreen
 	Dim TableTasks As TaskTable
 	Dim UserTasks As MyTasks
-	
+	Dim MyWorkers As WorkersTable
+	Dim job As HttpJob
 End Sub
 
 Sub Activity_Create(FirstTime As Boolean)
 	'Do not forget to load the layout file created with the visual designer. For example:
 	'Activity.LoadLayout("Layout1")
-	currentuser.Initialize
-	currentuser.username = "TestUser"
-	currentuser.password = "testelsys1"
-	currentuser.TypeOfWorker = 0   '<- 0 = not a worker(Boss),1 = cleaner,2 = cook,3 = waiter
-	currentuser.available = True
+'	currentuser.Initialize
+'	currentuser.username = "TestUser"
+'	currentuser.password = "testelsys1"
+'	currentuser.TypeOfWorker = 0   '<- 0 = not a worker(Boss),1 = cleaner,2 = cook,3 = waiter
+'	currentuser.available = True
 '	currentuser.CurrentTaskID = 0
 	
 	LoginScr.Initialize
 	UIscreen.Initialize
 	TableTasks.Initialize
 	UserTasks.Initialize
+	MyWorkers.Initialize
 	
 	Activity.AddView(LoginScr.AsView,0,0,100%x,100%y)
 	LoginScr.AsView.Visible = True
@@ -82,6 +90,20 @@ Sub Activity_Create(FirstTime As Boolean)
 	Activity.AddView(UserTasks.AsView,0,0,100%x,100%y)
 	UserTasks.AsView.Visible = False
 	
+	Activity.AddView(MyWorkers.AsView,0,0,100%x,100%y)
+	MyWorkers.AsView.Visible = False
+	
+	job.Initialize("Job1", Me)
+	job.Download("http://www.google.com")
+End Sub
+
+Sub JobDone(job1 As HttpJob)
+	If job1.JobName="Job1" And job1.Success=False Then
+		ConnectionToInternet = False
+	Else
+		ConnectionToInternet = True
+	End If
+	job1.Release
 End Sub
 
 Sub Activity_Resume
@@ -106,6 +128,16 @@ Sub ShowMyTasks
 		UIscreen.MenuHolder.Visible = False
 	Else
 		UserTasks.AsView.Visible = False
+		UIscreen.MenuHolder.Visible = True
+	End If
+End Sub
+
+Sub ShowMyWorkers
+	If MyWorkers.AsView.Visible = False Then
+		MyWorkers.AsView.Visible = True
+		UIscreen.MenuHolder.Visible = False
+	Else
+		MyWorkers.AsView.Visible = False
 		UIscreen.MenuHolder.Visible = True
 	End If
 End Sub
@@ -171,6 +203,14 @@ Sub Activity_KeyPress (KeyCode As Int) As Boolean
 			UIscreen.MenuHolder.Visible = True
 			ext = ext + 1
 		End If
+		
+		If 	MyWorkers.AsView.Visible = True Then
+			MyWorkers.AsView.Visible = False
+			UIscreen.asView.Visible = True
+			UIscreen.MenuHolder.Visible = True
+			ext = ext + 1
+		End If
+		
 		ext = ext - 1
 		
 		If LoginScr.asView.Visible = True And ext = -1 Then

@@ -37,6 +37,7 @@ public int _boxchecked = 0;
 public anywheresoftware.b4a.objects.collections.Map _selectedtasks = null;
 public anywheresoftware.b4a.objects.PanelWrapper _taskfakepan = null;
 public anywheresoftware.b4a.objects.Timer _refreshtimer = null;
+public anywheresoftware.b4a.samples.httputils2.httputils2service _httputils2service = null;
 public b4a.example.main _main = null;
 public b4a.example.types _types = null;
 public b4a.example.helperfunctions1 _helperfunctions1 = null;
