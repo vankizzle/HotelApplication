@@ -143,10 +143,10 @@ Sub Finish_Click
 	Log(MapOfView)
 	
 	For i = 0 To ViewToRemove.Size - 1
-		Main.currentuser.CurrentTaskID(i) = 0
+		Types.currentuser.CurrentTaskID(i) = 0
 	Next
 	
-	Main.currentuser.CurrentTaskID(0) = 5
+	Types.currentuser.CurrentTaskID(0) = 5
 	For Each k As Int In ViewToRemove.Keys
 		If MapOfView.ContainsKey(k) Then
 			MapOfView.Remove(k)

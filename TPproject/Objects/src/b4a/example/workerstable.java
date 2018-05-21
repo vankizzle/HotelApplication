@@ -104,7 +104,7 @@ final int groupLen1 = group1.getSize()
 for (; index1 < groupLen1;index1++){
 _w = (b4a.example.types._worker)(group1.Get(index1));
  //BA.debugLineNum = 52;BA.debugLine="PanBuilder(w.username,w.available,w.TypeOfWorker";
-_panbuilder(_w.username,_w.available,_w.TypeOfWorker,(int)(_w.CurrentTaskID));
+_panbuilder(_w.username,_w.available,_w.TypeOfWorker,_w.CurrentTaskID);
  }
 };
  //BA.debugLineNum = 54;BA.debugLine="End Sub";
@@ -130,7 +130,7 @@ _buildui();
  //BA.debugLineNum = 25;BA.debugLine="End Sub";
 return "";
 }
-public anywheresoftware.b4a.objects.PanelWrapper  _panbuilder(String _username,boolean _available,int _typeofworker,int _currenttaskid) throws Exception{
+public anywheresoftware.b4a.objects.PanelWrapper  _panbuilder(String _username,boolean _available,int _typeofworker,int[] _currenttaskid) throws Exception{
 anywheresoftware.b4a.objects.PanelWrapper _holder = null;
 anywheresoftware.b4a.objects.PanelWrapper _header = null;
 anywheresoftware.b4a.objects.LabelWrapper _lblname = null;

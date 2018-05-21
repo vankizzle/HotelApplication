@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<root>
 	<user>
-		<name>Lil Pump</name>
+		<name>pump</name>
 		<password>12345</password>
 		<available></available>
 		<TypeOfWorker>0</TypeOfWorker>
 		<CurrentTaskID></CurrentTaskID>
 		<id>001</id>
 	</user>
-
+	
 	<user>
 		<name>Gen1</name>
 		<password>abc</password>
@@ -24,7 +25,7 @@
 		<TypeOfWorker>1</TypeOfWorker>
 		<CurrentTaskID>1,2,3</CurrentTaskID>
 		<id>001</id>
-	</user>
+	</user>	
 	
 	<user>
 		<name>Gen2</name>
@@ -34,3 +35,4 @@
 		<CurrentTaskID></CurrentTaskID>
 		<id>001</id>
 	</user>
+</root>

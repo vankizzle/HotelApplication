@@ -129,8 +129,8 @@ final int groupLen4 = group4.getSize()
 ;
 for (; index4 < groupLen4;index4++){
 _i = (b4a.example.types._task)(group4.Get(index4));
- //BA.debugLineNum = 104;BA.debugLine="If i.TaskType = Main.currentuser.TypeOfWorker Th";
-if (_i.TaskType==_main._currentuser.TypeOfWorker) { 
+ //BA.debugLineNum = 104;BA.debugLine="If i.TaskType = Types.currentuser.TypeOfWorker T";
+if (_i.TaskType==_types._currentuser.TypeOfWorker) { 
  //BA.debugLineNum = 105;BA.debugLine="Dim TaskPanel As Panel";
 _taskpanel = new anywheresoftware.b4a.objects.PanelWrapper();
  //BA.debugLineNum = 106;BA.debugLine="Dim TaskIdLbl As Label";
@@ -221,14 +221,14 @@ _helperfunctions1._apply_viewstyle(ba,(anywheresoftware.b4a.objects.ConcreteView
 _tabletype.setTextColor(__c.Colors.White);
  //BA.debugLineNum = 67;BA.debugLine="tableType.TextSize = 25";
 _tabletype.setTextSize((float) (25));
- //BA.debugLineNum = 68;BA.debugLine="If Main.currentuser.TypeOfWorker = 1 Then";
-if (_main._currentuser.TypeOfWorker==1) { 
+ //BA.debugLineNum = 68;BA.debugLine="If Types.currentuser.TypeOfWorker = 1 Then";
+if (_types._currentuser.TypeOfWorker==1) { 
  //BA.debugLineNum = 69;BA.debugLine="tableType.Text = \"Workers Table\"";
 _tabletype.setText(BA.ObjectToCharSequence("Workers Table"));
- }else if(_main._currentuser.TypeOfWorker==2) { 
+ }else if(_types._currentuser.TypeOfWorker==2) { 
  //BA.debugLineNum = 71;BA.debugLine="tableType.Text = \"Cooks Table\"";
 _tabletype.setText(BA.ObjectToCharSequence("Cooks Table"));
- }else if(_main._currentuser.TypeOfWorker==3) { 
+ }else if(_types._currentuser.TypeOfWorker==3) { 
  //BA.debugLineNum = 73;BA.debugLine="tableType.Text = \"Waiters Table\"";
 _tabletype.setText(BA.ObjectToCharSequence("Waiters Table"));
  };
@@ -347,8 +347,8 @@ return "";
 }
 public String  _refresh_tick() throws Exception{
  //BA.debugLineNum = 49;BA.debugLine="Sub Refresh_Tick";
- //BA.debugLineNum = 50;BA.debugLine="If Main.currentuser.available = True  Then";
-if (_main._currentuser.available==__c.True) { 
+ //BA.debugLineNum = 50;BA.debugLine="If Types.currentuser.available = True  Then";
+if (_types._currentuser.available==__c.True) { 
  //BA.debugLineNum = 51;BA.debugLine="buildTasks";
 _buildtasks();
  //BA.debugLineNum = 52;BA.debugLine="submit.Enabled = True";
@@ -381,8 +381,8 @@ final int groupLen6 = group6.getSize()
 ;
 for (; index6 < groupLen6;index6++){
 _v = (b4a.example.types._task)(group6.Get(index6));
- //BA.debugLineNum = 190;BA.debugLine="Main.currentuser.CurrentTaskID(i) = v.TaskID";
-_main._currentuser.CurrentTaskID[_i] = _v.TaskID;
+ //BA.debugLineNum = 190;BA.debugLine="Types.currentuser.CurrentTaskID(i) = v.TaskID";
+_types._currentuser.CurrentTaskID[_i] = _v.TaskID;
  //BA.debugLineNum = 191;BA.debugLine="i = i + 1";
 _i = (int) (_i+1);
  }

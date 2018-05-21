@@ -123,12 +123,12 @@ final int step3 = 1;
 final int limit3 = (int) (_viewtoremove.getSize()-1);
 _i = (int) (0) ;
 for (;(step3 > 0 && _i <= limit3) || (step3 < 0 && _i >= limit3) ;_i = ((int)(0 + _i + step3))  ) {
- //BA.debugLineNum = 140;BA.debugLine="Main.currentuser.CurrentTaskID(i) = 0";
-_main._currentuser.CurrentTaskID[_i] = (int) (0);
+ //BA.debugLineNum = 140;BA.debugLine="Types.currentuser.CurrentTaskID(i) = 0";
+_types._currentuser.CurrentTaskID[_i] = (int) (0);
  }
 };
- //BA.debugLineNum = 143;BA.debugLine="Main.currentuser.CurrentTaskID(0) = 5";
-_main._currentuser.CurrentTaskID[(int) (0)] = (int) (5);
+ //BA.debugLineNum = 143;BA.debugLine="Types.currentuser.CurrentTaskID(0) = 5";
+_types._currentuser.CurrentTaskID[(int) (0)] = (int) (5);
  //BA.debugLineNum = 144;BA.debugLine="For Each k As Int In ViewToRemove.Keys";
 {
 final anywheresoftware.b4a.BA.IterableList group7 = _viewtoremove.Keys();

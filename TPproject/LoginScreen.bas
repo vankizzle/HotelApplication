@@ -14,7 +14,8 @@ Sub Class_Globals
 	Dim singup As Button
 	Dim myxml As SaxParser
 	Dim userslist As List
-	Dim workingUser As currentuser
+	Dim workingUser As user
+	Dim usermainscreen As UserInterfaceMainScreen
 End Sub
 
 'Initializes the object. You can add parameters to this method if needed.
@@ -28,6 +29,7 @@ Public Sub Initialize
 	singup.Initialize("register")
 	myxml.Initialize
 	userslist.Initialize
+	usermainscreen.Initialize
 	BuildUI
 End Sub
 
@@ -50,7 +52,7 @@ Sub BuildUI
 	usernamefield.Gravity = Gravity.LEFT
 	usernamefield.Color = Colors.White
 '	usernamefield.Hint = "Username"
-	usernamefield.Text = Main.currentuser.username
+	usernamefield.Text = "pump"
 	usernamefield.HintColor = Colors.DarkGray
 	usernamefield.SingleLine = True
 	usernamefield.TextColor = Colors.Black
@@ -59,7 +61,7 @@ Sub BuildUI
 	passwordfield.Gravity = Gravity.LEFT
 	passwordfield.Color = Colors.White
 '	passwordfield.Hint = "Password"
-	passwordfield.Text = Main.currentuser.password
+	passwordfield.Text = "12345"
 	passwordfield.HintColor = Colors.DarkGray
 	passwordfield.PasswordMode = True
 	passwordfield.SingleLine = True
@@ -87,12 +89,8 @@ End Sub
 
 
 Sub login_Click
-'	Main.currentuser.username = usernamefield.Text
-'	Main.currentuser.password = passwordfield.Text
-'	Main.currentuser.available = True
 	myxml.Parse(File.OpenInput(File.DirAssets,"ExampleXML.xml"),"Parse")
-	Log(Main.currentuser)
-	CallSub(Main,"ShowUI")
+	CheckUser
 End Sub
 
 Sub Parse_StartElement (Uri As String, Name As String, Attributes As Attributes)
@@ -100,10 +98,28 @@ Sub Parse_StartElement (Uri As String, Name As String, Attributes As Attributes)
 		workingUser.Initialize
 	End If
 End Sub
+Sub setuser(u As user)
+	Types.currentuser.username = u.username
+	Types.currentuser.password = u.password
+	Types.currentuser.available = u.available
+	Types.currentuser.ID = u.ID
+	Types.currentuser.TypeOfWorker = u.TypeOfWorker
+	Types.currentuser.CurrentTaskID = u.CurrentTaskID
+End Sub
+Sub CheckUser
+	For Each u As user In userslist
+		If  usernamefield.Text = u.username Then
+			If passwordfield.Text = u.password Then
+				setuser(u)	
+				CallSub(Main,"ShowUI")
+			End If
+		End If
+	Next
+End Sub
 
 Sub Parse_EndElement (Uri As String, Name As String, Text As StringBuilder)
 	If Name.EqualsIgnoreCase("user") Then
-		Dim newUser As currentuser
+		Dim newUser As user
 		newUser.Initialize
 		newUser.available = workingUser.available
 		newUser.CurrentTaskID = workingUser.CurrentTaskID
@@ -116,7 +132,13 @@ Sub Parse_EndElement (Uri As String, Name As String, Text As StringBuilder)
 	
 	If Name.EqualsIgnoreCase("name") Then workingUser.username = Text.ToString
 	If Name.EqualsIgnoreCase("password") Then workingUser.password = Text.ToString
-	If Name.EqualsIgnoreCase("available") Then workingUser.available = Text.ToString
+	If Name.EqualsIgnoreCase("available") Then
+		If Text.ToString  = "True" Then
+			workingUser.available = True
+		Else
+			workingUser.available = False
+		End If
+	End If
 	If Name.EqualsIgnoreCase("TypeOfWorker") Then workingUser.TypeOfWorker = Text.ToString
 	If Name.EqualsIgnoreCase("id") Then workingUser.ID = Text.ToString
 End Sub

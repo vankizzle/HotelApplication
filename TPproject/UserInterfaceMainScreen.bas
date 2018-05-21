@@ -44,28 +44,23 @@ Public Sub Initialize
 	CreateMenu.Initialize("MenuCreator")
 '	MenuOther3.Initialize("Menu4")
 	MenuTypes.Initialize
-	
-	
 	BuildUI
-	
 End Sub
-
 Sub BuildUI
+
 	usernamelbl.Textcolor = Colors.White
 	usernamelbl.Gravity = Gravity.CENTER
-	usernamelbl.Text = Main.currentuser.username
+'	usernamelbl.Text = Types.currentuser.username
 	usernamelbl.TextSize = 20
 	wholescreen.AddView(usernamelbl,10%x,0%y,30%x,10%y)
 	
 	availability.TextColor = Colors.White
 	availability.Gravity = Gravity.CENTER
 	availability.TextSize = 20
-	If Main.currentuser.available = False Then
-		availability.Text = "Status: Busy"
-	Else
-		availability.Text = "Status: Available"
-	End If
-	HelperFunctions1.Apply_ViewStyle(statusindicator,Colors.Green,Colors.Green,Colors.Green,Colors.Green,Colors.Green,Colors.Green,Colors.Green,30)
+	
+	
+	
+'	HelperFunctions1.Apply_ViewStyle(statusindicator,Colors.Green,Colors.Green,Colors.Green,Colors.Green,Colors.Green,Colors.Green,Colors.Green,30)
 	wholescreen.AddView(availability,40%x,0%y,50%x,10%y)
 	wholescreen.AddView(statusindicator,availability.Left+availability.Width ,3.5%y,5%x,3%y)
 	
@@ -105,15 +100,28 @@ Sub BuildUI
 	wholescreen.AddView(MenuTypes.AsView,MenuHolder.Left,MenuHolder.Top,MenuHolder.Width,MenuHolder.Height)
 	MenuTypes.AsView.Visible = False
 	
-	If Main.currentuser.TypeOfWorker = 0 Then
+End Sub
+
+Public Sub IfBoss
+	If Types.Isboss = True Then
 		CreateMenu.Visible = True
 		CreateMenu.Enabled = True
 		MenuOther1.Visible = False
 		MenuOther1.Enabled = False
 		MenuOther2.Visible = True
 		MenuOther2.Enabled = True
+		availability.Visible = False
+		statusindicator.Visible = False
+	Else
+		CreateMenu.Visible = False
+		CreateMenu.Enabled = False
+		MenuOther1.Visible = True
+		MenuOther1.Enabled = True
+		MenuOther2.Visible = False
+		MenuOther2.Enabled = False
+		availability.Visible = True
+		statusindicator.Visible = True
 	End If
-
 End Sub
 
 Sub AsView As Panel
@@ -174,13 +182,14 @@ Sub MenuTypeSelected_CheckedChange(Checked As Boolean)
 		
 	End If
 End Sub
+
 Public Sub SetBusy
-	Main.currentuser.available = False
+	Types.currentuser.available = False
 	availability.Text = "Status: Busy"
 	HelperFunctions1.Apply_ViewStyle(statusindicator,Colors.Red,Colors.Red,Colors.Red,Colors.Red,Colors.Red,Colors.Red,Colors.Red,30)
 End Sub
 Public Sub SetAvailable
-	Main.currentuser.available = True
+	Types.currentuser.available = True
 	availability.Text = "Status: Available"
 	HelperFunctions1.Apply_ViewStyle(statusindicator,Colors.Green,Colors.Green,Colors.Green,Colors.Green,Colors.Green,Colors.Green,Colors.Green,30)
 End Sub

@@ -53,7 +53,7 @@ Sub AsView As View
 	Return WholeScreen
 End Sub
 Sub Refresh_Tick
-	If Main.currentuser.available = True  Then
+	If Types.currentuser.available = True  Then
 		buildTasks	
 		submit.Enabled = True
 		Log("_TABLE REFRESHED_")
@@ -71,11 +71,11 @@ Sub BuildUI
 '	TasksRefreshBtn.SetBackgroundImage(refreshbtngraphic)
 	tableType.TextColor = Colors.White
 	tableType.TextSize = 25
-	If Main.currentuser.TypeOfWorker = 1 Then
+	If Types.currentuser.TypeOfWorker = 1 Then
 		tableType.Text = "Workers Table"
-	Else If Main.currentuser.TypeOfWorker = 2 Then
+	Else If Types.currentuser.TypeOfWorker = 2 Then
 		tableType.Text = "Cooks Table"
-	Else If Main.currentuser.TypeOfWorker = 3 Then
+	Else If Types.currentuser.TypeOfWorker = 3 Then
 		tableType.Text = "Waiters Table"
 	End If
 	
@@ -107,7 +107,7 @@ Sub buildTasks
 	boxchecked = 0
 	Dim p As Int = 0
 	For Each i As Task In TasksList.Values
-		If i.TaskType = Main.currentuser.TypeOfWorker Then
+		If i.TaskType = Types.currentuser.TypeOfWorker Then
 			Dim TaskPanel As Panel
 			Dim TaskIdLbl As Label
 			Dim TaskNameLbl As Label
@@ -193,7 +193,7 @@ Sub Submit_Click
 		Dim i As Int = 0
 		
 		For Each v As Task In SelectedTasks.Values
-			Main.currentuser.CurrentTaskID(i) = v.TaskID
+			Types.currentuser.CurrentTaskID(i) = v.TaskID
 			i = i + 1
 		Next
 		

@@ -59,7 +59,7 @@ Public Sub GetMyWorkers(Workers As Map)
 	Next
 End Sub
 
-Sub PanBuilder(username As String,available As Boolean,TypeOfWorker As Int,CurrentTaskID As Int) As Panel
+Sub PanBuilder(username As String,available As Boolean,TypeOfWorker As Int,CurrentTaskID() As Int) As Panel
 	Dim Holder As Panel
 	Holder.Initialize("")
 	Dim header As Panel
