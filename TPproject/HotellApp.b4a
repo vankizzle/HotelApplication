@@ -15,14 +15,14 @@ Library3=micustomviews
 Library4=httputils2
 Library5=xmlsax
 ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: https://www.b4x.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="5" android:targetSdkVersion="19"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~'End of default text.~\n~
-Module1=WorkersTable
-Module2=Types
-Module3=UserInterfaceMainScreen
-Module4=LoginScreen
+Module1=UserInterfaceMainScreen
+Module2=WorkersTable
+Module3=LoginScreen
+Module4=HelperFunctions1
 Module5=TaskTable
-Module6=MyTasks
-Module7=ChooseMenuType
-Module8=HelperFunctions1
+Module6=Types
+Module7=MyTasks
+Module8=ChooseMenuType
 Module9=Starter
 NumberOfFiles=4
 NumberOfLibraries=5
@@ -58,7 +58,7 @@ Sub Globals
 	Dim UserTasks As MyTasks
 	Dim MyWorkers As WorkersTable
 	Dim job As HttpJob
-	Dim firsttime1 As Boolean = True
+'	Dim firsttime1 As Boolean = True
 End Sub
 
 Sub Activity_Create(firsttime As Boolean)

@@ -333,10 +333,9 @@ public b4a.example.tasktable _tabletasks = null;
 public b4a.example.mytasks _usertasks = null;
 public b4a.example.workerstable _myworkers = null;
 public anywheresoftware.b4a.samples.httputils2.httpjob _job = null;
-public static boolean _firsttime1 = false;
 public anywheresoftware.b4a.samples.httputils2.httputils2service _httputils2service = null;
-public b4a.example.types _types = null;
 public b4a.example.helperfunctions1 _helperfunctions1 = null;
+public b4a.example.types _types = null;
 public b4a.example.starter _starter = null;
 
 public static boolean isAnyActivityVisible() {
@@ -479,8 +478,6 @@ mostCurrent._usertasks = new b4a.example.mytasks();
 mostCurrent._myworkers = new b4a.example.workerstable();
  //BA.debugLineNum = 29;BA.debugLine="Dim job As HttpJob";
 mostCurrent._job = new anywheresoftware.b4a.samples.httputils2.httpjob();
- //BA.debugLineNum = 30;BA.debugLine="Dim firsttime1 As Boolean = True";
-_firsttime1 = anywheresoftware.b4a.keywords.Common.True;
  //BA.debugLineNum = 31;BA.debugLine="End Sub";
 return "";
 }
@@ -514,8 +511,8 @@ public static void initializeProcessGlobals() {
 		try {
 		        anywheresoftware.b4a.samples.httputils2.httputils2service._process_globals();
 main._process_globals();
-types._process_globals();
 helperfunctions1._process_globals();
+types._process_globals();
 starter._process_globals();
 		
         } catch (Exception e) {

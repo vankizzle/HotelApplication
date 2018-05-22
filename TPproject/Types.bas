@@ -14,7 +14,7 @@ Sub Process_Globals
 	Type Task (TaskID As Int,TaskName As String,TaskType As Int,TaskInfo As String) 'task type -> 1 = for cleaners,2 = for cooks,3 = for waiters
 	
 	Public currentuser As user 
-	
+	Public userslist As Map
 End Sub
 
 Public Sub Isboss As Boolean

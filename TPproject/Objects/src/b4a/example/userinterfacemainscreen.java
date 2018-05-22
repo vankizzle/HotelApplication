@@ -38,21 +38,21 @@ public int _numberofmenus = 0;
 public b4a.example.choosemenutype _menutypes = null;
 public anywheresoftware.b4a.samples.httputils2.httputils2service _httputils2service = null;
 public b4a.example.main _main = null;
-public b4a.example.types _types = null;
 public b4a.example.helperfunctions1 _helperfunctions1 = null;
+public b4a.example.types _types = null;
 public b4a.example.starter _starter = null;
 public anywheresoftware.b4a.objects.PanelWrapper  _asview() throws Exception{
- //BA.debugLineNum = 121;BA.debugLine="Sub AsView As Panel";
- //BA.debugLineNum = 122;BA.debugLine="Return wholescreen";
+ //BA.debugLineNum = 122;BA.debugLine="Sub AsView As Panel";
+ //BA.debugLineNum = 123;BA.debugLine="Return wholescreen";
 if (true) return _wholescreen;
- //BA.debugLineNum = 123;BA.debugLine="End Sub";
+ //BA.debugLineNum = 124;BA.debugLine="End Sub";
 return null;
 }
 public String  _bonusmenu_longclick() throws Exception{
- //BA.debugLineNum = 163;BA.debugLine="Sub BonusMenu_LongClick";
- //BA.debugLineNum = 164;BA.debugLine="MenuTypes.AsView.Visible = True";
+ //BA.debugLineNum = 164;BA.debugLine="Sub BonusMenu_LongClick";
+ //BA.debugLineNum = 165;BA.debugLine="MenuTypes.AsView.Visible = True";
 _menutypes._asview().setVisible(__c.True);
- //BA.debugLineNum = 165;BA.debugLine="End Sub";
+ //BA.debugLineNum = 166;BA.debugLine="End Sub";
 return "";
 }
 public String  _buildui() throws Exception{
@@ -162,51 +162,51 @@ _menuother1 = new anywheresoftware.b4a.objects.LabelWrapper();
 _menuother2 = new anywheresoftware.b4a.objects.LabelWrapper();
  //BA.debugLineNum = 13;BA.debugLine="Dim CreateMenu As Label";
 _createmenu = new anywheresoftware.b4a.objects.LabelWrapper();
- //BA.debugLineNum = 18;BA.debugLine="Dim NumberOfMenus As Int = 0";
+ //BA.debugLineNum = 16;BA.debugLine="Dim NumberOfMenus As Int = 0";
 _numberofmenus = (int) (0);
- //BA.debugLineNum = 19;BA.debugLine="Dim MenuTypes As ChooseMenuType";
+ //BA.debugLineNum = 17;BA.debugLine="Dim MenuTypes As ChooseMenuType";
 _menutypes = new b4a.example.choosemenutype();
- //BA.debugLineNum = 20;BA.debugLine="End Sub";
+ //BA.debugLineNum = 19;BA.debugLine="End Sub";
 return "";
 }
 public String  _createmenuicon() throws Exception{
 anywheresoftware.b4a.objects.LabelWrapper _menunew = null;
- //BA.debugLineNum = 136;BA.debugLine="Sub CreateMenuIcon";
- //BA.debugLineNum = 137;BA.debugLine="If NumberOfMenus < 3 Then";
+ //BA.debugLineNum = 137;BA.debugLine="Sub CreateMenuIcon";
+ //BA.debugLineNum = 138;BA.debugLine="If NumberOfMenus < 3 Then";
 if (_numberofmenus<3) { 
- //BA.debugLineNum = 138;BA.debugLine="Dim MenuNew As Label";
+ //BA.debugLineNum = 139;BA.debugLine="Dim MenuNew As Label";
 _menunew = new anywheresoftware.b4a.objects.LabelWrapper();
- //BA.debugLineNum = 139;BA.debugLine="MenuNew.Initialize(\"BonusMenu\")";
+ //BA.debugLineNum = 140;BA.debugLine="MenuNew.Initialize(\"BonusMenu\")";
 _menunew.Initialize(ba,"BonusMenu");
- //BA.debugLineNum = 140;BA.debugLine="MenuNew.Gravity = Gravity.CENTER";
+ //BA.debugLineNum = 141;BA.debugLine="MenuNew.Gravity = Gravity.CENTER";
 _menunew.setGravity(__c.Gravity.CENTER);
- //BA.debugLineNum = 141;BA.debugLine="MenuNew.Text = \"Menu\"";
+ //BA.debugLineNum = 142;BA.debugLine="MenuNew.Text = \"Menu\"";
 _menunew.setText(BA.ObjectToCharSequence("Menu"));
- //BA.debugLineNum = 142;BA.debugLine="MenuNew.TextColor = Colors.White";
+ //BA.debugLineNum = 143;BA.debugLine="MenuNew.TextColor = Colors.White";
 _menunew.setTextColor(__c.Colors.White);
- //BA.debugLineNum = 143;BA.debugLine="MenuNew.TextSize = 15";
+ //BA.debugLineNum = 144;BA.debugLine="MenuNew.TextSize = 15";
 _menunew.setTextSize((float) (15));
- //BA.debugLineNum = 145;BA.debugLine="HelperFunctions1.Apply_ViewStyle(MenuNew,Colors.W";
+ //BA.debugLineNum = 146;BA.debugLine="HelperFunctions1.Apply_ViewStyle(MenuNew,Colors.W";
 _helperfunctions1._apply_viewstyle(ba,(anywheresoftware.b4a.objects.ConcreteViewWrapper) anywheresoftware.b4a.AbsObjectWrapper.ConvertToWrapper(new anywheresoftware.b4a.objects.ConcreteViewWrapper(), (android.view.View)(_menunew.getObject())),__c.Colors.White,__c.Colors.ARGB((int) (150),(int) (0),(int) (0),(int) (0)),__c.Colors.ARGB((int) (120),(int) (0),(int) (0),(int) (0)),__c.Colors.ARGB((int) (200),(int) (0),(int) (0),(int) (0)),__c.Colors.ARGB((int) (160),(int) (0),(int) (0),(int) (0)),__c.Colors.Black,__c.Colors.Black,(int) (0));
- //BA.debugLineNum = 146;BA.debugLine="MenuHolder.Panel.AddView(MenuNew,CreateMenu.Left,";
+ //BA.debugLineNum = 147;BA.debugLine="MenuHolder.Panel.AddView(MenuNew,CreateMenu.Left,";
 _menuholder.getPanel().AddView((android.view.View)(_menunew.getObject()),_createmenu.getLeft(),_createmenu.getTop(),_createmenu.getWidth(),_createmenu.getHeight());
- //BA.debugLineNum = 148;BA.debugLine="If CreateMenu.Left = MenuTasks.Left Then";
+ //BA.debugLineNum = 149;BA.debugLine="If CreateMenu.Left = MenuTasks.Left Then";
 if (_createmenu.getLeft()==_menutasks.getLeft()) { 
- //BA.debugLineNum = 149;BA.debugLine="CreateMenu.SetLayoutAnimated(500,(MenuTasks.Left";
+ //BA.debugLineNum = 150;BA.debugLine="CreateMenu.SetLayoutAnimated(500,(MenuTasks.Left";
 _createmenu.SetLayoutAnimated((int) (500),(int) ((_menutasks.getLeft()+_menutasks.getWidth())+__c.DipToCurrent((int) (4))),_menunew.getTop(),_menunew.getWidth(),_menunew.getHeight());
  }else if(_createmenu.getLeft()==(_menutasks.getLeft()+_menutasks.getWidth())+__c.DipToCurrent((int) (4))) { 
- //BA.debugLineNum = 151;BA.debugLine="CreateMenu.SetLayoutAnimated(500,MenuTasks.Left,";
+ //BA.debugLineNum = 152;BA.debugLine="CreateMenu.SetLayoutAnimated(500,MenuTasks.Left,";
 _createmenu.SetLayoutAnimated((int) (500),_menutasks.getLeft(),(int) ((_menunew.getTop()+_menunew.getHeight())+__c.DipToCurrent((int) (4))),_menunew.getWidth(),_menunew.getHeight());
- //BA.debugLineNum = 152;BA.debugLine="MenuHolder.panel.Height = MenuHolder.panel.Heigh";
+ //BA.debugLineNum = 153;BA.debugLine="MenuHolder.panel.Height = MenuHolder.panel.Heigh";
 _menuholder.getPanel().setHeight((int) (_menuholder.getPanel().getHeight()+_menunew.getHeight()));
  };
- //BA.debugLineNum = 154;BA.debugLine="NumberOfMenus = NumberOfMenus + 1";
+ //BA.debugLineNum = 155;BA.debugLine="NumberOfMenus = NumberOfMenus + 1";
 _numberofmenus = (int) (_numberofmenus+1);
  }else {
- //BA.debugLineNum = 156;BA.debugLine="Msgbox(\"You have reached maximum number of menus";
+ //BA.debugLineNum = 157;BA.debugLine="Msgbox(\"You have reached maximum number of menus";
 __c.Msgbox(BA.ObjectToCharSequence("You have reached maximum number of menus!Please buy more!"),BA.ObjectToCharSequence("We are sorry!"),ba);
  };
- //BA.debugLineNum = 158;BA.debugLine="End Sub";
+ //BA.debugLineNum = 159;BA.debugLine="End Sub";
 return "";
 }
 public String  _ifboss() throws Exception{
@@ -230,56 +230,56 @@ _availability.setVisible(__c.False);
  //BA.debugLineNum = 108;BA.debugLine="statusindicator.Visible = False";
 _statusindicator.setVisible(__c.False);
  }else {
- //BA.debugLineNum = 110;BA.debugLine="CreateMenu.Visible = False";
+ //BA.debugLineNum = 111;BA.debugLine="CreateMenu.Visible = False";
 _createmenu.setVisible(__c.False);
- //BA.debugLineNum = 111;BA.debugLine="CreateMenu.Enabled = False";
+ //BA.debugLineNum = 112;BA.debugLine="CreateMenu.Enabled = False";
 _createmenu.setEnabled(__c.False);
- //BA.debugLineNum = 112;BA.debugLine="MenuOther1.Visible = True";
+ //BA.debugLineNum = 113;BA.debugLine="MenuOther1.Visible = True";
 _menuother1.setVisible(__c.True);
- //BA.debugLineNum = 113;BA.debugLine="MenuOther1.Enabled = True";
+ //BA.debugLineNum = 114;BA.debugLine="MenuOther1.Enabled = True";
 _menuother1.setEnabled(__c.True);
- //BA.debugLineNum = 114;BA.debugLine="MenuOther2.Visible = False";
+ //BA.debugLineNum = 115;BA.debugLine="MenuOther2.Visible = False";
 _menuother2.setVisible(__c.False);
- //BA.debugLineNum = 115;BA.debugLine="MenuOther2.Enabled = False";
+ //BA.debugLineNum = 116;BA.debugLine="MenuOther2.Enabled = False";
 _menuother2.setEnabled(__c.False);
- //BA.debugLineNum = 116;BA.debugLine="availability.Visible = True";
+ //BA.debugLineNum = 117;BA.debugLine="availability.Visible = True";
 _availability.setVisible(__c.True);
- //BA.debugLineNum = 117;BA.debugLine="statusindicator.Visible = True";
+ //BA.debugLineNum = 118;BA.debugLine="statusindicator.Visible = True";
 _statusindicator.setVisible(__c.True);
  };
- //BA.debugLineNum = 119;BA.debugLine="End Sub";
+ //BA.debugLineNum = 120;BA.debugLine="End Sub";
 return "";
 }
 public String  _initialize(anywheresoftware.b4a.BA _ba) throws Exception{
 innerInitialize(_ba);
- //BA.debugLineNum = 23;BA.debugLine="Public Sub Initialize";
- //BA.debugLineNum = 24;BA.debugLine="wholescreen.Initialize(\"screenview\")";
+ //BA.debugLineNum = 22;BA.debugLine="Public Sub Initialize";
+ //BA.debugLineNum = 23;BA.debugLine="wholescreen.Initialize(\"screenview\")";
 _wholescreen.Initialize(ba,"screenview");
- //BA.debugLineNum = 25;BA.debugLine="screenimg.Initialize(\"\")";
+ //BA.debugLineNum = 24;BA.debugLine="screenimg.Initialize(\"\")";
 _screenimg.Initialize(ba,"");
- //BA.debugLineNum = 26;BA.debugLine="screenimg.SetBackgroundImage(LoadBitmap(File.DirA";
+ //BA.debugLineNum = 25;BA.debugLine="screenimg.SetBackgroundImage(LoadBitmap(File.DirA";
 _screenimg.SetBackgroundImageNew((android.graphics.Bitmap)(__c.LoadBitmap(__c.File.getDirAssets(),"mainscreenimg.png").getObject()));
- //BA.debugLineNum = 27;BA.debugLine="screenimg.Gravity = Gravity.FILL";
+ //BA.debugLineNum = 26;BA.debugLine="screenimg.Gravity = Gravity.FILL";
 _screenimg.setGravity(__c.Gravity.FILL);
- //BA.debugLineNum = 28;BA.debugLine="wholescreen.AddView(screenimg,0,10%y,100%x,80%y)";
+ //BA.debugLineNum = 27;BA.debugLine="wholescreen.AddView(screenimg,0,10%y,100%x,80%y)";
 _wholescreen.AddView((android.view.View)(_screenimg.getObject()),(int) (0),__c.PerYToCurrent((float) (10),ba),__c.PerXToCurrent((float) (100),ba),__c.PerYToCurrent((float) (80),ba));
- //BA.debugLineNum = 30;BA.debugLine="statusindicator.Initialize(\"\")";
+ //BA.debugLineNum = 29;BA.debugLine="statusindicator.Initialize(\"\")";
 _statusindicator.Initialize(ba,"");
- //BA.debugLineNum = 31;BA.debugLine="usernamelbl.Initialize(\"username\")";
+ //BA.debugLineNum = 30;BA.debugLine="usernamelbl.Initialize(\"username\")";
 _usernamelbl.Initialize(ba,"username");
- //BA.debugLineNum = 32;BA.debugLine="availability.Initialize(\"avail\")";
+ //BA.debugLineNum = 31;BA.debugLine="availability.Initialize(\"avail\")";
 _availability.Initialize(ba,"avail");
- //BA.debugLineNum = 34;BA.debugLine="MenuHolder.Initialize(40%y+4dip)";
+ //BA.debugLineNum = 33;BA.debugLine="MenuHolder.Initialize(40%y+4dip)";
 _menuholder.Initialize(ba,(int) (__c.PerYToCurrent((float) (40),ba)+__c.DipToCurrent((int) (4))));
- //BA.debugLineNum = 35;BA.debugLine="MenuTasks.Initialize(\"Tasks\")";
+ //BA.debugLineNum = 34;BA.debugLine="MenuTasks.Initialize(\"Tasks\")";
 _menutasks.Initialize(ba,"Tasks");
- //BA.debugLineNum = 36;BA.debugLine="MenuOther1.Initialize(\"MyTask\")";
+ //BA.debugLineNum = 35;BA.debugLine="MenuOther1.Initialize(\"MyTask\")";
 _menuother1.Initialize(ba,"MyTask");
- //BA.debugLineNum = 37;BA.debugLine="MenuOther2.Initialize(\"MyWorkers\")";
+ //BA.debugLineNum = 36;BA.debugLine="MenuOther2.Initialize(\"MyWorkers\")";
 _menuother2.Initialize(ba,"MyWorkers");
- //BA.debugLineNum = 38;BA.debugLine="CreateMenu.Initialize(\"MenuCreator\")";
+ //BA.debugLineNum = 37;BA.debugLine="CreateMenu.Initialize(\"MenuCreator\")";
 _createmenu.Initialize(ba,"MenuCreator");
- //BA.debugLineNum = 40;BA.debugLine="MenuTypes.Initialize";
+ //BA.debugLineNum = 39;BA.debugLine="MenuTypes.Initialize";
 _menutypes._initialize(ba);
  //BA.debugLineNum = 41;BA.debugLine="BuildUI";
 _buildui();
@@ -287,82 +287,82 @@ _buildui();
 return "";
 }
 public String  _menucreator_click() throws Exception{
- //BA.debugLineNum = 130;BA.debugLine="Sub MenuCreator_Click";
- //BA.debugLineNum = 131;BA.debugLine="CreateMenuIcon";
+ //BA.debugLineNum = 131;BA.debugLine="Sub MenuCreator_Click";
+ //BA.debugLineNum = 132;BA.debugLine="CreateMenuIcon";
 _createmenuicon();
- //BA.debugLineNum = 132;BA.debugLine="End Sub";
+ //BA.debugLineNum = 133;BA.debugLine="End Sub";
 return "";
 }
 public String  _menutypeselected_checkedchange(boolean _checked) throws Exception{
 anywheresoftware.b4a.objects.CompoundButtonWrapper.CheckBoxWrapper _cbox = null;
- //BA.debugLineNum = 169;BA.debugLine="Sub MenuTypeSelected_CheckedChange(Checked As Bool";
- //BA.debugLineNum = 170;BA.debugLine="Dim cbox As CheckBox = Sender";
+ //BA.debugLineNum = 170;BA.debugLine="Sub MenuTypeSelected_CheckedChange(Checked As Bool";
+ //BA.debugLineNum = 171;BA.debugLine="Dim cbox As CheckBox = Sender";
 _cbox = new anywheresoftware.b4a.objects.CompoundButtonWrapper.CheckBoxWrapper();
 _cbox.setObject((android.widget.CheckBox)(__c.Sender(ba)));
- //BA.debugLineNum = 172;BA.debugLine="If Checked = True Then";
+ //BA.debugLineNum = 173;BA.debugLine="If Checked = True Then";
 if (_checked==__c.True) { 
  }else {
- //BA.debugLineNum = 175;BA.debugLine="Checked = False";
+ //BA.debugLineNum = 176;BA.debugLine="Checked = False";
 _checked = __c.False;
  };
- //BA.debugLineNum = 178;BA.debugLine="End Sub";
+ //BA.debugLineNum = 179;BA.debugLine="End Sub";
 return "";
 }
 public String  _mytask_click() throws Exception{
- //BA.debugLineNum = 127;BA.debugLine="Sub MyTask_Click";
- //BA.debugLineNum = 128;BA.debugLine="CallSub(Main,\"ShowMyTasks\")";
+ //BA.debugLineNum = 128;BA.debugLine="Sub MyTask_Click";
+ //BA.debugLineNum = 129;BA.debugLine="CallSub(Main,\"ShowMyTasks\")";
 __c.CallSubNew(ba,(Object)(_main.getObject()),"ShowMyTasks");
- //BA.debugLineNum = 129;BA.debugLine="End Sub";
+ //BA.debugLineNum = 130;BA.debugLine="End Sub";
 return "";
 }
 public String  _myworkers_click() throws Exception{
- //BA.debugLineNum = 159;BA.debugLine="Sub MyWorkers_Click";
- //BA.debugLineNum = 160;BA.debugLine="CallSub(Main,\"ShowMyWorkers\")";
+ //BA.debugLineNum = 160;BA.debugLine="Sub MyWorkers_Click";
+ //BA.debugLineNum = 161;BA.debugLine="CallSub(Main,\"ShowMyWorkers\")";
 __c.CallSubNew(ba,(Object)(_main.getObject()),"ShowMyWorkers");
- //BA.debugLineNum = 161;BA.debugLine="End Sub";
+ //BA.debugLineNum = 162;BA.debugLine="End Sub";
 return "";
 }
 public boolean  _propwindow_click() throws Exception{
- //BA.debugLineNum = 133;BA.debugLine="Sub propwindow_Click As Boolean";
- //BA.debugLineNum = 134;BA.debugLine="Return True";
+ //BA.debugLineNum = 134;BA.debugLine="Sub propwindow_Click As Boolean";
+ //BA.debugLineNum = 135;BA.debugLine="Return True";
 if (true) return __c.True;
- //BA.debugLineNum = 135;BA.debugLine="End Sub";
+ //BA.debugLineNum = 136;BA.debugLine="End Sub";
 return false;
 }
 public boolean  _screenview_click() throws Exception{
- //BA.debugLineNum = 191;BA.debugLine="Sub screenview_Click As Boolean";
- //BA.debugLineNum = 192;BA.debugLine="Return True";
+ //BA.debugLineNum = 192;BA.debugLine="Sub screenview_Click As Boolean";
+ //BA.debugLineNum = 193;BA.debugLine="Return True";
 if (true) return __c.True;
- //BA.debugLineNum = 193;BA.debugLine="End Sub";
+ //BA.debugLineNum = 194;BA.debugLine="End Sub";
 return false;
 }
 public String  _setavailable() throws Exception{
- //BA.debugLineNum = 185;BA.debugLine="Public Sub SetAvailable";
- //BA.debugLineNum = 186;BA.debugLine="Types.currentuser.available = True";
+ //BA.debugLineNum = 186;BA.debugLine="Public Sub SetAvailable";
+ //BA.debugLineNum = 187;BA.debugLine="Types.currentuser.available = True";
 _types._currentuser.available = __c.True;
- //BA.debugLineNum = 187;BA.debugLine="availability.Text = \"Status: Available\"";
+ //BA.debugLineNum = 188;BA.debugLine="availability.Text = \"Status: Available\"";
 _availability.setText(BA.ObjectToCharSequence("Status: Available"));
- //BA.debugLineNum = 188;BA.debugLine="HelperFunctions1.Apply_ViewStyle(statusindicator,";
+ //BA.debugLineNum = 189;BA.debugLine="HelperFunctions1.Apply_ViewStyle(statusindicator,";
 _helperfunctions1._apply_viewstyle(ba,(anywheresoftware.b4a.objects.ConcreteViewWrapper) anywheresoftware.b4a.AbsObjectWrapper.ConvertToWrapper(new anywheresoftware.b4a.objects.ConcreteViewWrapper(), (android.view.View)(_statusindicator.getObject())),__c.Colors.Green,__c.Colors.Green,__c.Colors.Green,__c.Colors.Green,__c.Colors.Green,__c.Colors.Green,__c.Colors.Green,(int) (30));
- //BA.debugLineNum = 189;BA.debugLine="End Sub";
+ //BA.debugLineNum = 190;BA.debugLine="End Sub";
 return "";
 }
 public String  _setbusy() throws Exception{
- //BA.debugLineNum = 180;BA.debugLine="Public Sub SetBusy";
- //BA.debugLineNum = 181;BA.debugLine="Types.currentuser.available = False";
+ //BA.debugLineNum = 181;BA.debugLine="Public Sub SetBusy";
+ //BA.debugLineNum = 182;BA.debugLine="Types.currentuser.available = False";
 _types._currentuser.available = __c.False;
- //BA.debugLineNum = 182;BA.debugLine="availability.Text = \"Status: Busy\"";
+ //BA.debugLineNum = 183;BA.debugLine="availability.Text = \"Status: Busy\"";
 _availability.setText(BA.ObjectToCharSequence("Status: Busy"));
- //BA.debugLineNum = 183;BA.debugLine="HelperFunctions1.Apply_ViewStyle(statusindicator,";
+ //BA.debugLineNum = 184;BA.debugLine="HelperFunctions1.Apply_ViewStyle(statusindicator,";
 _helperfunctions1._apply_viewstyle(ba,(anywheresoftware.b4a.objects.ConcreteViewWrapper) anywheresoftware.b4a.AbsObjectWrapper.ConvertToWrapper(new anywheresoftware.b4a.objects.ConcreteViewWrapper(), (android.view.View)(_statusindicator.getObject())),__c.Colors.Red,__c.Colors.Red,__c.Colors.Red,__c.Colors.Red,__c.Colors.Red,__c.Colors.Red,__c.Colors.Red,(int) (30));
- //BA.debugLineNum = 184;BA.debugLine="End Sub";
+ //BA.debugLineNum = 185;BA.debugLine="End Sub";
 return "";
 }
 public String  _tasks_click() throws Exception{
- //BA.debugLineNum = 124;BA.debugLine="Sub Tasks_Click";
- //BA.debugLineNum = 125;BA.debugLine="CallSub(Main,\"ShowTaskTable\")";
+ //BA.debugLineNum = 125;BA.debugLine="Sub Tasks_Click";
+ //BA.debugLineNum = 126;BA.debugLine="CallSub(Main,\"ShowTaskTable\")";
 __c.CallSubNew(ba,(Object)(_main.getObject()),"ShowTaskTable");
- //BA.debugLineNum = 126;BA.debugLine="End Sub";
+ //BA.debugLineNum = 127;BA.debugLine="End Sub";
 return "";
 }
 public Object callSub(String sub, Object sender, Object[] args) throws Exception {

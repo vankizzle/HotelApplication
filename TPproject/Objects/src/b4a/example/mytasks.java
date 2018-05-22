@@ -36,8 +36,8 @@ public int _chekboxtag = 0;
 public int _checknumbers = 0;
 public anywheresoftware.b4a.samples.httputils2.httputils2service _httputils2service = null;
 public b4a.example.main _main = null;
-public b4a.example.types _types = null;
 public b4a.example.helperfunctions1 _helperfunctions1 = null;
+public b4a.example.types _types = null;
 public b4a.example.starter _starter = null;
 public anywheresoftware.b4a.objects.ConcreteViewWrapper  _asview() throws Exception{
  //BA.debugLineNum = 46;BA.debugLine="Sub AsView As View";
@@ -112,24 +112,24 @@ public String  _finish_click() throws Exception{
 int _i = 0;
 int _k = 0;
 anywheresoftware.b4a.objects.PanelWrapper _v = null;
- //BA.debugLineNum = 135;BA.debugLine="Sub Finish_Click";
- //BA.debugLineNum = 136;BA.debugLine="Log(ViewToRemove)";
+ //BA.debugLineNum = 134;BA.debugLine="Sub Finish_Click";
+ //BA.debugLineNum = 135;BA.debugLine="Log(ViewToRemove)";
 __c.Log(BA.ObjectToString(_viewtoremove));
- //BA.debugLineNum = 137;BA.debugLine="Log(MapOfView)";
+ //BA.debugLineNum = 136;BA.debugLine="Log(MapOfView)";
 __c.Log(BA.ObjectToString(_mapofview));
- //BA.debugLineNum = 139;BA.debugLine="For i = 0 To ViewToRemove.Size - 1";
+ //BA.debugLineNum = 138;BA.debugLine="For i = 0 To ViewToRemove.Size - 1";
 {
 final int step3 = 1;
 final int limit3 = (int) (_viewtoremove.getSize()-1);
 _i = (int) (0) ;
 for (;(step3 > 0 && _i <= limit3) || (step3 < 0 && _i >= limit3) ;_i = ((int)(0 + _i + step3))  ) {
- //BA.debugLineNum = 140;BA.debugLine="Types.currentuser.CurrentTaskID(i) = 0";
+ //BA.debugLineNum = 139;BA.debugLine="Types.currentuser.CurrentTaskID(i) = 0";
 _types._currentuser.CurrentTaskID[_i] = (int) (0);
  }
 };
- //BA.debugLineNum = 143;BA.debugLine="Types.currentuser.CurrentTaskID(0) = 5";
+ //BA.debugLineNum = 142;BA.debugLine="Types.currentuser.CurrentTaskID(0) = 5";
 _types._currentuser.CurrentTaskID[(int) (0)] = (int) (5);
- //BA.debugLineNum = 144;BA.debugLine="For Each k As Int In ViewToRemove.Keys";
+ //BA.debugLineNum = 143;BA.debugLine="For Each k As Int In ViewToRemove.Keys";
 {
 final anywheresoftware.b4a.BA.IterableList group7 = _viewtoremove.Keys();
 final int groupLen7 = group7.getSize()
@@ -137,14 +137,14 @@ final int groupLen7 = group7.getSize()
 ;
 for (; index7 < groupLen7;index7++){
 _k = (int)(BA.ObjectToNumber(group7.Get(index7)));
- //BA.debugLineNum = 145;BA.debugLine="If MapOfView.ContainsKey(k) Then";
+ //BA.debugLineNum = 144;BA.debugLine="If MapOfView.ContainsKey(k) Then";
 if (_mapofview.ContainsKey((Object)(_k))) { 
- //BA.debugLineNum = 146;BA.debugLine="MapOfView.Remove(k)";
+ //BA.debugLineNum = 145;BA.debugLine="MapOfView.Remove(k)";
 _mapofview.Remove((Object)(_k));
  };
  }
 };
- //BA.debugLineNum = 150;BA.debugLine="For Each v As Panel In ViewToRemove.Values";
+ //BA.debugLineNum = 149;BA.debugLine="For Each v As Panel In ViewToRemove.Values";
 _v = new anywheresoftware.b4a.objects.PanelWrapper();
 {
 final anywheresoftware.b4a.BA.IterableList group12 = _viewtoremove.Values();
@@ -153,48 +153,48 @@ final int groupLen12 = group12.getSize()
 ;
 for (; index12 < groupLen12;index12++){
 _v.setObject((android.view.ViewGroup)(group12.Get(index12)));
- //BA.debugLineNum = 151;BA.debugLine="v.RemoveAllViews";
+ //BA.debugLineNum = 150;BA.debugLine="v.RemoveAllViews";
 _v.RemoveAllViews();
- //BA.debugLineNum = 152;BA.debugLine="v.RemoveView";
+ //BA.debugLineNum = 151;BA.debugLine="v.RemoveView";
 _v.RemoveView();
  }
 };
- //BA.debugLineNum = 155;BA.debugLine="ViewToRemove.Clear";
+ //BA.debugLineNum = 154;BA.debugLine="ViewToRemove.Clear";
 _viewtoremove.Clear();
- //BA.debugLineNum = 157;BA.debugLine="Log(\"???????????????\")";
+ //BA.debugLineNum = 156;BA.debugLine="Log(\"???????????????\")";
 __c.Log("???????????????");
- //BA.debugLineNum = 158;BA.debugLine="Log(ViewToRemove)";
+ //BA.debugLineNum = 157;BA.debugLine="Log(ViewToRemove)";
 __c.Log(BA.ObjectToString(_viewtoremove));
- //BA.debugLineNum = 159;BA.debugLine="Log(MapOfView)";
+ //BA.debugLineNum = 158;BA.debugLine="Log(MapOfView)";
 __c.Log(BA.ObjectToString(_mapofview));
- //BA.debugLineNum = 161;BA.debugLine="FinishBtn.Enabled = False";
+ //BA.debugLineNum = 160;BA.debugLine="FinishBtn.Enabled = False";
 _finishbtn.setEnabled(__c.False);
- //BA.debugLineNum = 163;BA.debugLine="If MapOfView.Size = 0 Then";
+ //BA.debugLineNum = 162;BA.debugLine="If MapOfView.Size = 0 Then";
 if (_mapofview.getSize()==0) { 
- //BA.debugLineNum = 164;BA.debugLine="MapOfView.Clear";
+ //BA.debugLineNum = 163;BA.debugLine="MapOfView.Clear";
 _mapofview.Clear();
- //BA.debugLineNum = 165;BA.debugLine="ViewToRemove.Clear";
+ //BA.debugLineNum = 164;BA.debugLine="ViewToRemove.Clear";
 _viewtoremove.Clear();
- //BA.debugLineNum = 166;BA.debugLine="CallSub(Main,\"SetUserAvailable\")";
+ //BA.debugLineNum = 165;BA.debugLine="CallSub(Main,\"SetUserAvailable\")";
 __c.CallSubNew(ba,(Object)(_main.getObject()),"SetUserAvailable");
  };
- //BA.debugLineNum = 168;BA.debugLine="End Sub";
+ //BA.debugLineNum = 167;BA.debugLine="End Sub";
 return "";
 }
 public String  _finished_checkedchange(boolean _checked) throws Exception{
 anywheresoftware.b4a.objects.CompoundButtonWrapper.CheckBoxWrapper _cbox = null;
 int _k = 0;
- //BA.debugLineNum = 110;BA.debugLine="Sub finished_CheckedChange(Checked As Boolean)";
- //BA.debugLineNum = 111;BA.debugLine="Dim cbox As CheckBox = Sender";
+ //BA.debugLineNum = 109;BA.debugLine="Sub finished_CheckedChange(Checked As Boolean)";
+ //BA.debugLineNum = 110;BA.debugLine="Dim cbox As CheckBox = Sender";
 _cbox = new anywheresoftware.b4a.objects.CompoundButtonWrapper.CheckBoxWrapper();
 _cbox.setObject((android.widget.CheckBox)(__c.Sender(ba)));
- //BA.debugLineNum = 113;BA.debugLine="If Checked = True Then";
+ //BA.debugLineNum = 112;BA.debugLine="If Checked = True Then";
 if (_checked==__c.True) { 
- //BA.debugLineNum = 114;BA.debugLine="FinishBtn.Enabled = True";
+ //BA.debugLineNum = 113;BA.debugLine="FinishBtn.Enabled = True";
 _finishbtn.setEnabled(__c.True);
- //BA.debugLineNum = 115;BA.debugLine="checkNumbers = checkNumbers + 1";
+ //BA.debugLineNum = 114;BA.debugLine="checkNumbers = checkNumbers + 1";
 _checknumbers = (int) (_checknumbers+1);
- //BA.debugLineNum = 116;BA.debugLine="For Each k As Int In MapOfView.Keys";
+ //BA.debugLineNum = 115;BA.debugLine="For Each k As Int In MapOfView.Keys";
 {
 final anywheresoftware.b4a.BA.IterableList group5 = _mapofview.Keys();
 final int groupLen5 = group5.getSize()
@@ -202,31 +202,31 @@ final int groupLen5 = group5.getSize()
 ;
 for (; index5 < groupLen5;index5++){
 _k = (int)(BA.ObjectToNumber(group5.Get(index5)));
- //BA.debugLineNum = 117;BA.debugLine="If cbox.Tag = k Then";
+ //BA.debugLineNum = 116;BA.debugLine="If cbox.Tag = k Then";
 if ((_cbox.getTag()).equals((Object)(_k))) { 
- //BA.debugLineNum = 118;BA.debugLine="ToastMessageShow(\"You selected task \" & k,Fals";
+ //BA.debugLineNum = 117;BA.debugLine="ToastMessageShow(\"You selected task \" & k,Fals";
 __c.ToastMessageShow(BA.ObjectToCharSequence("You selected task "+BA.NumberToString(_k)),__c.False);
- //BA.debugLineNum = 119;BA.debugLine="ViewToRemove.Put(k,MapOfView.Get(k))";
+ //BA.debugLineNum = 118;BA.debugLine="ViewToRemove.Put(k,MapOfView.Get(k))";
 _viewtoremove.Put((Object)(_k),_mapofview.Get((Object)(_k)));
  };
  }
 };
  }else {
- //BA.debugLineNum = 123;BA.debugLine="Checked = False";
+ //BA.debugLineNum = 122;BA.debugLine="Checked = False";
 _checked = __c.False;
- //BA.debugLineNum = 124;BA.debugLine="checkNumbers = checkNumbers - 1";
+ //BA.debugLineNum = 123;BA.debugLine="checkNumbers = checkNumbers - 1";
 _checknumbers = (int) (_checknumbers-1);
- //BA.debugLineNum = 125;BA.debugLine="ViewToRemove.Remove(cbox.tag)";
+ //BA.debugLineNum = 124;BA.debugLine="ViewToRemove.Remove(cbox.tag)";
 _viewtoremove.Remove(_cbox.getTag());
- //BA.debugLineNum = 127;BA.debugLine="If 	checkNumbers = 0 Then";
+ //BA.debugLineNum = 126;BA.debugLine="If 	checkNumbers = 0 Then";
 if (_checknumbers==0) { 
- //BA.debugLineNum = 128;BA.debugLine="FinishBtn.Enabled = False";
+ //BA.debugLineNum = 127;BA.debugLine="FinishBtn.Enabled = False";
 _finishbtn.setEnabled(__c.False);
  };
  };
- //BA.debugLineNum = 132;BA.debugLine="Log(\"Checked = \"& checkNumbers)";
+ //BA.debugLineNum = 131;BA.debugLine="Log(\"Checked = \"& checkNumbers)";
 __c.Log("Checked = "+BA.NumberToString(_checknumbers));
- //BA.debugLineNum = 133;BA.debugLine="End Sub";
+ //BA.debugLineNum = 132;BA.debugLine="End Sub";
 return "";
 }
 public String  _getmytasks(anywheresoftware.b4a.objects.collections.Map _acceptedtasks) throws Exception{
@@ -253,11 +253,11 @@ final int groupLen5 = group5.getSize()
 ;
 for (; index5 < groupLen5;index5++){
 _v = (b4a.example.types._task)(group5.Get(index5));
- //BA.debugLineNum = 57;BA.debugLine="TaskHolder.addView(PanBuilder(v.TaskName,v.TaskT";
+ //BA.debugLineNum = 56;BA.debugLine="TaskHolder.addView(PanBuilder(v.TaskName,v.TaskT";
 _taskholder.addView((android.view.View)(_panbuilder(_v.TaskName,_v.TaskType,_v.TaskInfo,_v.TaskID).getObject()),__c.PerXToCurrent((float) (80),ba),__c.PerYToCurrent((float) (15),ba),(int) (0),(int) (0),(int) (0),__c.DipToCurrent((int) (2)));
  }
 };
- //BA.debugLineNum = 60;BA.debugLine="End Sub";
+ //BA.debugLineNum = 59;BA.debugLine="End Sub";
 return "";
 }
 public String  _initialize(anywheresoftware.b4a.BA _ba) throws Exception{
@@ -292,84 +292,84 @@ wrappers.MiScrollView _viewinfo = null;
 anywheresoftware.b4a.objects.LabelWrapper _lblinfo = null;
 anywheresoftware.b4a.objects.LabelWrapper _lblid = null;
 anywheresoftware.b4a.objects.CompoundButtonWrapper.CheckBoxWrapper _checked = null;
- //BA.debugLineNum = 62;BA.debugLine="Sub PanBuilder(Name As String,TaskType As Int,Info";
- //BA.debugLineNum = 63;BA.debugLine="Dim Holder As Panel";
+ //BA.debugLineNum = 61;BA.debugLine="Sub PanBuilder(Name As String,TaskType As Int,Info";
+ //BA.debugLineNum = 62;BA.debugLine="Dim Holder As Panel";
 _holder = new anywheresoftware.b4a.objects.PanelWrapper();
- //BA.debugLineNum = 64;BA.debugLine="Holder.Initialize(\"\")";
+ //BA.debugLineNum = 63;BA.debugLine="Holder.Initialize(\"\")";
 _holder.Initialize(ba,"");
- //BA.debugLineNum = 67;BA.debugLine="Dim header As Panel";
+ //BA.debugLineNum = 66;BA.debugLine="Dim header As Panel";
 _header = new anywheresoftware.b4a.objects.PanelWrapper();
- //BA.debugLineNum = 68;BA.debugLine="header.Initialize(\"\")";
+ //BA.debugLineNum = 67;BA.debugLine="header.Initialize(\"\")";
 _header.Initialize(ba,"");
- //BA.debugLineNum = 69;BA.debugLine="Dim lblName As Label";
+ //BA.debugLineNum = 68;BA.debugLine="Dim lblName As Label";
 _lblname = new anywheresoftware.b4a.objects.LabelWrapper();
- //BA.debugLineNum = 70;BA.debugLine="lblName.Initialize(\"\")";
+ //BA.debugLineNum = 69;BA.debugLine="lblName.Initialize(\"\")";
 _lblname.Initialize(ba,"");
- //BA.debugLineNum = 71;BA.debugLine="Dim ViewInfo As MiScrollView";
+ //BA.debugLineNum = 70;BA.debugLine="Dim ViewInfo As MiScrollView";
 _viewinfo = new wrappers.MiScrollView();
- //BA.debugLineNum = 72;BA.debugLine="ViewInfo.Initialize";
+ //BA.debugLineNum = 71;BA.debugLine="ViewInfo.Initialize";
 _viewinfo.Initialize(ba);
- //BA.debugLineNum = 73;BA.debugLine="Dim lblInfo As Label";
+ //BA.debugLineNum = 72;BA.debugLine="Dim lblInfo As Label";
 _lblinfo = new anywheresoftware.b4a.objects.LabelWrapper();
- //BA.debugLineNum = 74;BA.debugLine="lblInfo.Initialize(\"\")";
+ //BA.debugLineNum = 73;BA.debugLine="lblInfo.Initialize(\"\")";
 _lblinfo.Initialize(ba,"");
- //BA.debugLineNum = 75;BA.debugLine="Dim lblID As Label";
+ //BA.debugLineNum = 74;BA.debugLine="Dim lblID As Label";
 _lblid = new anywheresoftware.b4a.objects.LabelWrapper();
- //BA.debugLineNum = 76;BA.debugLine="lblID.Initialize(\"\")";
+ //BA.debugLineNum = 75;BA.debugLine="lblID.Initialize(\"\")";
 _lblid.Initialize(ba,"");
- //BA.debugLineNum = 77;BA.debugLine="Dim checked As CheckBox";
+ //BA.debugLineNum = 76;BA.debugLine="Dim checked As CheckBox";
 _checked = new anywheresoftware.b4a.objects.CompoundButtonWrapper.CheckBoxWrapper();
- //BA.debugLineNum = 78;BA.debugLine="checked.Initialize(\"finished\")";
+ //BA.debugLineNum = 77;BA.debugLine="checked.Initialize(\"finished\")";
 _checked.Initialize(ba,"finished");
- //BA.debugLineNum = 79;BA.debugLine="Holder.AddView(header,0,0,80%x,5%y)";
+ //BA.debugLineNum = 78;BA.debugLine="Holder.AddView(header,0,0,80%x,5%y)";
 _holder.AddView((android.view.View)(_header.getObject()),(int) (0),(int) (0),__c.PerXToCurrent((float) (80),ba),__c.PerYToCurrent((float) (5),ba));
- //BA.debugLineNum = 81;BA.debugLine="header.Color = Colors.rgb(0, 128, 255)";
+ //BA.debugLineNum = 80;BA.debugLine="header.Color = Colors.rgb(0, 128, 255)";
 _header.setColor(__c.Colors.RGB((int) (0),(int) (128),(int) (255)));
- //BA.debugLineNum = 82;BA.debugLine="Holder.Tag = chekboxtag";
+ //BA.debugLineNum = 81;BA.debugLine="Holder.Tag = chekboxtag";
 _holder.setTag((Object)(_chekboxtag));
- //BA.debugLineNum = 83;BA.debugLine="checked.Tag = chekboxtag";
+ //BA.debugLineNum = 82;BA.debugLine="checked.Tag = chekboxtag";
 _checked.setTag((Object)(_chekboxtag));
- //BA.debugLineNum = 84;BA.debugLine="checked.Gravity = Gravity.CENTER";
+ //BA.debugLineNum = 83;BA.debugLine="checked.Gravity = Gravity.CENTER";
 _checked.setGravity(__c.Gravity.CENTER);
- //BA.debugLineNum = 85;BA.debugLine="header.AddView(checked,70%x,0,10%x,5%y)";
+ //BA.debugLineNum = 84;BA.debugLine="header.AddView(checked,70%x,0,10%x,5%y)";
 _header.AddView((android.view.View)(_checked.getObject()),__c.PerXToCurrent((float) (70),ba),(int) (0),__c.PerXToCurrent((float) (10),ba),__c.PerYToCurrent((float) (5),ba));
- //BA.debugLineNum = 87;BA.debugLine="lblName.Color = Colors.rgb(0, 128, 255)";
+ //BA.debugLineNum = 86;BA.debugLine="lblName.Color = Colors.rgb(0, 128, 255)";
 _lblname.setColor(__c.Colors.RGB((int) (0),(int) (128),(int) (255)));
- //BA.debugLineNum = 88;BA.debugLine="lblName.Text = Name";
+ //BA.debugLineNum = 87;BA.debugLine="lblName.Text = Name";
 _lblname.setText(BA.ObjectToCharSequence(_name));
- //BA.debugLineNum = 89;BA.debugLine="lblName.TextSize = 20";
+ //BA.debugLineNum = 88;BA.debugLine="lblName.TextSize = 20";
 _lblname.setTextSize((float) (20));
- //BA.debugLineNum = 90;BA.debugLine="lblName.TextColor = Colors.White";
+ //BA.debugLineNum = 89;BA.debugLine="lblName.TextColor = Colors.White";
 _lblname.setTextColor(__c.Colors.White);
- //BA.debugLineNum = 91;BA.debugLine="lblName.Gravity = Gravity.CENTER";
+ //BA.debugLineNum = 90;BA.debugLine="lblName.Gravity = Gravity.CENTER";
 _lblname.setGravity(__c.Gravity.CENTER);
- //BA.debugLineNum = 92;BA.debugLine="header.AddView(lblName,20%x,0,40%x,5%y)";
+ //BA.debugLineNum = 91;BA.debugLine="header.AddView(lblName,20%x,0,40%x,5%y)";
 _header.AddView((android.view.View)(_lblname.getObject()),__c.PerXToCurrent((float) (20),ba),(int) (0),__c.PerXToCurrent((float) (40),ba),__c.PerYToCurrent((float) (5),ba));
- //BA.debugLineNum = 94;BA.debugLine="lblID.Text = ID";
+ //BA.debugLineNum = 93;BA.debugLine="lblID.Text = ID";
 _lblid.setText(BA.ObjectToCharSequence(_id));
- //BA.debugLineNum = 95;BA.debugLine="header.AddView(lblID,5%x,0,5%x,5%y)";
+ //BA.debugLineNum = 94;BA.debugLine="header.AddView(lblID,5%x,0,5%x,5%y)";
 _header.AddView((android.view.View)(_lblid.getObject()),__c.PerXToCurrent((float) (5),ba),(int) (0),__c.PerXToCurrent((float) (5),ba),__c.PerYToCurrent((float) (5),ba));
- //BA.debugLineNum = 96;BA.debugLine="lblID.Visible = False";
+ //BA.debugLineNum = 95;BA.debugLine="lblID.Visible = False";
 _lblid.setVisible(__c.False);
- //BA.debugLineNum = 98;BA.debugLine="lblInfo.Text = Info";
+ //BA.debugLineNum = 97;BA.debugLine="lblInfo.Text = Info";
 _lblinfo.setText(BA.ObjectToCharSequence(_info));
- //BA.debugLineNum = 99;BA.debugLine="lblInfo.TextSize = 15";
+ //BA.debugLineNum = 98;BA.debugLine="lblInfo.TextSize = 15";
 _lblinfo.setTextSize((float) (15));
- //BA.debugLineNum = 100;BA.debugLine="lblInfo.TextColor = Colors.White";
+ //BA.debugLineNum = 99;BA.debugLine="lblInfo.TextColor = Colors.White";
 _lblinfo.setTextColor(__c.Colors.White);
- //BA.debugLineNum = 101;BA.debugLine="lblInfo.Color = Colors.rgb(0, 128, 255)";
+ //BA.debugLineNum = 100;BA.debugLine="lblInfo.Color = Colors.rgb(0, 128, 255)";
 _lblinfo.setColor(__c.Colors.RGB((int) (0),(int) (128),(int) (255)));
- //BA.debugLineNum = 103;BA.debugLine="Holder.AddView(ViewInfo.ScrollView,0%x,5%y,80%x,1";
+ //BA.debugLineNum = 102;BA.debugLine="Holder.AddView(ViewInfo.ScrollView,0%x,5%y,80%x,1";
 _holder.AddView(_viewinfo.getScrollView(),__c.PerXToCurrent((float) (0),ba),__c.PerYToCurrent((float) (5),ba),__c.PerXToCurrent((float) (80),ba),__c.PerYToCurrent((float) (10),ba));
- //BA.debugLineNum = 104;BA.debugLine="ViewInfo.addView(lblInfo,80%x,15%y,0,0,0,0)";
+ //BA.debugLineNum = 103;BA.debugLine="ViewInfo.addView(lblInfo,80%x,15%y,0,0,0,0)";
 _viewinfo.addView((android.view.View)(_lblinfo.getObject()),__c.PerXToCurrent((float) (80),ba),__c.PerYToCurrent((float) (15),ba),(int) (0),(int) (0),(int) (0),(int) (0));
- //BA.debugLineNum = 105;BA.debugLine="MapOfView.Put(checked.Tag,Holder)";
+ //BA.debugLineNum = 104;BA.debugLine="MapOfView.Put(checked.Tag,Holder)";
 _mapofview.Put(_checked.getTag(),(Object)(_holder.getObject()));
- //BA.debugLineNum = 106;BA.debugLine="chekboxtag = chekboxtag + 1";
+ //BA.debugLineNum = 105;BA.debugLine="chekboxtag = chekboxtag + 1";
 _chekboxtag = (int) (_chekboxtag+1);
- //BA.debugLineNum = 107;BA.debugLine="Return Holder";
+ //BA.debugLineNum = 106;BA.debugLine="Return Holder";
 if (true) return _holder;
- //BA.debugLineNum = 108;BA.debugLine="End Sub";
+ //BA.debugLineNum = 107;BA.debugLine="End Sub";
 return null;
 }
 public Object callSub(String sub, Object sender, Object[] args) throws Exception {

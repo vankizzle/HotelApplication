@@ -11,7 +11,7 @@
 	
 	<user>
 		<name>Gen1</name>
-		<password>abc</password>
+		<password>1</password>
 		<available>True</available>
 		<TypeOfWorker>1</TypeOfWorker>
 		<CurrentTaskID></CurrentTaskID>
@@ -20,7 +20,7 @@
 	
 	<user>
 		<name>Gen2</name>
-		<password>abcd</password>
+		<password>2</password>
 		<available>False</available>
 		<TypeOfWorker>1</TypeOfWorker>
 		<CurrentTaskID>1,2,3</CurrentTaskID>
@@ -28,11 +28,56 @@
 	</user>	
 	
 	<user>
-		<name>Gen2</name>
-		<password>abcde</password>
+		<name>Gen3</name>
+		<password>3</password>
+		<available>True</available>
+		<TypeOfWorker>2</TypeOfWorker>
+		<CurrentTaskID></CurrentTaskID>
+		<id>001</id>
+	</user>
+	
+	<user>
+		<name>Gen4</name>
+		<password>4</password>
 		<available>True</available>
 		<TypeOfWorker>1</TypeOfWorker>
 		<CurrentTaskID></CurrentTaskID>
+		<id>001</id>
+	</user>
+	
+	<user>
+		<name>Gen5</name>
+		<password>5</password>
+		<available>True</available>
+		<TypeOfWorker>1</TypeOfWorker>
+		<CurrentTaskID></CurrentTaskID>
+		<id>002</id>
+	</user>
+	
+	<user>
+		<name>Gen6</name>
+		<password>6</password>
+		<available>False</available>
+		<TypeOfWorker>2</TypeOfWorker>
+		<CurrentTaskID>1,5,3</CurrentTaskID>
+		<id>001</id>
+	</user>
+	
+	<user>
+		<name>Gen7</name>
+		<password>7</password>
+		<available>True</available>
+		<TypeOfWorker>1</TypeOfWorker>
+		<CurrentTaskID></CurrentTaskID>
+		<id>001</id>
+	</user>
+	
+	<user>
+		<name>Gen8</name>
+		<password>8</password>
+		<available>False</available>
+		<TypeOfWorker>2</TypeOfWorker>
+		<CurrentTaskID>8,4</CurrentTaskID>
 		<id>001</id>
 	</user>
 </root>

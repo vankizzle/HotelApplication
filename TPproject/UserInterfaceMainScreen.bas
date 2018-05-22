@@ -19,10 +19,9 @@ Sub Class_Globals
 	Dim CreateMenu As Label
 '	Dim MenuOther3 As Label
 	
-
-	
 	Dim NumberOfMenus As Int = 0
 	Dim MenuTypes As ChooseMenuType
+'	Dim MyWorkers As WorkersTable
 End Sub
 
 'Initializes the object. You can add parameters to this method if needed.
@@ -44,6 +43,7 @@ Public Sub Initialize
 	CreateMenu.Initialize("MenuCreator")
 '	MenuOther3.Initialize("Menu4")
 	MenuTypes.Initialize
+'	MyWorkers.Initialize
 	BuildUI
 End Sub
 Sub BuildUI
@@ -112,6 +112,7 @@ Public Sub IfBoss
 		MenuOther2.Enabled = True
 		availability.Visible = False
 		statusindicator.Visible = False
+'		MyWorkers.LoadWorkers
 	Else
 		CreateMenu.Visible = False
 		CreateMenu.Enabled = False
@@ -176,7 +177,7 @@ Sub MenuTypeSelected_CheckedChange(Checked As Boolean)
 	Dim cbox As CheckBox = Sender
 	
 	If Checked = True Then
-		
+	
 	Else
 		Checked = False
 		

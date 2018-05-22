@@ -13,7 +13,7 @@ Sub Class_Globals
 	Dim loginbtn As Button
 	Dim singup As Button
 	Dim myxml As SaxParser
-	Dim userslist As List
+'	Dim userslist As List
 	Dim workingUser As user
 	Dim usermainscreen As UserInterfaceMainScreen
 End Sub
@@ -28,7 +28,7 @@ Public Sub Initialize
 	infoholder.Initialize("")
 	singup.Initialize("register")
 	myxml.Initialize
-	userslist.Initialize
+	Types.userslist.Initialize
 	usermainscreen.Initialize
 	BuildUI
 End Sub
@@ -47,11 +47,10 @@ Sub BuildUI
 	
 	
 	infoholder.Color =  Colors.ARGB(150,0,0,0)
-'	wholescreen.AddView(infoholder,30%x,30%y,40%x,30%y)
 	wholescreen.AddView(infoholder,30%x,100%y,40%x,30%y)
 	usernamefield.Gravity = Gravity.LEFT
 	usernamefield.Color = Colors.White
-'	usernamefield.Hint = "Username"
+	usernamefield.Hint = "Username"
 	usernamefield.Text = "pump"
 	usernamefield.HintColor = Colors.DarkGray
 	usernamefield.SingleLine = True
@@ -60,7 +59,7 @@ Sub BuildUI
 	
 	passwordfield.Gravity = Gravity.LEFT
 	passwordfield.Color = Colors.White
-'	passwordfield.Hint = "Password"
+	passwordfield.Hint = "Password"
 	passwordfield.Text = "12345"
 	passwordfield.HintColor = Colors.DarkGray
 	passwordfield.PasswordMode = True
@@ -98,6 +97,7 @@ Sub Parse_StartElement (Uri As String, Name As String, Attributes As Attributes)
 		workingUser.Initialize
 	End If
 End Sub
+
 Sub setuser(u As user)
 	Types.currentuser.username = u.username
 	Types.currentuser.password = u.password
@@ -106,8 +106,10 @@ Sub setuser(u As user)
 	Types.currentuser.TypeOfWorker = u.TypeOfWorker
 	Types.currentuser.CurrentTaskID = u.CurrentTaskID
 End Sub
+
 Sub CheckUser
-	For Each u As user In userslist
+
+	For Each u As user In Types.userslist.Values
 		If  usernamefield.Text = u.username Then
 			If passwordfield.Text = u.password Then
 				setuser(u)	
@@ -127,7 +129,7 @@ Sub Parse_EndElement (Uri As String, Name As String, Text As StringBuilder)
 		newUser.password = workingUser.password
 		newUser.username = workingUser.username
 		newUser.TypeOfWorker = workingUser.TypeOfWorker
-		userslist.Add(newUser)
+		Types.userslist.Put(newUser.username,newUser)
 	End If
 	
 	If Name.EqualsIgnoreCase("name") Then workingUser.username = Text.ToString
@@ -141,4 +143,13 @@ Sub Parse_EndElement (Uri As String, Name As String, Text As StringBuilder)
 	End If
 	If Name.EqualsIgnoreCase("TypeOfWorker") Then workingUser.TypeOfWorker = Text.ToString
 	If Name.EqualsIgnoreCase("id") Then workingUser.ID = Text.ToString
+	If Name.EqualsIgnoreCase("CurrentTaskID") Then 
+		Dim i As Int = 0 
+		For Each s As String In Regex.Split(",",Text.ToString)
+			If IsNumber(s) Then
+				workingUser.CurrentTaskID(i) = s
+				i = i + 1
+			End If
+		Next
+	End If
 End Sub

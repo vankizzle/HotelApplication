@@ -27,8 +27,8 @@ public class choosemenutype extends B4AClass.ImplB4AClass implements BA.SubDeleg
 public anywheresoftware.b4a.objects.PanelWrapper _propertywindowholder = null;
 public anywheresoftware.b4a.samples.httputils2.httputils2service _httputils2service = null;
 public b4a.example.main _main = null;
-public b4a.example.types _types = null;
 public b4a.example.helperfunctions1 _helperfunctions1 = null;
+public b4a.example.types _types = null;
 public b4a.example.starter _starter = null;
 public anywheresoftware.b4a.objects.ConcreteViewWrapper  _asview() throws Exception{
  //BA.debugLineNum = 69;BA.debugLine="Sub AsView As View";

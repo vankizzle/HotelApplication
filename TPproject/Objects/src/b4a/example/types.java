@@ -12,6 +12,7 @@ public static Object getObject() {
 }
  public anywheresoftware.b4a.keywords.Common __c = null;
 public static b4a.example.types._user _currentuser = null;
+public static anywheresoftware.b4a.objects.collections.Map _userslist = null;
 public anywheresoftware.b4a.samples.httputils2.httputils2service _httputils2service = null;
 public b4a.example.main _main = null;
 public b4a.example.helperfunctions1 _helperfunctions1 = null;
@@ -100,6 +101,8 @@ public static String  _process_globals() throws Exception{
 ;
  //BA.debugLineNum = 10;BA.debugLine="Public currentuser As user";
 _currentuser = new b4a.example.types._user();
+ //BA.debugLineNum = 11;BA.debugLine="Public userslist As Map";
+_userslist = new anywheresoftware.b4a.objects.collections.Map();
  //BA.debugLineNum = 12;BA.debugLine="End Sub";
 return "";
 }
