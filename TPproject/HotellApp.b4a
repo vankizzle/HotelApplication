@@ -1,4 +1,4 @@
-﻿Build1=Default,b4a.example
+﻿Build1=Default,b4a.HotelAppTP
 File1=ExampleXML.xml
 File2=hotelappscreen.jpg
 File3=mainscreenimg.png
@@ -12,26 +12,28 @@ IconFile=
 Library1=core
 Library2=reflection
 Library3=micustomviews
-Library4=httputils2
+Library4=okhttp
 Library5=xmlsax
+Library6=okhttputils2
+Library7=json
 ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: https://www.b4x.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="5" android:targetSdkVersion="19"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~'End of default text.~\n~
-Module1=UserInterfaceMainScreen
-Module2=WorkersTable
-Module3=LoginScreen
-Module4=HelperFunctions1
-Module5=TaskTable
-Module6=Types
+Module1=LoginScreen
+Module2=TaskTable
+Module3=Types
+Module4=UserInterfaceMainScreen
+Module5=WorkersTable
+Module6=HelperFunctions1
 Module7=MyTasks
 Module8=ChooseMenuType
 Module9=Starter
 NumberOfFiles=4
-NumberOfLibraries=5
+NumberOfLibraries=7
 NumberOfModules=9
 Version=8
 @EndOfDesignText@
  #Region  Project Attributes 
 	#ApplicationLabel: Hotel App
-	#VersionCode: 1
+	#VersionCode:1
 	#VersionName: 
 	'SupportedOrientations possible values: unspecified, landscape or portrait.
 	#SupportedOrientations: portrait
@@ -58,7 +60,6 @@ Sub Globals
 	Dim UserTasks As MyTasks
 	Dim MyWorkers As WorkersTable
 	Dim job As HttpJob
-'	Dim firsttime1 As Boolean = True
 End Sub
 
 Sub Activity_Create(firsttime As Boolean)
@@ -87,6 +88,7 @@ Sub Activity_Create(firsttime As Boolean)
 	
 	job.Initialize("Job1", Me)
 	job.Download("http://www.google.com")
+
 End Sub
 
 Sub JobDone(job1 As HttpJob)
@@ -124,7 +126,7 @@ Sub SetUIUserInfo
 End Sub
 
 Sub Activity_Pause (UserClosed As Boolean)
-
+	UIscreen.Logout
 End Sub
 
 Sub SetUserBusy
@@ -190,7 +192,7 @@ Sub Activity_KeyPress (KeyCode As Int) As Boolean
 	
 		If UIscreen.asView.Visible = True Then
 			UIscreen.asView.Visible = False
-'			LoginScr.asView.Visible = True
+			UIscreen.Logout
 			LoginScr.loginbtn.Enabled = True
 			ext = ext + 1
 		End If

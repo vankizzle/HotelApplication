@@ -22,6 +22,9 @@ Sub Class_Globals
 	Dim NumberOfMenus As Int = 0
 	Dim MenuTypes As ChooseMenuType
 '	Dim MyWorkers As WorkersTable
+
+	Dim logoutBtn As Button
+	Dim LogoutJob As HttpJob
 End Sub
 
 'Initializes the object. You can add parameters to this method if needed.
@@ -44,6 +47,7 @@ Public Sub Initialize
 '	MenuOther3.Initialize("Menu4")
 	MenuTypes.Initialize
 '	MyWorkers.Initialize
+	logoutBtn.Initialize("Logout")
 	BuildUI
 End Sub
 Sub BuildUI
@@ -58,7 +62,10 @@ Sub BuildUI
 	availability.Gravity = Gravity.CENTER
 	availability.TextSize = 20
 	
-	
+	logoutBtn.Gravity = Gravity.CENTER
+	logoutBtn.Text= "Log Out"
+	logoutBtn.TextSize = 20
+	wholescreen.AddView(logoutBtn,75%x,0%y,20%x,10%y)
 	
 '	HelperFunctions1.Apply_ViewStyle(statusindicator,Colors.Green,Colors.Green,Colors.Green,Colors.Green,Colors.Green,Colors.Green,Colors.Green,30)
 	wholescreen.AddView(availability,40%x,0%y,50%x,10%y)
@@ -100,6 +107,29 @@ Sub BuildUI
 	wholescreen.AddView(MenuTypes.AsView,MenuHolder.Left,MenuHolder.Top,MenuHolder.Width,MenuHolder.Height)
 	MenuTypes.AsView.Visible = False
 	
+End Sub
+
+Sub Logout_Click
+	Logout
+End Sub
+
+Sub Logout
+	LogoutJob.Initialize("JobLogout", Me)
+	Dim url As String = "https://hacktues.com/api/logout"
+	LogoutJob.Download(url)
+	LogoutJob.GetRequest.SetHeader("Authorization","Bearer "&Types.ResToken)
+End Sub
+
+Sub JobDone(job1 As HttpJob)
+	If job1.Success Then
+		Dim s As String = job1.JobName
+		Select s
+			Case "JobLogout"
+				Log("Logged OUT!")
+				CallSub(Main,"ShowUI")
+		End Select
+		job1.Release
+	End If
 End Sub
 
 Public Sub IfBoss

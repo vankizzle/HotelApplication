@@ -13,8 +13,8 @@ Sub Class_Globals
 	Dim tableType As Label
 	Dim tableofrequests As MiScrollView
 	Dim submit As Button
-'	Dim refreshbtngraphic As Bitmap
-'	Dim TasksRefreshBtn As Button
+	Dim refreshbtngraphic As Bitmap
+	Dim TasksRefreshBtn As Button
 	Dim mapoftaskviews As Map
 	Dim boxchecked As Int = 0
 	
@@ -23,6 +23,10 @@ Sub Class_Globals
 	Dim TaskFakePan As Panel
 	
 	Dim RefreshTimer As Timer
+	
+	Dim GetTasks As HttpJob
+	
+	
 End Sub
 
 'Initializes the object. You can add parameters to this method if needed.
@@ -42,22 +46,40 @@ Public Sub Initialize
 	
 	TaskFakePan.initialize("")
 	
-	RefreshTimer.Initialize("Refresh",2000)
+	RefreshTimer.Initialize("Refresh",5000)
 	RefreshTimer.Enabled = True
 	
 	BuildUI
 	Get_Tasks
+End Sub
+Sub GetAllTasks
+	GetTasks.Initialize("GetTasks", Me)
+	Dim url As String = "https://hacktues.com/api/tasks"
+	GetTasks.Download(url)
+	GetTasks.GetRequest.SetHeader("Authorization","Bearer "&Types.ResToken)
+End Sub
+
+Sub JobDone(job1 As HttpJob)
+	If job1.Success Then
+		Dim s As String = job1.JobName
+		Select s
+			Case "GetTasks"
+				TaskParser(job1.GetString)
+		End Select
+		job1.Release
+	End If
 End Sub
 
 Sub AsView As View
 	Return WholeScreen
 End Sub
 Sub Refresh_Tick
-	If Types.currentuser.available = True  Then
-		buildTasks	
-		submit.Enabled = True
-		Log("_TABLE REFRESHED_")
-	End If
+'	If Types.currentuser.available = True  Then
+'		buildTasks	
+'		submit.Enabled = True
+'		Log("_TABLE REFRESHED_")
+'	End If
+	GetAllTasks
 End Sub
 Sub BuildUI
 	TaskFakePan.Color = Colors.ARGB(150,0,0,0)
@@ -89,7 +111,16 @@ Sub BuildUI
 	tableHeader.AddView(tableType,0,0,40%x,5%y)
 '	tableHeader.AddView(TasksRefreshBtn,73%x,0,8%x,5%y)
 End Sub
-
+Sub TaskParser(s As String) As Task
+	Dim task_ As Task
+	Dim JSON As JSONParser
+	Dim Map1 As Map
+	Dim m As Map
+	JSON.Initialize(s) 'Read the text from a file.
+	Map1 = JSON.NextObject
+	m = Map1.Get("id")
+	Return task_
+End Sub
 Sub Get_Tasks
 	For i = 0 To 5
 		Dim Task As Task
