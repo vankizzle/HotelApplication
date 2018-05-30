@@ -109,7 +109,19 @@ Sub JobDone(job1 As HttpJob)
 				result = result.Replace("}"," ")
 				result = result.Trim
 				Log(result)
-				Types.ResToken  = result
+				result = result.Replace("  "," ")
+				result = result.Replace("   "," ")
+				Log(result)
+				result = result.Replace(" ",",")
+				Log(result)
+				Dim results() As String
+				results = Regex.Split(",",result)
+				If results(1) = 0 Then
+					Types.currentuser.TypeOfWorker = 0
+				Else
+					Types.currentuser.TypeOfWorker = 1
+				End If
+					Types.ResToken  = results(4)
 			End If
 				CallSub(Main,"ShowUI")
 		End Select
@@ -129,12 +141,6 @@ Sub login_Click
 '	myxml.Parse(File.OpenInput(File.DirAssets,"ExampleXML.xml"),"Parse")
 '	CheckUser
 End Sub
-
-'Sub Parse_StartElement (Uri As String, Name As String, Attributes As Attributes)
-'	If Name.EqualsIgnoreCase("user") Then
-'		workingUser.Initialize
-'	End If
-'End Sub
 
 Sub setuser(u As user)
 	Types.currentuser.username = u.username
@@ -157,37 +163,3 @@ End Sub
 '	Next
 'End Sub
 '
-'Sub Parse_EndElement (Uri As String, Name As String, Text As StringBuilder)
-'	If Name.EqualsIgnoreCase("user") Then
-'		Dim newUser As user
-'		newUser.Initialize
-'		newUser.available = workingUser.available
-'		newUser.CurrentTaskID = workingUser.CurrentTaskID
-'		newUser.ID = workingUser.ID
-'		newUser.password = workingUser.password
-'		newUser.username = workingUser.username
-'		newUser.TypeOfWorker = workingUser.TypeOfWorker
-'		Types.userslist.Put(newUser.username,newUser)
-'	End If
-'	
-'	If Name.EqualsIgnoreCase("name") Then workingUser.username = Text.ToString
-'	If Name.EqualsIgnoreCase("password") Then workingUser.password = Text.ToString
-'	If Name.EqualsIgnoreCase("available") Then
-'		If Text.ToString  = "True" Then
-'			workingUser.available = True
-'		Else
-'			workingUser.available = False
-'		End If
-'	End If
-'	If Name.EqualsIgnoreCase("TypeOfWorker") Then workingUser.TypeOfWorker = Text.ToString
-'	If Name.EqualsIgnoreCase("id") Then workingUser.ID = Text.ToString
-'	If Name.EqualsIgnoreCase("CurrentTaskID") Then 
-'		Dim i As Int = 0 
-'		For Each s As String In Regex.Split(",",Text.ToString)
-'			If IsNumber(s) Then
-'				workingUser.CurrentTaskID(i) = s
-'				i = i + 1
-'			End If
-'		Next
-'	End If
-'End Sub

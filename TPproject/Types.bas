@@ -10,11 +10,12 @@ Sub Process_Globals
 	'These global variables will be declared once when the application starts.
 	'These variables can be accessed from all modules.
 	Type user (username As String,password As String,available As Boolean,TypeOfWorker As Int,CurrentTaskID(3) As Int,ID As Int, workers As List)
-	Type Task (TaskID As Int,TaskName As String,TaskType As Int,TaskInfo As String) 'task type -> 1 = for cleaners,2 = for cooks,3 = for waiters
+	Type Task (TaskID As Int,TaskType As String,TaskInfo As String,Status As String) 'task type -> 1 = for cleaners,2 = for cooks,3 = for waiters
 	
 	Public currentuser As user 
 	Public userslist As Map
 	Public ResToken As String
+	Public TasksList As List
 End Sub
 
 Public Sub Isboss As Boolean

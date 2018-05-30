@@ -59,7 +59,7 @@ Public Sub GetMyTasks(AcceptedTasks As Map)
 	Next
 	TaskHolder.removeAllViews
 	For Each v As Task In AcceptedTasks.Values
-		TaskHolder.addView(PanBuilder(v.TaskName,v.TaskType,v.TaskInfo,v.TaskID),80%x,15%y,0,0,0,2dip)
+'		TaskHolder.addView(PanBuilder(v.TaskName,v.TaskType,v.TaskInfo,v.TaskID),80%x,15%y,0,0,0,2dip)
 	Next
 
 End Sub

@@ -183,6 +183,7 @@ return "";
 public String  _jobdone(anywheresoftware.b4a.samples.httputils2.httpjob _job1) throws Exception{
 String _s = "";
 String _result = "";
+String[] _results = null;
  //BA.debugLineNum = 87;BA.debugLine="Sub JobDone(job1 As HttpJob)";
  //BA.debugLineNum = 88;BA.debugLine="If job1.Success Then";
 if (_job1._success) { 
@@ -217,56 +218,79 @@ _result = _result.replace("}"," ");
 _result = _result.trim();
  //BA.debugLineNum = 105;BA.debugLine="Log(result)";
 __c.Log(_result);
- //BA.debugLineNum = 106;BA.debugLine="Types.ResToken  = result";
-_types._restoken = _result;
+ //BA.debugLineNum = 106;BA.debugLine="result = result.Replace(\"  \",\" \")";
+_result = _result.replace("  "," ");
+ //BA.debugLineNum = 107;BA.debugLine="result = result.Replace(\"   \",\" \")";
+_result = _result.replace("   "," ");
+ //BA.debugLineNum = 108;BA.debugLine="Log(result)";
+__c.Log(_result);
+ //BA.debugLineNum = 109;BA.debugLine="result = result.Replace(\" \",\",\")";
+_result = _result.replace(" ",",");
+ //BA.debugLineNum = 110;BA.debugLine="Log(result)";
+__c.Log(_result);
+ //BA.debugLineNum = 111;BA.debugLine="Dim results() As String";
+_results = new String[(int) (0)];
+java.util.Arrays.fill(_results,"");
+ //BA.debugLineNum = 112;BA.debugLine="results = Regex.Split(\",\",result)";
+_results = __c.Regex.Split(",",_result);
+ //BA.debugLineNum = 113;BA.debugLine="If results(1) = 0 Then";
+if ((_results[(int) (1)]).equals(BA.NumberToString(0))) { 
+ //BA.debugLineNum = 114;BA.debugLine="Types.currentuser.TypeOfWorker = 0";
+_types._currentuser.TypeOfWorker = (int) (0);
+ }else {
+ //BA.debugLineNum = 116;BA.debugLine="Types.currentuser.TypeOfWorker = 1";
+_types._currentuser.TypeOfWorker = (int) (1);
  };
- //BA.debugLineNum = 108;BA.debugLine="CallSub(Main,\"ShowUI\")";
+ //BA.debugLineNum = 118;BA.debugLine="Types.ResToken  = results(4)";
+_types._restoken = _results[(int) (4)];
+ };
+ //BA.debugLineNum = 120;BA.debugLine="CallSub(Main,\"ShowUI\")";
 __c.CallSubNew(ba,(Object)(_main.getObject()),"ShowUI");
  break; }
 }
 ;
- //BA.debugLineNum = 110;BA.debugLine="job1.Release";
+ //BA.debugLineNum = 122;BA.debugLine="job1.Release";
 _job1._release();
  };
- //BA.debugLineNum = 112;BA.debugLine="End Sub";
+ //BA.debugLineNum = 124;BA.debugLine="End Sub";
 return "";
 }
 public String  _login_click() throws Exception{
 String _url = "";
 String _jstr = "";
- //BA.debugLineNum = 114;BA.debugLine="Sub login_Click";
- //BA.debugLineNum = 115;BA.debugLine="LoginJob.Initialize(\"JobLogin\", Me)";
+ //BA.debugLineNum = 126;BA.debugLine="Sub login_Click";
+ //BA.debugLineNum = 127;BA.debugLine="LoginJob.Initialize(\"JobLogin\", Me)";
 _loginjob._initialize(ba,"JobLogin",this);
- //BA.debugLineNum = 116;BA.debugLine="Dim url As String = \"https://hacktues.com/api/log";
+ //BA.debugLineNum = 128;BA.debugLine="Dim url As String = \"https://hacktues.com/api/log";
 _url = "https://hacktues.com/api/login";
- //BA.debugLineNum = 117;BA.debugLine="Dim jstr As String = Types.getJSONforLogin(userna";
+ //BA.debugLineNum = 129;BA.debugLine="Dim jstr As String = Types.getJSONforLogin(userna";
 _jstr = _types._getjsonforlogin(ba,_usernamefield.getText(),_passwordfield.getText());
- //BA.debugLineNum = 118;BA.debugLine="Log(jstr)";
+ //BA.debugLineNum = 130;BA.debugLine="Log(jstr)";
 __c.Log(_jstr);
- //BA.debugLineNum = 119;BA.debugLine="LoginJob.PostString(url,jstr)";
+ //BA.debugLineNum = 131;BA.debugLine="LoginJob.PostString(url,jstr)";
 _loginjob._poststring(_url,_jstr);
- //BA.debugLineNum = 120;BA.debugLine="LoginJob.GetRequest.SetContentType(\"application/j";
+ //BA.debugLineNum = 132;BA.debugLine="LoginJob.GetRequest.SetContentType(\"application/j";
 _loginjob._getrequest().SetContentType("application/json");
- //BA.debugLineNum = 121;BA.debugLine="LoginJob.GetRequest.SetHeader(\"Accept\",\"applicati";
+ //BA.debugLineNum = 133;BA.debugLine="LoginJob.GetRequest.SetHeader(\"Accept\",\"applicati";
 _loginjob._getrequest().SetHeader("Accept","application/json");
- //BA.debugLineNum = 125;BA.debugLine="End Sub";
+ //BA.debugLineNum = 137;BA.debugLine="End Sub";
 return "";
 }
 public String  _setuser(b4a.HotelAppTP.types._user _u) throws Exception{
- //BA.debugLineNum = 133;BA.debugLine="Sub setuser(u As user)";
- //BA.debugLineNum = 134;BA.debugLine="Types.currentuser.username = u.username";
+ //BA.debugLineNum = 139;BA.debugLine="Sub setuser(u As user)";
+ //BA.debugLineNum = 140;BA.debugLine="Types.currentuser.username = u.username";
 _types._currentuser.username = _u.username;
- //BA.debugLineNum = 135;BA.debugLine="Types.currentuser.password = u.password";
+ //BA.debugLineNum = 141;BA.debugLine="Types.currentuser.password = u.password";
 _types._currentuser.password = _u.password;
- //BA.debugLineNum = 136;BA.debugLine="Types.currentuser.available = u.available";
+ //BA.debugLineNum = 142;BA.debugLine="Types.currentuser.available = u.available";
 _types._currentuser.available = _u.available;
- //BA.debugLineNum = 137;BA.debugLine="Types.currentuser.ID = u.ID";
+ //BA.debugLineNum = 143;BA.debugLine="Types.currentuser.ID = u.ID";
 _types._currentuser.ID = _u.ID;
- //BA.debugLineNum = 138;BA.debugLine="Types.currentuser.TypeOfWorker = u.TypeOfWorker";
+ //BA.debugLineNum = 144;BA.debugLine="Types.currentuser.TypeOfWorker = u.TypeOfWorker";
 _types._currentuser.TypeOfWorker = _u.TypeOfWorker;
- //BA.debugLineNum = 139;BA.debugLine="Types.currentuser.CurrentTaskID = u.CurrentTaskID";
+ //BA.debugLineNum = 145;BA.debugLine="Types.currentuser.CurrentTaskID = u.CurrentTaskID";
 _types._currentuser.CurrentTaskID = _u.CurrentTaskID;
- //BA.debugLineNum = 140;BA.debugLine="End Sub";
+ //BA.debugLineNum = 146;BA.debugLine="End Sub";
 return "";
 }
 public Object callSub(String sub, Object sender, Object[] args) throws Exception {

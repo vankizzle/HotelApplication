@@ -253,8 +253,6 @@ final int groupLen5 = group5.getSize()
 ;
 for (; index5 < groupLen5;index5++){
 _v = (b4a.HotelAppTP.types._task)(group5.Get(index5));
- //BA.debugLineNum = 56;BA.debugLine="TaskHolder.addView(PanBuilder(v.TaskName,v.TaskT";
-_taskholder.addView((android.view.View)(_panbuilder(_v.TaskName,_v.TaskType,_v.TaskInfo,_v.TaskID).getObject()),__c.PerXToCurrent((float) (80),ba),__c.PerYToCurrent((float) (15),ba),(int) (0),(int) (0),(int) (0),__c.DipToCurrent((int) (2)));
  }
 };
  //BA.debugLineNum = 59;BA.debugLine="End Sub";

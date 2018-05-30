@@ -26,6 +26,9 @@ Sub Class_Globals
 	
 	Dim GetTasks As HttpJob
 	
+	Dim NewTask As Task
+	
+	Dim myxml As SaxParser
 	
 End Sub
 
@@ -37,8 +40,8 @@ Public Sub Initialize
 	tableHeader.Initialize("Header")
 	tableFooter.Initialize("Footer")
 	tableType.Initialize("type")
-'	refreshbtngraphic.Initialize(File.DirAssets,"refresh.png")
-'	TasksRefreshBtn.Initialize("refreshtask")
+	refreshbtngraphic.Initialize(File.DirAssets,"refresh.png")
+	TasksRefreshBtn.Initialize("refreshtask")
 	submit.Initialize("Submit")
 	tableofrequests.Initialize
 	mapoftaskviews.Initialize
@@ -49,21 +52,27 @@ Public Sub Initialize
 	RefreshTimer.Initialize("Refresh",5000)
 	RefreshTimer.Enabled = True
 	
+	myxml.Initialize
+	
 	BuildUI
-	Get_Tasks
 End Sub
+
 Sub GetAllTasks
 	GetTasks.Initialize("GetTasks", Me)
 	Dim url As String = "https://hacktues.com/api/tasks"
 	GetTasks.Download(url)
+	GetTasks.GetRequest.SetHeader("Accept","application/xml")
 	GetTasks.GetRequest.SetHeader("Authorization","Bearer "&Types.ResToken)
 End Sub
-
+Sub refreshtask_Click
+	GetAllTasks
+End Sub
 Sub JobDone(job1 As HttpJob)
 	If job1.Success Then
 		Dim s As String = job1.JobName
 		Select s
 			Case "GetTasks"
+				Log(job1.GetString)
 				TaskParser(job1.GetString)
 		End Select
 		job1.Release
@@ -79,7 +88,7 @@ Sub Refresh_Tick
 '		submit.Enabled = True
 '		Log("_TABLE REFRESHED_")
 '	End If
-	GetAllTasks
+'	GetAllTasks
 End Sub
 Sub BuildUI
 	TaskFakePan.Color = Colors.ARGB(150,0,0,0)
@@ -90,7 +99,7 @@ Sub BuildUI
 	HelperFunctions1.Apply_ViewStyle(submit,Colors.Black,Colors.rgb(0, 128, 255),Colors.White,Colors.rgb(0, 128, 255),Colors.Gray,Colors.Gray,Colors.Gray,10)
 '	submit.Enabled = False
 	
-'	TasksRefreshBtn.SetBackgroundImage(refreshbtngraphic)
+	TasksRefreshBtn.SetBackgroundImage(refreshbtngraphic)
 	tableType.TextColor = Colors.White
 	tableType.TextSize = 25
 	If Types.currentuser.TypeOfWorker = 1 Then
@@ -109,35 +118,43 @@ Sub BuildUI
 	tableHolder.AddView(tableFooter,0%x,65%y - 1dip,100%x,8%y)
 	tableFooter.AddView(submit,20%x,1%y - 2dip,40%x,4%y - 2dip)
 	tableHeader.AddView(tableType,0,0,40%x,5%y)
-'	tableHeader.AddView(TasksRefreshBtn,73%x,0,8%x,5%y)
+	tableHeader.AddView(TasksRefreshBtn,73%x,0,8%x,5%y)
 End Sub
-Sub TaskParser(s As String) As Task
-	Dim task_ As Task
-	Dim JSON As JSONParser
-	Dim Map1 As Map
-	Dim m As Map
-	JSON.Initialize(s) 'Read the text from a file.
-	Map1 = JSON.NextObject
-	m = Map1.Get("id")
-	Return task_
+
+Sub TaskParser(tmpString As String)
+	Dim NewStream As InputStream
+	NewStream.InitializeFromBytesArray(tmpString.GetBytes("UTF8"),0,tmpString.GetBytes("UTF8").Length)
+	myxml.Parse(NewStream,"AllTasks")
 End Sub
-Sub Get_Tasks
-	For i = 0 To 5
-		Dim Task As Task
-		Task.Initialize
-		Task.TaskID = i
-		Task.TaskName = "Task "&i
-		Task.TaskType = 1
-		Task.TaskInfo = "This is a very long text that i will use to test this application and try to fing any mistakes in it.Currently we are on line:"&i
-		TasksList.Put(Task.TaskID,Task)
-	Next
+
+Sub Parse_StartElement (Uri As String, Name As String, Attributes As Attributes)
+	If Name.EqualsIgnoreCase("item") Then
+		NewTask.Initialize
+	End If
 End Sub
+Sub Parse_EndElement (Uri As String, Name As String, Text As StringBuilder)
+	If Name.EqualsIgnoreCase("item") Then
+		Dim task As Task
+		task.Initialize
+		task.TaskID = NewTask.TaskID
+		task.TaskInfo = NewTask.TaskInfo
+		task.Status = NewTask.Status
+		task.TaskType = NewTask.TaskType
+		Types.TasksList.Add(task)
+	End If
+	
+	If Name.EqualsIgnoreCase("description") Then NewTask.TaskInfo = Text.ToString
+	If Name.EqualsIgnoreCase("id") Then NewTask.TaskID = Text.ToString
+	If Name.EqualsIgnoreCase("status") Then NewTask.Status = Text.ToString
+	If Name.EqualsIgnoreCase("name") Then NewTask.TaskType = Text.ToString
+End Sub
+
 Sub buildTasks
 
 	tableofrequests.removeAllViews
 	boxchecked = 0
 	Dim p As Int = 0
-	For Each i As Task In TasksList.Values
+	For Each i As Task In Types.TasksList
 		If i.TaskType = Types.currentuser.TypeOfWorker Then
 			Dim TaskPanel As Panel
 			Dim TaskIdLbl As Label
@@ -157,12 +174,12 @@ Sub buildTasks
 			TaskIdLbl.Gravity = Gravity.CENTER
 			TaskPanel.AddView(TaskIdLbl,0,0,10%x,5%y)
 			
-			TaskNameLbl.Text = i.TaskName
-			TaskNameLbl.TextColor = Colors.White
-			TaskNameLbl.TextSize = 15
-			TaskNameLbl.Gravity = Gravity.CENTER
-			TaskPanel.AddView(TaskNameLbl,10%x,0,10%x,5%y)
-			
+'			TaskNameLbl.Text = i.TaskName
+'			TaskNameLbl.TextColor = Colors.White
+'			TaskNameLbl.TextSize = 15
+'			TaskNameLbl.Gravity = Gravity.CENTER
+'			TaskPanel.AddView(TaskNameLbl,10%x,0,10%x,5%y)
+'			
 			taskInfoLbl.Text = i.TaskInfo
 			taskInfoLbl.TextColor = Colors.White
 			taskInfoLbl.TextSize = 10
