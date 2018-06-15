@@ -6,7 +6,6 @@ Version=8
 @EndOfDesignText@
 Sub Class_Globals
 	Dim WholeScreen As Panel
-	Dim TasksList As Map
 	Dim tableHolder As Panel
 	Dim tableHeader As Panel
 	Dim tableFooter As Panel
@@ -18,11 +17,12 @@ Sub Class_Globals
 	Dim mapoftaskviews As Map
 	Dim boxchecked As Int = 0
 	
+	Dim arr(3) As Int
 	Dim SelectedTasks As Map
 
 	Dim TaskFakePan As Panel
 	
-	Dim RefreshTimer As Timer
+'	Dim RefreshTimer As Timer
 	
 	Dim GetTasks As HttpJob
 	
@@ -35,7 +35,6 @@ End Sub
 'Initializes the object. You can add parameters to this method if needed.
 Public Sub Initialize
 	WholeScreen.Initialize("")
-	TasksList.Initialize
 	tableHolder.Initialize("table")
 	tableHeader.Initialize("Header")
 	tableFooter.Initialize("Footer")
@@ -46,13 +45,15 @@ Public Sub Initialize
 	tableofrequests.Initialize
 	mapoftaskviews.Initialize
 	SelectedTasks.Initialize
-	
 	TaskFakePan.initialize("")
 	
-	RefreshTimer.Initialize("Refresh",5000)
-	RefreshTimer.Enabled = True
+	Types.TasksList.Initialize
+	
+'	RefreshTimer.Initialize("Refresh",10000)
+'	RefreshTimer.Enabled = True
 	
 	myxml.Initialize
+	
 	
 	BuildUI
 End Sub
@@ -64,10 +65,16 @@ Sub GetAllTasks
 	GetTasks.GetRequest.SetHeader("Accept","application/xml")
 	GetTasks.GetRequest.SetHeader("Authorization","Bearer "&Types.ResToken)
 End Sub
+
+Sub JobDone(job1 As HttpJob)
+	If job1.Success Then
+		Log("igraeme")
+	End If
+End Sub
+
 Sub refreshtask_Click
 	GetAllTasks
-End Sub
-Sub JobDone(job1 As HttpJob)
+	Wait For (GetTasks) JobDone(job1 As HttpJob)
 	If job1.Success Then
 		Dim s As String = job1.JobName
 		Select s
@@ -75,21 +82,29 @@ Sub JobDone(job1 As HttpJob)
 				Log(job1.GetString)
 				TaskParser(job1.GetString)
 		End Select
-		job1.Release
 	End If
+	job1.Release
+	If Not(Types.currentuser.username = Null) Then
+		If Types.currentuser.available = True  Then
+			If Types.TasksList.Size > 0 Then
+				buildTasks
+			End If
+			
+			If Not(Types.Isboss) Then
+				submit.Enabled = True
+			End If
+			Log("_TABLE REFRESHED_")
+		End If
+	End If
+	
 End Sub
+
+
 
 Sub AsView As View
 	Return WholeScreen
 End Sub
-Sub Refresh_Tick
-'	If Types.currentuser.available = True  Then
-'		buildTasks	
-'		submit.Enabled = True
-'		Log("_TABLE REFRESHED_")
-'	End If
-'	GetAllTasks
-End Sub
+
 Sub BuildUI
 	TaskFakePan.Color = Colors.ARGB(150,0,0,0)
 	tableHeader.color = Colors.ARGB(150,0,0,0)
@@ -122,17 +137,20 @@ Sub BuildUI
 End Sub
 
 Sub TaskParser(tmpString As String)
+	tmpString = tmpString.Replace("<item>"," <item>")
+	Log(tmpString)
 	Dim NewStream As InputStream
 	NewStream.InitializeFromBytesArray(tmpString.GetBytes("UTF8"),0,tmpString.GetBytes("UTF8").Length)
 	myxml.Parse(NewStream,"AllTasks")
 End Sub
 
-Sub Parse_StartElement (Uri As String, Name As String, Attributes As Attributes)
+Sub AllTasks_StartElement (Uri As String, Name As String, Attributes As Attributes)
 	If Name.EqualsIgnoreCase("item") Then
 		NewTask.Initialize
 	End If
 End Sub
-Sub Parse_EndElement (Uri As String, Name As String, Text As StringBuilder)
+
+Sub AllTasks_EndElement (Uri As String, Name As String, Text As StringBuilder)
 	If Name.EqualsIgnoreCase("item") Then
 		Dim task As Task
 		task.Initialize
@@ -140,7 +158,7 @@ Sub Parse_EndElement (Uri As String, Name As String, Text As StringBuilder)
 		task.TaskInfo = NewTask.TaskInfo
 		task.Status = NewTask.Status
 		task.TaskType = NewTask.TaskType
-		Types.TasksList.Add(task)
+		Types.TasksList.Put(task.TaskID,task)
 	End If
 	
 	If Name.EqualsIgnoreCase("description") Then NewTask.TaskInfo = Text.ToString
@@ -149,13 +167,19 @@ Sub Parse_EndElement (Uri As String, Name As String, Text As StringBuilder)
 	If Name.EqualsIgnoreCase("name") Then NewTask.TaskType = Text.ToString
 End Sub
 
+Sub IfBoss
+	If Types.Isboss Then
+		submit.Enabled = False
+'		submit.Visible = False
+	End If
+End Sub
 Sub buildTasks
 
 	tableofrequests.removeAllViews
 	boxchecked = 0
 	Dim p As Int = 0
-	For Each i As Task In Types.TasksList
-		If i.TaskType = Types.currentuser.TypeOfWorker Then
+	For Each i As Task In Types.TasksList.values
+'		If i.TaskType = Types.currentuser.TypeOfWorker Then
 			Dim TaskPanel As Panel
 			Dim TaskIdLbl As Label
 			Dim TaskNameLbl As Label
@@ -173,13 +197,7 @@ Sub buildTasks
 			TaskIdLbl.TextSize = 15
 			TaskIdLbl.Gravity = Gravity.CENTER
 			TaskPanel.AddView(TaskIdLbl,0,0,10%x,5%y)
-			
-'			TaskNameLbl.Text = i.TaskName
-'			TaskNameLbl.TextColor = Colors.White
-'			TaskNameLbl.TextSize = 15
-'			TaskNameLbl.Gravity = Gravity.CENTER
-'			TaskPanel.AddView(TaskNameLbl,10%x,0,10%x,5%y)
-'			
+	
 			taskInfoLbl.Text = i.TaskInfo
 			taskInfoLbl.TextColor = Colors.White
 			taskInfoLbl.TextSize = 10
@@ -196,25 +214,28 @@ Sub buildTasks
 			TaskPanel.Tag = p
 			checked.Tag = p
 			p = p + 1
+			If i.Status = "Doing" Then
+				checked.Enabled = False
+			End If
+			
 			mapoftaskviews.Put(TaskPanel.Tag,TaskPanel)
 			
-		End If
+'		End If
 	Next
 End Sub
+
 Sub accept_CheckedChange(Checked As Boolean)
 	Dim cbox As CheckBox = Sender
-	
-	
 	If Checked = True Then
 '		submit.Enabled = True
-		RefreshTimer.Enabled = False
+		TasksRefreshBtn.Enabled = False
 		If boxchecked < 3 Then
 			boxchecked = boxchecked + 1
 			Log(boxchecked)
 			For Each v As Panel In mapoftaskviews.Values
 					If cbox.Tag = v.Tag Then
 						ToastMessageShow("You selected task " & v.Tag,False)
-						SelectedTasks.Put(cbox.Tag,TasksList.Get(TasksList.GetKeyAt(v.Tag)))
+						SelectedTasks.Put(cbox.Tag,Types.TasksList.Get(Types.TasksList.GetKeyAt(v.Tag)))
 					End If
 			Next
 		Else
@@ -228,7 +249,7 @@ Sub accept_CheckedChange(Checked As Boolean)
 		SelectedTasks.Remove(cbox.tag)
 		boxchecked = boxchecked - 1
 		If boxchecked = 0 Then
-			RefreshTimer.Enabled = True
+			TasksRefreshBtn.Enabled = True
 		End If
 	End If
 End Sub
@@ -236,19 +257,20 @@ End Sub
 Sub Submit_Click
 	If SelectedTasks.Size > 0 Then
 		boxchecked = 0
-		RefreshTimer.Enabled = True
+		TasksRefreshBtn.Enabled = True
 		submit.Enabled = False
 		Dim i As Int = 0
-		
 		For Each v As Task In SelectedTasks.Values
-			Types.currentuser.CurrentTaskID(i) = v.TaskID
+'			Types.currentuser.CurrentTaskID(i) = v.TaskID
+			arr(i) = v.TaskID
 			i = i + 1
 		Next
-		
+		Types.currentuser.CurrentTaskID = arr
 		Log(SelectedTasks)
 		CallSub(Main,"SetUserBusy")
 		CallSub2(Main,"LoadMyTasks",SelectedTasks)
 		CallSub(Main,"TaskTableToMyTasks")
+		
 		SelectedTasks.Clear
 	Else
 		ToastMessageShow("Please select a task to continue!",False)

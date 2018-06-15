@@ -55,7 +55,8 @@ Sub BuildUI
 	usernamefield.Gravity = Gravity.LEFT
 	usernamefield.Color = Colors.White
 	usernamefield.Hint = "Username"
-	usernamefield.Text = "k.madjunov@gmail.com"
+'	usernamefield.Text = "s10yy9Ge"
+	usernamefield.Text = "smoldelf@abv.bg"
 	usernamefield.HintColor = Colors.DarkGray
 	usernamefield.SingleLine = True
 	usernamefield.TextColor = Colors.Black
@@ -64,11 +65,12 @@ Sub BuildUI
 	passwordfield.Gravity = Gravity.LEFT
 	passwordfield.Color = Colors.White
 	passwordfield.Hint = "Password"
+'	passwordfield.Text = "ogwmjacz"
 	passwordfield.Text = "a936157z"
 	passwordfield.HintColor = Colors.DarkGray
-	passwordfield.PasswordMode = True
 	passwordfield.SingleLine = True
 	passwordfield.TextColor = Colors.Black
+	passwordfield.PasswordMode = True
 	infoholder.AddView(passwordfield,2.5%x,(usernamefield.Top +usernamefield.Height) + 10dip,35%x,5%y)
 	
 	loginbtn.Gravity = Gravity.CENTER
@@ -107,20 +109,45 @@ Sub JobDone(job1 As HttpJob)
 				result = result.Replace("tokenType"," ")
 				result = result.Replace("Bearer"," ")
 				result = result.Replace("}"," ")
-				result = result.Trim
-				Log(result)
+'				result = result.Replace("userType"," ")
+'				result = result.Replace("worker"," ")
+'				result = result.Replace("userId"," ")
+'				result = result.Replace(usernamefield.Text," ")
+'				result = result.Replace("hotelName"," ")
+'				result = result.Replace("email"," ")
+'				result = result.Replace("null"," ")
+'				result = result.Replace("busy"," ")
+'				result = result.Replace("false"," ")
+'				result = result.Replace("workerType"," ")
+'				result = result.Replace("typeId"," ")
+'				result = result.Replace("Type"," ")
+'				result = result.Replace("name"," ")
+'				result = result.Replace("Cooker"," ")
+'					Log(result)
+				result = result.Replace(" "," ")
 				result = result.Replace("  "," ")
 				result = result.Replace("   "," ")
-				Log(result)
-				result = result.Replace(" ",",")
+				result = result.Replace("    "," ")
+				result = result.Trim
+				result = result.Replace("   "," ")
+'				result = "X " & result
+'				Log(result)
+'				result = result.Replace(" ",",")
 				Log(result)
 				Dim results() As String
-				results = Regex.Split(",",result)
+				results = Regex.Split(" ",result)
 				If results(1) = 0 Then
 					Types.currentuser.TypeOfWorker = 0
+					Types.currentuser.username = usernamefield.Text
+					Types.currentuser.available = True
+					CallSub(Main,"SetNameLbl")
 				Else
 					Types.currentuser.TypeOfWorker = 1
+					Types.currentuser.username = usernamefield.Text
+					Types.currentuser.available = True
+					CallSub(Main,"SetNameLbl")
 				End If
+					Log("Token-> " & results(4))
 					Types.ResToken  = results(4)
 			End If
 				CallSub(Main,"ShowUI")
@@ -130,6 +157,10 @@ Sub JobDone(job1 As HttpJob)
 End Sub
 
 Sub login_Click
+	Login
+End Sub
+
+Sub Login
 	LoginJob.Initialize("JobLogin", Me)
 	Dim url As String = "https://hacktues.com/api/login"
 	Dim jstr As String = Types.getJSONforLogin(usernamefield.Text,passwordfield.Text)
@@ -137,11 +168,7 @@ Sub login_Click
 	LoginJob.PostString(url,jstr)
 	LoginJob.GetRequest.SetContentType("application/json")
 	LoginJob.GetRequest.SetHeader("Accept","application/json")
-
-'	myxml.Parse(File.OpenInput(File.DirAssets,"ExampleXML.xml"),"Parse")
-'	CheckUser
 End Sub
-
 Sub setuser(u As user)
 	Types.currentuser.username = u.username
 	Types.currentuser.password = u.password
@@ -150,16 +177,3 @@ Sub setuser(u As user)
 	Types.currentuser.TypeOfWorker = u.TypeOfWorker
 	Types.currentuser.CurrentTaskID = u.CurrentTaskID
 End Sub
-
-'Sub CheckUser
-'
-'	For Each u As user In Types.userslist.Values
-'		If  usernamefield.Text = u.username Then
-'			If passwordfield.Text = u.password Then
-'				setuser(u)	
-'				CallSub(Main,"ShowUI")
-'			End If
-'		End If
-'	Next
-'End Sub
-'

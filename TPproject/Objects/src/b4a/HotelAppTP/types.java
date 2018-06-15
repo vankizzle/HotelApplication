@@ -14,7 +14,7 @@ public static Object getObject() {
 public static b4a.HotelAppTP.types._user _currentuser = null;
 public static anywheresoftware.b4a.objects.collections.Map _userslist = null;
 public static String _restoken = "";
-public static anywheresoftware.b4a.objects.collections.List _taskslist = null;
+public static anywheresoftware.b4a.objects.collections.Map _taskslist = null;
 public anywheresoftware.b4a.samples.httputils2.httputils2service _httputils2service = null;
 public b4a.HotelAppTP.main _main = null;
 public b4a.HotelAppTP.helperfunctions1 _helperfunctions1 = null;
@@ -101,8 +101,8 @@ _currentuser = new b4a.HotelAppTP.types._user();
 _userslist = new anywheresoftware.b4a.objects.collections.Map();
  //BA.debugLineNum = 11;BA.debugLine="Public ResToken As String";
 _restoken = "";
- //BA.debugLineNum = 12;BA.debugLine="Public TasksList As List";
-_taskslist = new anywheresoftware.b4a.objects.collections.List();
+ //BA.debugLineNum = 12;BA.debugLine="Public TasksList As Map";
+_taskslist = new anywheresoftware.b4a.objects.collections.Map();
  //BA.debugLineNum = 13;BA.debugLine="End Sub";
 return "";
 }

@@ -12,10 +12,10 @@ Sub Process_Globals
 	Type user (username As String,password As String,available As Boolean,TypeOfWorker As Int,CurrentTaskID(3) As Int,ID As Int, workers As List)
 	Type Task (TaskID As Int,TaskType As String,TaskInfo As String,Status As String) 'task type -> 1 = for cleaners,2 = for cooks,3 = for waiters
 	
-	Public currentuser As user 
+	Public currentuser As user 	
 	Public userslist As Map
 	Public ResToken As String
-	Public TasksList As List
+	Public TasksList As Map
 End Sub
 
 Public Sub Isboss As Boolean

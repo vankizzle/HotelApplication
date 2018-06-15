@@ -59,12 +59,12 @@ Public Sub GetMyTasks(AcceptedTasks As Map)
 	Next
 	TaskHolder.removeAllViews
 	For Each v As Task In AcceptedTasks.Values
-'		TaskHolder.addView(PanBuilder(v.TaskName,v.TaskType,v.TaskInfo,v.TaskID),80%x,15%y,0,0,0,2dip)
+		TaskHolder.addView(PanBuilder(v.TaskID,v.TaskInfo,v.Status),80%x,15%y,0,0,0,2dip)
 	Next
 
 End Sub
 
-Sub PanBuilder(Name As String,TaskType As Int,Info As String,ID As Int) As Panel
+Sub PanBuilder(ID As Int,Info As String,Status As String) As Panel
 	Dim Holder As Panel
 	Holder.Initialize("")
 '	Dim lblID As Label
@@ -79,6 +79,8 @@ Sub PanBuilder(Name As String,TaskType As Int,Info As String,ID As Int) As Panel
 	lblInfo.Initialize("")
 	Dim lblID As Label
 	lblID.Initialize("")
+	Dim lblStatus As Label
+	lblStatus.Initialize("")
 	Dim checked As CheckBox
 	checked.Initialize("finished")
 	Holder.AddView(header,0,0,80%x,5%y)
@@ -90,20 +92,27 @@ Sub PanBuilder(Name As String,TaskType As Int,Info As String,ID As Int) As Panel
 	header.AddView(checked,70%x,0,10%x,5%y)
 	
 	lblName.Color = Colors.rgb(0, 128, 255)
-	lblName.Text = Name
+	lblName.Text = "ID:" & ID
 	lblName.TextSize = 20
 	lblName.TextColor = Colors.White
 	lblName.Gravity = Gravity.CENTER
-	header.AddView(lblName,20%x,0,40%x,5%y)
+	header.AddView(lblName,0%x,0,30%x,5%y)
 	
-	lblID.Text = ID
-	header.AddView(lblID,5%x,0,5%x,5%y)
-	lblID.Visible = False
-	
+'	lblID.Text = ID
+'	header.AddView(lblID,5%x,0,5%x,5%y)
+'	lblID.Visible = False
+'	
 	lblInfo.Text = Info
 	lblInfo.TextSize = 15
 	lblInfo.TextColor = Colors.White
 	lblInfo.Color = Colors.rgb(0, 128, 255)
+	
+	lblStatus.Text = Status
+	lblStatus.TextSize = 20
+	lblStatus.TextColor = Colors.White
+	lblStatus.Gravity = Gravity.CENTER
+	lblStatus.Color = Colors.rgb(0, 128, 255)
+	header.AddView(lblStatus,30%x,0,40%x,5%y)
 	
 	Holder.AddView(ViewInfo.ScrollView,0%x,5%y,80%x,10%y)
 	ViewInfo.addView(lblInfo,80%x,15%y,0,0,0,0)

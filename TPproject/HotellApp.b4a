@@ -17,13 +17,13 @@ Library5=xmlsax
 Library6=okhttputils2
 Library7=json
 ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: https://www.b4x.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="5" android:targetSdkVersion="19"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~'End of default text.~\n~
-Module1=LoginScreen
+Module1=Types
 Module2=TaskTable
-Module3=Types
-Module4=UserInterfaceMainScreen
-Module5=WorkersTable
-Module6=HelperFunctions1
-Module7=MyTasks
+Module3=MyTasks
+Module4=LoginScreen
+Module5=UserInterfaceMainScreen
+Module6=WorkersTable
+Module7=HelperFunctions1
 Module8=ChooseMenuType
 Module9=Starter
 NumberOfFiles=4
@@ -60,6 +60,7 @@ Sub Globals
 	Dim UserTasks As MyTasks
 	Dim MyWorkers As WorkersTable
 	Dim job As HttpJob
+	Dim token As String
 End Sub
 
 Sub Activity_Create(firsttime As Boolean)
@@ -101,7 +102,11 @@ Sub JobDone(job1 As HttpJob)
 End Sub
 
 Sub Activity_Resume
+	Types.ResToken = token
+End Sub
 
+Sub SetNameLbl
+	UIscreen.usernamelbl.Text = Types.currentuser.username
 End Sub
 
 Sub ShowUI
@@ -126,6 +131,7 @@ Sub SetUIUserInfo
 End Sub
 
 Sub Activity_Pause (UserClosed As Boolean)
+	token = Types.ResToken
 	UIscreen.Logout
 End Sub
 
@@ -158,6 +164,7 @@ Sub ShowMyWorkers
 End Sub
 
 Sub ShowTaskTable
+	TableTasks.IfBoss
 	If TableTasks.AsView.Visible = False Then
 		TableTasks.AsView.Visible = True
 		UIscreen.MenuHolder.Visible = False
@@ -165,6 +172,14 @@ Sub ShowTaskTable
 		TableTasks.AsView.Visible = False
 		UIscreen.MenuHolder.Visible = True
 	End If
+End Sub
+
+Sub HideAll
+	TableTasks.AsView.Visible = False
+	UIscreen.AsView.Visible = False
+	UserTasks.AsView.Visible = False
+	MyWorkers.AsView.Visible = False
+	LoginScr.AsView.Visible = True
 End Sub
 
 Sub ShowMenu3 As Boolean
@@ -185,36 +200,31 @@ End Sub
 Public Sub LoadMyTasks(Tasks As Map)
 	UserTasks.GetMyTasks(Tasks)
 End Sub
+
 Sub Activity_KeyPress (KeyCode As Int) As Boolean
 	
 	Dim ext As Int = 0
 	If KeyCode = KeyCodes.KEYCODE_BACK Then
-	
-		If UIscreen.asView.Visible = True Then
-			UIscreen.asView.Visible = False
-			UIscreen.Logout
-			LoginScr.loginbtn.Enabled = True
-			ext = ext + 1
-		End If
 		
 		If TableTasks.AsView.Visible = True Then
 			TableTasks.AsView.Visible = False
-			LoginScr.usermainscreen.asView.Visible = True
-			LoginScr.usermainscreen.MenuHolder.Visible = True
-			ext = ext + 1
-		End If
-		
-		If UserTasks.AsView.Visible = True Then
-			UserTasks.AsView.Visible = False
-			LoginScr.usermainscreen.asView.Visible = True
-			LoginScr.usermainscreen.MenuHolder.Visible = True
-			ext = ext + 1
-		End If
-		
-		If 	MyWorkers.AsView.Visible = True Then
-			MyWorkers.AsView.Visible = False
-			LoginScr.usermainscreen.asView.Visible = True
+			UIscreen.asView.Visible = True
 			UIscreen.MenuHolder.Visible = True
+			ext = ext + 1
+		Else If UserTasks.AsView.Visible = True Then
+			UserTasks.AsView.Visible = False
+			UIscreen.asView.Visible = True
+			UIscreen.MenuHolder.Visible = True
+			ext = ext + 1
+		Else If MyWorkers.AsView.Visible = True Then
+			MyWorkers.AsView.Visible = False
+			UIscreen.asView.Visible = True
+			UIscreen.MenuHolder.Visible = True
+			ext = ext + 1
+		Else If UIscreen.asView.Visible = True Then
+			UIscreen.asView.Visible = False
+			LoginScr.loginbtn.Enabled = True
+				UIscreen.Logout
 			ext = ext + 1
 		End If
 		

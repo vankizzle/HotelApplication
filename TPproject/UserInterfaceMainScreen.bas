@@ -48,8 +48,10 @@ Public Sub Initialize
 	MenuTypes.Initialize
 '	MyWorkers.Initialize
 	logoutBtn.Initialize("Logout")
+	
 	BuildUI
 End Sub
+
 Sub BuildUI
 
 	usernamelbl.Textcolor = Colors.White
@@ -68,7 +70,7 @@ Sub BuildUI
 	wholescreen.AddView(logoutBtn,75%x,0%y,20%x,10%y)
 	
 '	HelperFunctions1.Apply_ViewStyle(statusindicator,Colors.Green,Colors.Green,Colors.Green,Colors.Green,Colors.Green,Colors.Green,Colors.Green,30)
-	wholescreen.AddView(availability,40%x,0%y,50%x,10%y)
+	wholescreen.AddView(availability,30%x,0%y,40%x,10%y)
 	wholescreen.AddView(statusindicator,availability.Left+availability.Width ,3.5%y,5%x,3%y)
 	
 	wholescreen.AddView(MenuHolder,20%x,25%y,60%x+4dip,40%y+4dip)
@@ -111,6 +113,7 @@ End Sub
 
 Sub Logout_Click
 	Logout
+	CallSub(Main,"HideAll")
 End Sub
 
 Sub Logout
@@ -126,7 +129,6 @@ Sub JobDone(job1 As HttpJob)
 		Select s
 			Case "JobLogout"
 				Log("Logged OUT!")
-				CallSub(Main,"ShowUI")
 		End Select
 		job1.Release
 	End If
@@ -158,18 +160,23 @@ End Sub
 Sub AsView As Panel
 	Return wholescreen
 End Sub
+
 Sub Tasks_Click
 	CallSub(Main,"ShowTaskTable")
 End Sub
+
 Sub MyTask_Click
 	CallSub(Main,"ShowMyTasks")
 End Sub
+
 Sub MenuCreator_Click
 	CreateMenuIcon
 End Sub
+
 Sub propwindow_Click As Boolean
 	Return True
 End Sub
+
 Sub CreateMenuIcon
 	If NumberOfMenus < 3 Then
 	Dim MenuNew As Label
@@ -193,6 +200,7 @@ Sub CreateMenuIcon
 		Msgbox("You have reached maximum number of menus!Please buy more!","We are sorry!")	
 	End If
 End Sub
+
 Sub MyWorkers_Click
 	CallSub(Main,"ShowMyWorkers")
 End Sub
@@ -207,10 +215,9 @@ Sub MenuTypeSelected_CheckedChange(Checked As Boolean)
 	Dim cbox As CheckBox = Sender
 	
 	If Checked = True Then
-	
+
 	Else
 		Checked = False
-		
 	End If
 End Sub
 
@@ -219,6 +226,7 @@ Public Sub SetBusy
 	availability.Text = "Status: Busy"
 	HelperFunctions1.Apply_ViewStyle(statusindicator,Colors.Red,Colors.Red,Colors.Red,Colors.Red,Colors.Red,Colors.Red,Colors.Red,30)
 End Sub
+
 Public Sub SetAvailable
 	Types.currentuser.available = True
 	availability.Text = "Status: Available"
