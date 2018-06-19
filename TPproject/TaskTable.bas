@@ -162,7 +162,7 @@ Sub AllTasks_EndElement (Uri As String, Name As String, Text As StringBuilder)
 	End If
 	
 	If Name.EqualsIgnoreCase("description") Then NewTask.TaskInfo = Text.ToString
-	If Name.EqualsIgnoreCase("task_id") Then NewTask.TaskID = Text.ToString
+	If Name.EqualsIgnoreCase("taskId") Then NewTask.TaskID = Text.ToString
 	If Name.EqualsIgnoreCase("status") Then NewTask.Status = Text.ToString
 	If Name.EqualsIgnoreCase("name") Then NewTask.TaskType = Text.ToString
 End Sub
